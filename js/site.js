@@ -1,4 +1,4 @@
-/* Cloudberrix — reveals + teaser progress fill. No dependencies. */
+/* Cloudberrix — reveals + rail progress fill. No dependencies. */
 (function () {
   'use strict';
 
@@ -34,23 +34,31 @@
     reveals.forEach(function (el) { el.classList.add('revealed'); });
   }
 
-  /* teaser progress bar — fills once the phone is in view and has risen */
-  var fill = document.getElementById('bar-fill');
+  /* the rail — entry Nº 001's progress fills once the hero has risen */
+  var fill = document.getElementById('rail-fill');
   if (fill) {
+    var rail = fill.closest('.rail') || fill;
+    var filled = false;
+    var fo = null;
     var go = function (delay) {
+      if (filled) return;
+      filled = true;
+      if (fo) fo.disconnect();
       window.setTimeout(function () { fill.classList.add('go'); }, delay);
     };
     if (reduced) {
       fill.classList.add('go');
     } else if ('IntersectionObserver' in window) {
-      var fo = new IntersectionObserver(function (entries) {
+      fo = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          go(750); /* after the hero rise settles */
-          fo.disconnect();
+          if (entry.isIntersecting) go(750); /* after the hero rise settles */
         });
       }, { threshold: 0.5 });
-      fo.observe(fill.closest('.p-progress') || fill);
+      fo.observe(rail);
+      /* the rail sits in the first viewport by design — don't rely on the
+         observer's initial entry (emulated viewports can drop it) */
+      var r = rail.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) go(750);
     } else {
       go(900);
     }

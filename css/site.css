@@ -2,6 +2,8 @@
    Cloudberrix — "Ante Daylight" web
    Warm paper, ink, two accents: studio copper & first-release amber.
    Light-only by doctrine (our products are daylight-first).
+   Hero is a monument: bare headline over the device, which rises out
+   of the copper→amber rail — entry Nº 001 as the page's first rule.
    ============================================================ */
 
 :root {
@@ -150,70 +152,107 @@ h1, h2, h3 {
 }
 .head-nav a:hover { color: var(--copper-deep); border-bottom-color: var(--copper); }
 
-/* ------------------------------------------------ hero */
-.hero { padding-block: clamp(56px, 9vh, 104px) clamp(64px, 9vh, 112px); }
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-  align-items: center;
-  gap: clamp(36px, 6vw, 84px);
+/* ------------------------------------------------ hero — monument */
+/* One viewport: type above, the device rising out of the rail below.
+   `height`, not min-height — the crop only happens if the hero
+   refuses to grow. */
+.hero {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px);
+  height: calc(100svh - 64px);
+  min-height: 640px;
+  padding-top: clamp(26px, 4.5vh, 50px);
 }
+
+/* .shell carries margin-inline:auto, which beats `stretch` on a flex
+   item and collapses it to content width — restore the full track */
+.hero .shell { width: 100%; }
+
+.hero-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.hero-stack { text-align: center; }
+.hero-stack .eyebrow { color: var(--copper-deep); margin-bottom: 20px; }
 
 .hero-title {
-  font-size: clamp(2.65rem, 5.7vw, 4.35rem);
-  font-weight: 680;
-  letter-spacing: -0.028em;
-  margin: 0 0 22px;
+  font-size: clamp(2.6rem, 5.6vw, 4.6rem);
+  font-weight: 690;
+  letter-spacing: -0.032em;
+  line-height: 1.04;
+  margin: 0;
 }
 
-.hero .eyebrow { color: var(--copper-deep); }
-
-.hero-sub {
-  font-size: clamp(1.05rem, 1.5vw, 1.19rem);
-  line-height: 1.65;
-  color: var(--ink-soft);
-  max-width: 33em;
-  margin: 0 0 34px;
-}
-.hero-sub strong { color: var(--ink); font-weight: 600; }
-
-.hero-cta { display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
-
-.btn {
-  display: inline-flex;
-  align-items: center;
+/* the stage crops the device at the rail — deliberate */
+.hero-stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
   justify-content: center;
-  font-family: var(--font-display);
-  font-weight: 560;
-  font-size: 16.5px;
-  letter-spacing: -0.01em;
-  padding: 15px 30px;
-  border-radius: 999px;
-  text-decoration: none;
-  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background 0.2s;
+  align-items: flex-start;
+  overflow: hidden;
+  padding-top: clamp(18px, 3vh, 38px);
 }
-.btn-copper {
-  background: var(--copper);
-  color: #fff;
-  box-shadow: var(--lift);
+
+/* the device must always reach the rail: once 372px would leave a gap
+   on tall viewports, its width tracks viewport height instead
+   (phone height ≈ width / 0.462, stage ≈ viewport − ~440px chrome) */
+.hero-stage .phone {
+  flex: none;
+  width: min(78vw, max(372px, calc((100svh - 440px) * 0.47)));
 }
-.btn-copper:hover { background: var(--copper-deep); transform: translateY(-1px); box-shadow: var(--lift-hover); }
-.btn-copper:active { transform: translateY(0); }
 
-.btn-quiet {
-  font-family: var(--font-display);
-  font-weight: 560;
-  font-size: 16.5px;
-  letter-spacing: -0.01em;
-  color: var(--copper-deep);
-  text-decoration: none;
+/* ---------- the rail: entry Nº 001 as the page's first rule */
+.rail { display: flex; flex-direction: column; }
+
+.rail-track {
+  height: 3px;
+  background: var(--recessed);
+  border-top: 1px solid var(--hairline);
+  overflow: hidden;
 }
-.btn-quiet:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+.rail-fill {
+  display: block;
+  height: 100%;
+  width: 92%;
+  background: linear-gradient(90deg, var(--copper) 0%, var(--amber) 100%);
+}
+/* fills once the hero has risen */
+.js .rail-fill { width: 0; transition: width 1.5s var(--ease-out); }
+.js .rail-fill.go { width: 92%; }
 
-/* ---------- the signature: hand-built teaser screen ---------- */
-.hero-phone { display: flex; justify-content: center; }
+.rail-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding-block: 12px 16px;
+}
+.rail-no {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.rail-no .sep { color: var(--ink-faint); margin: 0 8px; }
+.rail-no .kind { color: var(--ink-soft); font-weight: 500; }
+.rail-state {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber-deep);
+  white-space: nowrap;
+}
 
+/* ---------- the hand-built teaser device */
 /* True iPhone proportions: 9:19.5 screen, even bezels, side buttons. */
 .phone {
   position: relative;
@@ -320,7 +359,7 @@ h1, h2, h3 {
   color: var(--ink);
   margin-bottom: 10px;
 }
-.p-note { font-size: 13.5px; color: var(--ink-soft); }
+.p-note { font-size: 13.5px; color: var(--ink-soft); max-width: 17em; }
 
 .p-card {
   background: var(--sheet);
@@ -362,38 +401,6 @@ h1, h2, h3 {
   padding: 4px 10px;
 }
 
-.p-progress { padding: 2px 2px 6px; }
-.p-progress-top {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 7px;
-}
-.p-progress-label {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 9.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-.p-bar {
-  display: block;
-  height: 4px;
-  border-radius: 999px;
-  background: var(--recessed);
-  overflow: hidden;
-}
-.p-bar-fill {
-  display: block;
-  height: 100%;
-  width: 92%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--copper) 0%, var(--amber) 100%);
-}
-/* fills once the hero has risen */
-.js .p-bar-fill { width: 0; transition: width 1.4s var(--ease-out); }
-.js .p-bar-fill.go { width: 92%; }
-
 .p-home {
   align-self: center;
   width: 108px;
@@ -406,30 +413,94 @@ h1, h2, h3 {
 
 /* ------------------------------------------------ chapters */
 .chapter { padding-block: clamp(72px, 10vh, 128px); border-top: 1px solid var(--hairline); }
+.chapter-flush { border-top: 0; }          /* the rail already drew the line */
+.chapter-recessed { background: var(--recessed); }
 
 .chapter-amber .eyebrow { color: var(--amber-deep); }
 .chapter-copper .eyebrow { color: var(--copper-deep); }
 
-/* ---------- first release */
-.fr-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  gap: clamp(36px, 5vw, 72px);
-  align-items: center;
-}
-.fr-copy h2 { font-size: clamp(1.9rem, 3.4vw, 2.7rem); margin-bottom: 18px; }
-.fr-copy p { color: var(--ink-soft); margin: 0 0 16px; max-width: 36em; }
-.fr-copy p:last-child { margin-bottom: 0; }
+/* ---------- our apps: the register as shelf */
+.apps-head { max-width: 46em; margin-bottom: clamp(34px, 5vh, 48px); }
+.apps-head h2 { font-size: clamp(1.9rem, 3.4vw, 2.7rem); margin-bottom: 14px; }
+.apps-head p { color: var(--ink-soft); margin: 0; }
 
-.register {
-  background: var(--sheet);
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-card);
-  box-shadow: var(--lift);
-  padding: clamp(20px, 3vw, 30px);
+.apps-grid {
+  list-style: none;
   margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2.5vw, 26px);
 }
 
+/* the space between number and kind is the room the product will fill */
+.app-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  min-height: 172px;
+  padding: 20px 22px;
+  border-radius: var(--r-card);
+}
+
+/* Nº 001 — live, wearing the rail's copper→amber mark. The mark is a
+   background layer, not a pseudo-element: it clips with the card's own
+   radius and can't detach from the edge under fractional scaling. */
+.app-live {
+  background:
+    linear-gradient(90deg, var(--copper) 0%, var(--amber) 100%)
+      22px 0 / 44px 3px no-repeat border-box,
+    var(--sheet);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--lift);
+}
+
+/* Nº 002+ — ghosts holding the next spaces on the shelf */
+.app-ghost { border: 1px dashed color-mix(in srgb, var(--ink-faint) 38%, var(--bone)); }
+.app-ghost .app-no, .app-ghost .app-kind { color: var(--ink-faint); }
+
+.app-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.app-no {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+.app-kind {
+  font-family: var(--font-display);
+  font-weight: 620;
+  font-size: 19px;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+}
+
+.app-status {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+.app-status-live {
+  font-weight: 600;
+  color: var(--amber-deep);
+  background: var(--amber-wash);
+  border: 1px solid color-mix(in srgb, var(--amber) 45%, var(--hairline));
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+/* kept for the support page's card labels */
 .ws-eyebrow {
   font-family: var(--font-mono);
   font-weight: 600;
@@ -440,89 +511,7 @@ h1, h2, h3 {
   margin-bottom: 16px;
 }
 
-.reg-rows { list-style: none; margin: 0; padding: 0; }
-.reg-row {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 16px;
-  padding: 14px 2px;
-}
-.reg-row + .reg-row { border-top: 1px solid var(--hairline); }
-.reg-no {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 12.5px;
-  letter-spacing: 0.08em;
-  color: var(--ink);
-}
-.reg-kind { font-size: 14.5px; color: var(--ink-soft); }
-.reg-status {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-.reg-live {
-  font-weight: 600;
-  color: var(--amber-deep);
-  background: var(--amber-wash);
-  border: 1px solid color-mix(in srgb, var(--amber) 45%, var(--hairline));
-  border-radius: 999px;
-  padding: 5px 12px;
-}
-.reg-dim .reg-no, .reg-dim .reg-kind { color: var(--ink-faint); }
-
-.reg-note {
-  margin: 16px 2px 0;
-  font-size: 13px;
-  color: var(--ink-faint);
-}
-
-/* ------------------------------------------------ daylight band */
-.daylight {
-  background: var(--recessed);
-  border-top: 1px solid var(--hairline);
-  padding-block: clamp(72px, 10vh, 120px);
-}
-.dl-head { max-width: 50em; margin-bottom: 40px; }
-.dl-head h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); margin-bottom: 14px; }
-.dl-head p { color: var(--ink-soft); margin: 0; }
-
-.film {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(16px, 2.5vw, 26px);
-}
-.frame {
-  margin: 0;
-  background: var(--sheet);
-  border: 1px solid var(--hairline);
-  border-radius: 18px;
-  padding: 10px 10px 0;
-  box-shadow: var(--lift);
-  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
-}
-.frame:hover { transform: translateY(-4px); box-shadow: var(--lift-hover); }
-.frame img { border-radius: 10px; aspect-ratio: 3 / 2; object-fit: cover; }
-.frame figcaption {
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  text-align: center;
-  padding: 12px 6px 14px;
-}
-
-/* ------------------------------------------------ studio */
-.st-story { max-width: 46em; margin-bottom: clamp(48px, 7vh, 80px); }
-.st-story h2 { font-size: clamp(1.9rem, 3.4vw, 2.7rem); margin-bottom: 18px; }
-.st-story p { color: var(--ink-soft); margin: 0 0 16px; max-width: 40em; }
-.st-story p:last-child { margin-bottom: 0; }
-
+/* ---------- how we work */
 .principles {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -538,6 +527,32 @@ h1, h2, h3 {
   margin-bottom: 8px;
 }
 .principle dd { margin: 0; font-size: 14px; color: var(--ink-soft); }
+
+/* ---------- about */
+.about-story { max-width: 46em; }
+.about-story h2 { font-size: clamp(1.9rem, 3.4vw, 2.7rem); margin-bottom: 18px; }
+.about-story p { color: var(--ink-soft); margin: 0 0 16px; max-width: 40em; }
+.about-story p:last-child { margin-bottom: 0; }
+
+/* ---------- contact */
+.contact-title {
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  max-width: 22em;
+  margin-bottom: 26px;
+}
+.contact-mail {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 620;
+  font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+  letter-spacing: -0.02em;
+  color: var(--copper-deep);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+  text-decoration-color: color-mix(in srgb, var(--copper) 35%, transparent);
+  transition: text-decoration-color 0.2s var(--ease-out);
+}
+.contact-mail:hover { text-decoration-color: var(--copper); }
 
 /* ------------------------------------------------ inner pages (legal, support) */
 .page-head { padding-block: clamp(44px, 7vh, 80px) clamp(24px, 3.5vh, 40px); }
@@ -684,6 +699,25 @@ h1, h2, h3 {
   line-height: 1.8;
 }
 
+/* the whisper — the studio's name, told quietly, once */
+.foot-whisper {
+  margin: 40px 0 34px;
+  text-align: center;
+  font-style: italic;
+  font-size: 14.5px;
+  color: var(--ink-faint);
+}
+.foot-whisper::before {
+  content: '';
+  display: block;
+  width: 44px;
+  height: 2px;
+  margin: 0 auto 14px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--copper) 0%, var(--amber) 100%);
+  opacity: 0.75;
+}
+
 .foot-links {
   display: flex;
   flex-wrap: wrap;
@@ -750,34 +784,39 @@ h1, h2, h3 {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js .rise, .js .reveal { opacity: 1; transform: none; animation: none; transition: none; }
-  .js .p-bar-fill { width: 92%; transition: none; }
-  .frame:hover, .btn-copper:hover { transform: none; }
+  .js .rail-fill { width: 92%; transition: none; }
+  .help-card:hover { transform: none; }
 }
 
 /* ------------------------------------------------ responsive */
 @media (max-width: 980px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 52px; }
-  .hero-copy { text-align: left; }
-  .fr-grid { grid-template-columns: 1fr; gap: 40px; }
-  .register { max-width: 560px; }
+  .apps-grid { grid-template-columns: 1fr; }
+  .app-card { min-height: 0; gap: 30px; }
   .principles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .film { grid-template-columns: 1fr; }
-  .frame img { aspect-ratio: 16 / 9; }
   .help-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  /* on smaller screens the device is the page — full height, no crop */
+  .hero { height: auto; min-height: 0; }
+  .hero-body { display: block; }
+  .hero-stage { overflow: visible; padding-top: 40px; }
+  .hero-stage .phone { width: min(304px, 80vw); }
+  .rail-labels { padding-block: 12px 14px; }
 }
 
 @media (max-width: 640px) {
   body { font-size: 16px; }
   .head-row { gap: 10px; }
   .head-logo img { width: 102px; }
-  .head-nav { gap: 10px; }
+  .head-nav { gap: 12px; }
   .head-nav a { font-size: 13px; }
   .eyebrow { font-size: 10.5px; letter-spacing: 0.12em; }
-  .hero { padding-block: 44px 64px; }
-  .phone { width: min(280px, 82vw); }
+  .hero { padding-top: 34px; }
+  .hero-stage .phone { width: min(288px, 82vw); }
+  .rail-no .sep, .rail-no .kind { display: none; }
   .p-no { font-size: 36px; }
-  .reg-row { gap: 10px; }
-  .reg-kind { font-size: 13.5px; }
+  .principles { grid-template-columns: 1fr; }
   .foot-contact { text-align: left; }
   .legal-body h2 { margin-top: 38px; }
   .imprint { gap: 2px 14px; }
