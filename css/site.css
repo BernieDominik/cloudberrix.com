@@ -22,6 +22,7 @@
   /* company: copper · first release: amber (cloudberries ripen copper → gold) */
   --copper: #BC5A32;
   --copper-deep: #9A4526;
+  --copper-wash: rgba(188, 90, 50, 0.065);
   --amber: #C79A2A;
   --amber-deep: #8F6E14;
   --amber-wash: rgba(199, 154, 42, 0.09);
@@ -538,6 +539,128 @@ h1, h2, h3 {
 }
 .principle dd { margin: 0; font-size: 14px; color: var(--ink-soft); }
 
+/* ------------------------------------------------ inner pages (legal, support) */
+.page-head { padding-block: clamp(44px, 7vh, 80px) clamp(24px, 3.5vh, 40px); }
+.page-head h1 {
+  font-size: clamp(2.05rem, 4.4vw, 3.05rem);
+  letter-spacing: -0.026em;
+  margin-bottom: 18px;
+}
+.page-lede {
+  font-size: clamp(1.02rem, 1.4vw, 1.14rem);
+  line-height: 1.65;
+  color: var(--ink-soft);
+  max-width: 34em;
+  margin: 0 0 22px;
+}
+.page-stamp {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+.legal { padding-bottom: clamp(64px, 9vh, 104px); }
+.legal-body { max-width: 40em; }
+.legal-body h2 {
+  font-size: clamp(1.22rem, 2vw, 1.48rem);
+  letter-spacing: -0.018em;
+  margin: 46px 0 14px;
+}
+.legal-body h3 {
+  font-family: var(--font-display);
+  font-weight: 620;
+  font-size: 1.02rem;
+  letter-spacing: -0.012em;
+  margin: 26px 0 8px;
+}
+.legal-body p { color: var(--ink-soft); margin: 0 0 15px; }
+.legal-body ul { color: var(--ink-soft); margin: 0 0 15px; padding-left: 1.15em; }
+.legal-body li { margin-bottom: 9px; }
+.legal-body li::marker { color: var(--copper); }
+.legal-body strong { color: var(--ink); font-weight: 600; }
+.legal-body dl { margin: 0 0 15px; }
+.legal-body dt {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 3px;
+}
+.legal-body dd { margin: 0 0 14px; color: var(--ink-soft); }
+
+/* the standout summary card at the top of a legal page */
+.key-card {
+  background: var(--sheet);
+  border: 1px solid var(--hairline);
+  border-left: 3px solid var(--copper);
+  border-radius: var(--r-card);
+  box-shadow: var(--lift);
+  padding: clamp(22px, 3vw, 30px);
+  margin-bottom: 8px;
+}
+.key-card .key-line {
+  font-family: var(--font-display);
+  font-weight: 640;
+  font-size: clamp(1.12rem, 1.9vw, 1.36rem);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: var(--ink);
+  margin: 0 0 14px;
+}
+.key-card ul { margin: 0; padding-left: 1.15em; color: var(--ink-soft); }
+.key-card li { margin-bottom: 8px; }
+.key-card li:last-child { margin-bottom: 0; }
+.key-card li::marker { color: var(--copper); }
+
+/* callout for the safety / verify-your-results clause.
+   Copper, not amber — amber stays reserved for first-release accents. */
+.note-card {
+  background: var(--copper-wash);
+  border: 1px solid color-mix(in srgb, var(--copper) 32%, var(--hairline));
+  border-radius: var(--r-control);
+  padding: 20px 22px;
+  margin: 0 0 15px;
+}
+.note-card p { margin: 0; color: var(--ink); }
+
+/* ---------- support */
+.help-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.4vw, 24px);
+  max-width: 46em;
+  margin-bottom: 44px;
+}
+.help-card {
+  background: var(--sheet);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card);
+  box-shadow: var(--lift);
+  padding: clamp(20px, 2.6vw, 26px);
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+}
+.help-card:hover { transform: translateY(-3px); box-shadow: var(--lift-hover); }
+.help-card h2 {
+  font-size: 1.08rem;
+  font-weight: 640;
+  letter-spacing: -0.016em;
+  margin: 10px 0 8px;
+}
+.help-card p { font-size: 14.5px; color: var(--ink-soft); margin: 0 0 12px; }
+.help-card p:last-child { margin-bottom: 0; }
+.help-mail {
+  font-family: var(--font-display);
+  font-weight: 560;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
 /* ------------------------------------------------ footer */
 .site-foot {
   border-top: 1px solid var(--hairline);
@@ -560,6 +683,40 @@ h1, h2, h3 {
   text-align: right;
   line-height: 1.8;
 }
+
+.foot-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  border-top: 1px solid var(--hairline);
+  padding-top: 22px;
+  margin-bottom: 20px;
+}
+.foot-links a {
+  font-family: var(--font-display);
+  font-weight: 560;
+  font-size: 14.5px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.foot-links a:hover { color: var(--copper-deep); text-decoration: underline; text-underline-offset: 4px; }
+
+/* company particulars — required of an Estonian company, and what a
+   verifier (Apple, D&B, a customer) checks the site against. */
+.imprint {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 20px;
+  margin: 0 0 14px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--ink-faint);
+}
+.imprint > span { white-space: nowrap; }
+.imprint .imprint-addr { white-space: normal; }
+.imprint b { font-weight: 500; color: var(--ink-soft); }
+
 .foot-legal { border-top: 1px solid var(--hairline); padding-top: 22px; }
 .foot-legal p {
   margin: 0 0 6px;
@@ -606,6 +763,7 @@ h1, h2, h3 {
   .principles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .film { grid-template-columns: 1fr; }
   .frame img { aspect-ratio: 16 / 9; }
+  .help-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
@@ -621,4 +779,7 @@ h1, h2, h3 {
   .reg-row { gap: 10px; }
   .reg-kind { font-size: 13.5px; }
   .foot-contact { text-align: left; }
+  .legal-body h2 { margin-top: 38px; }
+  .imprint { gap: 2px 14px; }
+  .imprint > span { white-space: normal; }
 }
