@@ -26,7 +26,11 @@
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-head" id="top">
+<!-- The header deliberately carries no id of top. It is sticky, so an anchor
+     pointing at it is already parked at the top of the viewport and the
+     browser scrolls nowhere. Left unclaimed, #top falls through to the
+     spec's own meaning: the beginning of the document. -->
+<header class="site-head">
   <div class="shell head-row">
     <a class="head-logo" href="#top" aria-label="Cloudberrix — back to top">
       <picture>
