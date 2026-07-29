@@ -185,11 +185,21 @@ h1, h2, h3 {
 
 /* scales with the viewport all the way up — a monument, not a laptop layout */
 .hero-title {
-  font-size: clamp(2.6rem, 5.9vw, 6.4rem);
+  font-size: clamp(2.35rem, 5.2vw, 5.6rem);
   font-weight: 690;
   letter-spacing: -0.032em;
   line-height: 1.04;
   margin: 0;
+}
+
+/* one plain sentence under the monument — quiet, and deliberately not a slogan */
+.hero-lede {
+  font-size: clamp(1rem, 1.35vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 30em;
+  margin: clamp(16px, 2vh, 26px) auto 0;
+  text-wrap: balance;
 }
 
 /* the stage crops the device at the rail — deliberate */
