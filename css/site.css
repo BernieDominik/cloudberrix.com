@@ -177,10 +177,15 @@ h1, h2, h3 {
 }
 
 .hero-stack { text-align: center; }
-.hero-stack .eyebrow { color: var(--copper-deep); margin-bottom: 20px; }
+.hero-stack .eyebrow {
+  color: var(--copper-deep);
+  font-size: clamp(11.5px, 0.85vw, 13.5px);
+  margin-bottom: 20px;
+}
 
+/* scales with the viewport all the way up — a monument, not a laptop layout */
 .hero-title {
-  font-size: clamp(2.6rem, 5.6vw, 4.6rem);
+  font-size: clamp(2.6rem, 5.9vw, 6.4rem);
   font-weight: 690;
   letter-spacing: -0.032em;
   line-height: 1.04;
@@ -198,12 +203,13 @@ h1, h2, h3 {
   padding-top: clamp(18px, 3vh, 38px);
 }
 
-/* the device must always reach the rail: once 372px would leave a gap
-   on tall viewports, its width tracks viewport height instead
-   (phone height ≈ width / 0.462, stage ≈ viewport − ~440px chrome) */
+/* Monument sizing: grows with viewport width (27vw) so it stays dominant
+   on large displays, with a floor of 372px; the svh term keeps it long
+   enough to always reach the rail on tall-narrow viewports; 78vw guards
+   narrow windows. Interior metrics scale with the frame via --p. */
 .hero-stage .phone {
   flex: none;
-  width: min(78vw, max(372px, calc((100svh - 440px) * 0.47)));
+  --phone-w: min(78vw, max(clamp(372px, 27vw, 520px), calc((100svh - 440px) * 0.47)));
 }
 
 /* ---------- the rail: entry Nº 001 as the page's first rule */
@@ -253,13 +259,19 @@ h1, h2, h3 {
 }
 
 /* ---------- the hand-built teaser device */
-/* True iPhone proportions: 9:19.5 screen, even bezels, side buttons. */
+/* True iPhone proportions: 9:19.5 screen, even bezels, side buttons.
+   Every interior metric scales with the frame: --p is one "design pixel"
+   (the 304px-wide reference frame = 1.0), so the screen reads identically
+   whether the phone renders at 288px on a handset or 520px as the desktop
+   monument — no fixed-px content rattling inside a larger frame. */
 .phone {
+  --phone-w: min(304px, 78vw);
+  --p: calc(var(--phone-w) / 304);
   position: relative;
-  width: min(304px, 78vw);
+  width: var(--phone-w);
   background: var(--ink);
   border-radius: 15.5%  / 7.15%;
-  padding: 10px;
+  padding: calc(var(--p) * 10);
   box-shadow:
     0 2px 6px rgba(26, 27, 33, 0.18),
     0 24px 70px rgba(26, 27, 33, 0.16),
@@ -269,10 +281,10 @@ h1, h2, h3 {
 .phone::before {
   content: '';
   position: absolute;
-  right: -2.5px;
+  right: calc(var(--p) * -2.5);
   top: 29%;
-  width: 2.5px;
-  height: 62px;
+  width: calc(var(--p) * 2.5);
+  height: calc(var(--p) * 62);
   background: #33343d;
   border-radius: 0 2px 2px 0;
 }
@@ -280,13 +292,13 @@ h1, h2, h3 {
 .phone::after {
   content: '';
   position: absolute;
-  left: -2.5px;
+  left: calc(var(--p) * -2.5);
   top: 24%;
-  width: 2.5px;
-  height: 36px;
+  width: calc(var(--p) * 2.5);
+  height: calc(var(--p) * 36);
   background: #33343d;
   border-radius: 2px 0 0 2px;
-  box-shadow: 0 48px 0 #33343d;
+  box-shadow: 0 calc(var(--p) * 48) 0 #33343d;
 }
 
 .phone-screen {
@@ -295,19 +307,19 @@ h1, h2, h3 {
   flex-direction: column;
   aspect-ratio: 9 / 19.5;
   background: var(--bone);
-  border-radius: 38px;
-  padding: 12px 18px 10px;
+  border-radius: calc(var(--p) * 38);
+  padding: calc(var(--p) * 12) calc(var(--p) * 18) calc(var(--p) * 10);
   overflow: hidden;
 }
 /* dynamic island */
 .phone-screen::before {
   content: '';
   position: absolute;
-  top: 11px;
+  top: calc(var(--p) * 11);
   left: 50%;
   transform: translateX(-50%);
-  width: 90px;
-  height: 26px;
+  width: calc(var(--p) * 90);
+  height: calc(var(--p) * 26);
   background: var(--ink);
   border-radius: 999px;
 }
@@ -316,18 +328,21 @@ h1, h2, h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 26px;
-  padding: 0 8px 0 14px;
+  height: calc(var(--p) * 26);
+  padding: 0 calc(var(--p) * 8) 0 calc(var(--p) * 14);
   color: var(--ink);
 }
 .p-time {
   font-family: var(--font-body);
   font-variant-numeric: tabular-nums;
   font-weight: 600;
-  font-size: 14px;
+  font-size: calc(var(--p) * 14);
   letter-spacing: 0.01em;
 }
-.p-glyphs { display: inline-flex; align-items: center; gap: 5px; }
+.p-glyphs { display: inline-flex; align-items: center; gap: calc(var(--p) * 5); }
+.p-glyphs svg:nth-child(1) { width: calc(var(--p) * 17); }
+.p-glyphs svg:nth-child(2) { width: calc(var(--p) * 16); }
+.p-glyphs svg:nth-child(3) { width: calc(var(--p) * 25); }
 
 /* centred teaser block breathes in the free vertical space */
 .p-hero {
@@ -337,36 +352,36 @@ h1, h2, h3 {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding-bottom: 6px;
+  padding-bottom: calc(var(--p) * 6);
 }
-.p-mark { width: 52px; height: auto; margin-bottom: 18px; }
+.p-mark { width: calc(var(--p) * 52); height: auto; margin-bottom: calc(var(--p) * 18); }
 .p-eyebrow {
   font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 10px;
+  font-size: calc(var(--p) * 10);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--amber-deep);
-  margin-bottom: 10px;
+  margin-bottom: calc(var(--p) * 10);
 }
 .p-no {
   font-family: var(--font-display);
   font-variant-numeric: tabular-nums;
   font-weight: 650;
-  font-size: 40px;
+  font-size: calc(var(--p) * 40);
   letter-spacing: -0.02em;
   line-height: 1;
   color: var(--ink);
-  margin-bottom: 10px;
+  margin-bottom: calc(var(--p) * 10);
 }
-.p-note { font-size: 13.5px; color: var(--ink-soft); max-width: 17em; }
+.p-note { font-size: calc(var(--p) * 13.5); color: var(--ink-soft); max-width: 17em; }
 
 .p-card {
   background: var(--sheet);
   border: 1px solid var(--hairline);
-  border-radius: var(--r-control);
-  padding: 3px 14px;
-  margin-bottom: 12px;
+  border-radius: calc(var(--p) * 14);
+  padding: calc(var(--p) * 3) calc(var(--p) * 14);
+  margin-bottom: calc(var(--p) * 12);
   box-shadow: 0 1px 2px rgba(26, 27, 33, 0.04);
 }
 
@@ -374,41 +389,42 @@ h1, h2, h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 11px 0;
+  padding: calc(var(--p) * 11) 0;
 }
 .p-row + .p-row { border-top: 1px solid var(--hairline); }
-.p-label { font-size: 13.5px; color: var(--ink-soft); }
+.p-label { font-size: calc(var(--p) * 13.5); color: var(--ink-soft); }
 
 .p-state {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: calc(var(--p) * 6);
   font-weight: 560;
-  font-size: 12.5px;
+  font-size: calc(var(--p) * 12.5);
 }
+.p-state svg { width: calc(var(--p) * 15); }
 .p-done { color: var(--ink); }
 .p-done svg { color: var(--ink); }
 .p-soon {
   font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 10px;
+  font-size: calc(var(--p) * 10);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--amber-deep);
   background: var(--amber-wash);
   border: 1px solid color-mix(in srgb, var(--amber) 45%, var(--hairline));
   border-radius: 999px;
-  padding: 4px 10px;
+  padding: calc(var(--p) * 4) calc(var(--p) * 10);
 }
 
 .p-home {
   align-self: center;
-  width: 108px;
-  height: 5px;
+  width: calc(var(--p) * 108);
+  height: calc(var(--p) * 5);
   border-radius: 999px;
   background: var(--ink);
   opacity: 0.9;
-  margin-top: 10px;
+  margin-top: calc(var(--p) * 10);
 }
 
 /* ------------------------------------------------ chapters */
@@ -801,7 +817,7 @@ h1, h2, h3 {
   .hero { height: auto; min-height: 0; }
   .hero-body { display: block; }
   .hero-stage { overflow: visible; padding-top: 40px; }
-  .hero-stage .phone { width: min(304px, 80vw); }
+  .hero-stage .phone { --phone-w: min(304px, 80vw); }
   .rail-labels { padding-block: 12px 14px; }
 }
 
@@ -813,9 +829,8 @@ h1, h2, h3 {
   .head-nav a { font-size: 13px; }
   .eyebrow { font-size: 10.5px; letter-spacing: 0.12em; }
   .hero { padding-top: 34px; }
-  .hero-stage .phone { width: min(288px, 82vw); }
+  .hero-stage .phone { --phone-w: min(288px, 82vw); }
   .rail-no .sep, .rail-no .kind { display: none; }
-  .p-no { font-size: 36px; }
   .principles { grid-template-columns: 1fr; }
   .foot-contact { text-align: left; }
   .legal-body h2 { margin-top: 38px; }
