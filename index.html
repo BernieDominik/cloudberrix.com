@@ -42,14 +42,20 @@
 <main id="main">
 
   <!-- ============================================= HERO
-       Type only. The device used to sit here and be cropped by a progress
-       rail; both are gone — the product now has its own chapter below, which
-       is where a first release actually belongs. -->
+       Type only, at full scale: header + hero own the first viewport
+       exactly, so the first chapter below never leaks into the opening
+       frame. The studio register closes the frame — the copper→amber
+       rail, and the coordinates under it. -->
   <section class="hero" aria-labelledby="hero-title">
     <div class="shell hero-stack">
       <p class="eyebrow rise">Cloudberrix · Tallinn, Estonia</p>
-      <h1 id="hero-title" class="hero-title rise d1">We are an independent software&nbsp;studio.</h1>
+      <h1 id="hero-title" class="hero-title rise d1">We are an independent software studio.</h1>
       <p class="hero-lede rise d2">We design, build, and ship products across&nbsp;platforms.</p>
+    </div>
+    <div class="shell">
+      <div class="hero-base rise d3">
+        <span class="hero-coord">59°26′ N · 24°45′ E</span>
+      </div>
     </div>
   </section>
 
@@ -139,17 +145,24 @@
     </div>
   </section>
 
-  <!-- ============================================= ABOUT -->
+  <!-- ============================================= ABOUT
+       The creed alone, at display scale — the statements are the design.
+       Soft voice for the setup, ink for the words that carry weight, and
+       the section's one copper line to close. -->
   <section class="chapter" id="about" aria-labelledby="about-title">
     <div class="shell">
-      <p class="eyebrow reveal">About</p>
-      <h2 id="about-title" class="about-title reveal">A small software studio in&nbsp;Tallinn.</h2>
-      <ul class="creed">
-        <li class="reveal">We do what we’re passionate about: writing code, designing software,
-        and tinkering with systems until they’re right.</li>
-        <li class="reveal" style="--d: 0.09s">No investors, no board meetings, no growth targets.
-        Just one goal: build products people love.</li>
-      </ul>
+      <div class="about-head">
+        <p class="eyebrow reveal">About</p>
+        <h2 id="about-title" class="about-title reveal">A small software studio in&nbsp;Tallinn.</h2>
+      </div>
+      <div class="creed">
+        <p class="reveal">We do what we’re passionate about:
+        <span class="creed-ink">writing code, designing software, and tinkering
+        with systems until they’re right.</span></p>
+        <p class="reveal"><span class="creed-ink">No investors, no board meetings,
+        no growth targets.</span> Just one&nbsp;goal:
+        <span class="creed-goal">build products people&nbsp;love.</span></p>
+      </div>
     </div>
   </section>
 
@@ -157,9 +170,9 @@
   <section class="chapter chapter-recessed" id="contact" aria-labelledby="contact-title">
     <div class="shell contact-stack">
       <p class="eyebrow reveal">Contact</p>
-      <h2 id="contact-title" class="contact-title reveal">Email us.</h2>
-      <p class="contact-lede reveal">Questions, ideas, problems — send them over. No forms,
-      no tickets, and you’ll usually hear back within a day or&nbsp;two.</p>
+      <h2 id="contact-title" class="contact-title reveal">Say hello.</h2>
+      <p class="contact-lede reveal">Tell us about your ideas, any issues you run into, or just
+      drop a note — whatever you send is read by the team that wrote the&nbsp;code.</p>
       <a class="contact-mail reveal" href="mailto:support@cloudberrix.com">support@cloudberrix.com</a>
     </div>
   </section>

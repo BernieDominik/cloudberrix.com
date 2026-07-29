@@ -2,8 +2,9 @@
    Cloudberrix — "Ante Daylight" web
    Warm paper, ink, two accents: studio copper & first-release amber.
    Light-only by doctrine (our products are daylight-first).
-   Hero is a monument: bare headline over the device, which rises out
-   of the copper→amber rail — entry Nº 001 as the page's first rule.
+   Hero is a monument that owns the whole first frame: header + hero
+   = one viewport, type at full scale, closed by the studio register
+   (coordinates · copper→amber rail · entry Nº 001).
    ============================================================ */
 
 :root {
@@ -153,44 +154,83 @@ h1, h2, h3 {
 .head-nav a:hover { color: var(--copper-deep); border-bottom-color: var(--copper); }
 
 /* ------------------------------------------------ hero — the statement */
-/* Type only, centred in a generous field. The device that used to be
-   cropped here now has its own chapter: a first release is the page's
-   second beat, not its masthead. */
+/* Type only, and it owns the whole first frame: header (64px) + hero
+   = 100svh, so nothing of the next chapter shows before a scroll. The
+   statement centres in the field; the studio register closes it. */
 .hero {
   display: flex;
-  align-items: center;
-  min-height: min(58svh, 520px);
-  padding-block: clamp(72px, 13vh, 150px) clamp(64px, 11vh, 128px);
+  flex-direction: column;
+  min-height: calc(100vh - 64px);   /* fallback for pre-svh engines */
+  min-height: calc(100svh - 64px);
 }
 
-/* .shell carries margin-inline:auto, which beats `stretch` on a flex
-   item and collapses it to content width — restore the full track */
-.hero .shell { width: 100%; }
+/* The monument stands on a wider stage than the reading column.
+   (width:100% because .shell's auto margins beat flex `stretch`
+   and would collapse it to content width.) */
+.hero .shell { width: 100%; max-width: 1280px; }
 
-.hero-stack { text-align: center; }
+.hero-stack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding-block: clamp(44px, 6vh, 90px) clamp(36px, 5vh, 72px);
+}
 .hero-stack .eyebrow {
   color: var(--copper-deep);
   font-size: clamp(11.5px, 0.85vw, 13.5px);
-  margin-bottom: 20px;
+  margin-bottom: clamp(20px, 3vh, 32px);
 }
 
-/* scales with the viewport all the way up — a monument, not a laptop layout */
+/* sized to fill the stage at every width — a monument, not a laptop layout */
 .hero-title {
-  font-size: clamp(2.35rem, 5.2vw, 5.6rem);
+  font-size: clamp(2.6rem, 6.9vw, 6.9rem);
   font-weight: 690;
   letter-spacing: -0.032em;
-  line-height: 1.04;
+  line-height: 1.03;
   margin: 0;
 }
 
 /* one plain sentence under the monument — quiet, and deliberately not a slogan */
 .hero-lede {
-  font-size: clamp(1rem, 1.35vw, 1.3rem);
+  font-size: clamp(1.05rem, 1.5vw, 1.42rem);
   line-height: 1.5;
   color: var(--ink-soft);
-  max-width: 30em;
-  margin: clamp(16px, 2vh, 26px) auto 0;
+  max-width: 32em;
+  margin: clamp(20px, 3.4vh, 38px) auto 0;
   text-wrap: balance;
+}
+
+/* ---------- the register that closes the first frame.
+   The rail runs studio copper into first-release amber — the same line
+   the old progress rail drew, retired into a baseline. It also does
+   the peeking chapter's old job: it says there is more below. */
+.hero-base {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  padding-top: 18px;
+  margin-bottom: clamp(22px, 3.5vh, 36px);
+}
+.hero-base::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--copper) 0%, var(--amber) 100%);
+}
+.hero-coord {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink-faint);
 }
 
 /* ---------- first product: the device, presented rather than cropped */
@@ -440,33 +480,53 @@ h1, h2, h3 {
 }
 
 /* ------------------------------------------------ chapters */
-.chapter { padding-block: clamp(72px, 10vh, 128px); border-top: 1px solid var(--hairline); }
+.chapter {
+  padding-block: clamp(72px, 10vh, 128px);
+  border-top: 1px solid var(--hairline);
+  scroll-margin-top: 64px;   /* anchor jumps land below the sticky header */
+}
 .chapter-recessed { background: var(--recessed); }
 
-/* ---------- about */
+/* ---------- about — the creed alone, at display scale */
+.about-head { text-align: center; }
 .about-title {
   font-size: clamp(1.95rem, 3.6vw, 2.85rem);
   max-width: 16em;
-  margin-bottom: clamp(30px, 4vh, 44px);
+  margin-inline: auto;
 }
 
-/* Two statements, set at reading size rather than caption size — there are
-   only two, so they can be said properly instead of filed as features. */
+/* Two sentences are the whole section, so they are set the way the site
+   means them: display voice, centred. The grey carries the setup, ink
+   carries the words with weight, and the last three words are the one
+   copper moment — the studio's accent closing its own creed. */
 .creed {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(26px, 4vw, 52px);
-  max-width: 60em;
+  margin-top: clamp(44px, 7vh, 76px);
+  text-align: center;
 }
-.creed li {
-  padding-top: 20px;
-  border-top: 2px solid var(--copper);
-  font-size: clamp(1rem, 1.3vw, 1.14rem);
-  line-height: 1.55;
+.creed p {
+  /* measure in the statement's own em, so it scales with the type */
+  max-width: 21em;
+  margin: 0 auto;
+  font-family: var(--font-display);
+  font-size: clamp(1.42rem, 2.4vw, 2.1rem);
+  font-weight: 560;
+  letter-spacing: -0.024em;
+  line-height: 1.34;
   color: var(--ink-soft);
+  text-wrap: balance;
+}
+.creed .creed-ink { color: var(--ink); font-weight: 640; }
+.creed .creed-goal { color: var(--copper-deep); font-weight: 640; }
+
+/* the old creed rule, distilled: one copper breath between the statements */
+.creed p + p::before {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--copper);
+  margin: clamp(28px, 4.5vh, 44px) auto;
 }
 
 /* ---------- contact */
@@ -727,9 +787,6 @@ h1, h2, h3 {
 }
 
 /* ------------------------------------------------ responsive */
-@media (max-width: 980px) {
-  .creed { grid-template-columns: 1fr; gap: 26px; }
-}
 
 @media (max-width: 640px) {
   body { font-size: 16px; }
@@ -738,7 +795,13 @@ h1, h2, h3 {
   .head-nav { gap: 12px; }
   .head-nav a { font-size: 13px; }
   .eyebrow { font-size: 10.5px; letter-spacing: 0.12em; }
-  .hero { min-height: 0; padding-block: 56px 44px; }
+  /* the monument keeps the full first frame on handsets; the sentence
+     breaks into a stack of short lines so each one can be set huge */
+  .hero-stack { padding-block: 36px 28px; }
+  .hero-title { font-size: clamp(2.9rem, 14.8vw, 3.6rem); line-height: 1.05; letter-spacing: -0.03em; }
+  .hero-lede { font-size: 1.08rem; max-width: 21em; margin-top: 18px; }
+  .hero-base { padding-top: 15px; margin-bottom: 22px; }
+  .hero-coord { font-size: 10px; letter-spacing: 0.11em; }
   .product-stage .phone { --phone-w: min(300px, 84vw); }
   .foot-contact { text-align: left; }
   .legal-body h2 { margin-top: 38px; }
