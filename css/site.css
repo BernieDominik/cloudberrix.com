@@ -152,29 +152,20 @@ h1, h2, h3 {
 }
 .head-nav a:hover { color: var(--copper-deep); border-bottom-color: var(--copper); }
 
-/* ------------------------------------------------ hero — monument */
-/* One viewport: type above, the device rising out of the rail below.
-   `height`, not min-height — the crop only happens if the hero
-   refuses to grow. */
+/* ------------------------------------------------ hero — the statement */
+/* Type only, centred in a generous field. The device that used to be
+   cropped here now has its own chapter: a first release is the page's
+   second beat, not its masthead. */
 .hero {
   display: flex;
-  flex-direction: column;
-  height: calc(100vh - 64px);
-  height: calc(100svh - 64px);
-  min-height: 640px;
-  padding-top: clamp(26px, 4.5vh, 50px);
+  align-items: center;
+  min-height: min(58svh, 520px);
+  padding-block: clamp(72px, 13vh, 150px) clamp(64px, 11vh, 128px);
 }
 
 /* .shell carries margin-inline:auto, which beats `stretch` on a flex
    item and collapses it to content width — restore the full track */
 .hero .shell { width: 100%; }
-
-.hero-body {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-height: 0;
-}
 
 .hero-stack { text-align: center; }
 .hero-stack .eyebrow {
@@ -202,70 +193,47 @@ h1, h2, h3 {
   text-wrap: balance;
 }
 
-/* the stage crops the device at the rail — deliberate */
-.hero-stage {
-  flex: 1;
-  min-height: 0;
+/* ---------- first product: the device, presented rather than cropped */
+.product-stack { text-align: center; }
+.product-stack h2 {
+  font-size: clamp(1.95rem, 3.6vw, 2.85rem);
+  max-width: 15em;
+  margin: 0 auto 14px;
+}
+.product-lede {
+  font-size: clamp(1rem, 1.35vw, 1.18rem);
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* The device sits in a warm pool of its own light — copper at the core,
+   amber at the edge, the one place on the page both accents meet. */
+.product-stage {
+  position: relative;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  overflow: hidden;
-  padding-top: clamp(18px, 3vh, 38px);
+  margin-top: clamp(44px, 6vh, 72px);
 }
-
-/* Monument sizing: grows with viewport width (27vw) so it stays dominant
-   on large displays, with a floor of 372px; the svh term keeps it long
-   enough to always reach the rail on tall-narrow viewports; 78vw guards
-   narrow windows. Interior metrics scale with the frame via --p. */
-.hero-stage .phone {
-  flex: none;
-  --phone-w: min(78vw, max(clamp(372px, 27vw, 520px), calc((100svh - 440px) * 0.47)));
+.product-stage::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 6%;
+  width: min(760px, 118%);
+  aspect-ratio: 1.35;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(closest-side,
+      rgba(188, 90, 50, 0.13) 0%,
+      rgba(199, 154, 42, 0.10) 42%,
+      rgba(199, 154, 42, 0) 72%);
+  pointer-events: none;
 }
-
-/* ---------- the rail: entry Nº 001 as the page's first rule */
-.rail { display: flex; flex-direction: column; }
-
-.rail-track {
-  height: 3px;
-  background: var(--recessed);
-  border-top: 1px solid var(--hairline);
-  overflow: hidden;
-}
-.rail-fill {
-  display: block;
-  height: 100%;
-  width: 92%;
-  background: linear-gradient(90deg, var(--copper) 0%, var(--amber) 100%);
-}
-/* fills once the hero has risen */
-.js .rail-fill { width: 0; transition: width 1.5s var(--ease-out); }
-.js .rail-fill.go { width: 92%; }
-
-.rail-labels {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  padding-block: 12px 16px;
-}
-.rail-no {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink);
-}
-.rail-no .sep { color: var(--ink-faint); margin: 0 8px; }
-.rail-no .kind { color: var(--ink-soft); font-weight: 500; }
-.rail-state {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--amber-deep);
-  white-space: nowrap;
+.product-stage .phone {
+  position: relative;
+  z-index: 1;
+  --phone-w: min(86vw, clamp(300px, 25vw, 372px));
 }
 
 /* ---------- the hand-built teaser device */
@@ -354,78 +322,112 @@ h1, h2, h3 {
 .p-glyphs svg:nth-child(2) { width: calc(var(--p) * 16); }
 .p-glyphs svg:nth-child(3) { width: calc(var(--p) * 25); }
 
-/* centred teaser block breathes in the free vertical space */
-.p-hero {
+/* inline navigation title, the way iOS sets one */
+.p-nav {
+  margin: calc(var(--p) * 10) 0 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 640;
+  font-size: calc(var(--p) * 15);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* the three entries the screen is driven by, set as the app sets them:
+   a quiet label over a figure large enough to check at arm's length */
+.p-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(var(--p) * 8);
+  margin-top: calc(var(--p) * 14);
+}
+.p-field {
+  background: var(--sheet);
+  border: 1px solid var(--hairline);
+  border-radius: calc(var(--p) * 13);
+  padding: calc(var(--p) * 8) calc(var(--p) * 9) calc(var(--p) * 9);
+  box-shadow: 0 1px 2px rgba(26, 27, 33, 0.04);
+}
+.p-field-l {
+  display: block;
+  font-size: calc(var(--p) * 9.5);
+  line-height: 1.25;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+.p-field-v {
+  display: block;
+  margin-top: calc(var(--p) * 3);
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-weight: 640;
+  font-size: calc(var(--p) * 24);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.p-stage {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding-bottom: calc(var(--p) * 6);
+  padding-bottom: calc(var(--p) * 10);
 }
-.p-mark { width: calc(var(--p) * 52); height: auto; margin-bottom: calc(var(--p) * 18); }
-.p-eyebrow {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: calc(var(--p) * 10);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--amber-deep);
-  margin-bottom: calc(var(--p) * 10);
-}
-.p-no {
+
+/* ---------- the wind star, drawn as the instrument it stands in for.
+   Type inside the SVG is set in viewBox units, so the whole dial scales
+   with the frame — no separate mobile sizing. */
+.ws-star { width: 100%; height: auto; }
+.ws-star text {
   font-family: var(--font-display);
   font-variant-numeric: tabular-nums;
-  font-weight: 650;
-  font-size: calc(var(--p) * 40);
-  letter-spacing: -0.02em;
-  line-height: 1;
-  color: var(--ink);
-  margin-bottom: calc(var(--p) * 10);
+  text-anchor: middle;
 }
-.p-note { font-size: calc(var(--p) * 13.5); color: var(--ink-soft); max-width: 17em; }
-
-.p-card {
-  background: var(--sheet);
-  border: 1px solid var(--hairline);
-  border-radius: calc(var(--p) * 14);
-  padding: calc(var(--p) * 3) calc(var(--p) * 14);
-  margin-bottom: calc(var(--p) * 12);
-  box-shadow: 0 1px 2px rgba(26, 27, 33, 0.04);
-}
-
-.p-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: calc(var(--p) * 11) 0;
-}
-.p-row + .p-row { border-top: 1px solid var(--hairline); }
-.p-label { font-size: calc(var(--p) * 13.5); color: var(--ink-soft); }
-
-.p-state {
-  display: inline-flex;
-  align-items: center;
-  gap: calc(var(--p) * 6);
-  font-weight: 560;
-  font-size: calc(var(--p) * 12.5);
-}
-.p-state svg { width: calc(var(--p) * 15); }
-.p-done { color: var(--ink); }
-.p-done svg { color: var(--ink); }
-.p-soon {
-  font-family: var(--font-mono);
+/* the track scale: graduations, so they belong to the dial not the answers */
+.ws-desig {
+  font-size: 10.5px;
   font-weight: 600;
-  font-size: calc(var(--p) * 10);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--amber-deep);
-  background: var(--amber-wash);
-  border: 1px solid color-mix(in srgb, var(--amber) 45%, var(--hairline));
-  border-radius: 999px;
-  padding: calc(var(--p) * 4) calc(var(--p) * 10);
+  letter-spacing: 1.1px;
+  fill: var(--ink-faint);
 }
+.ws-card { font-weight: 700; fill: var(--ink-soft); }
+
+/* two families of number, each coded twice over: a degree is gold and
+   wears a °, a knot is ink and wears a small kt */
+.ws-deg { font-size: 22px; font-weight: 700; fill: var(--amber-deep); }
+.ws-kt  { font-size: 18px; font-weight: 600; fill: var(--ink); }
+.ws-unit { font-size: 11px; font-weight: 600; fill: var(--ink-faint); }
+
+/* the corner title. Anchored start, and specific enough to beat
+   `.ws-star text` — otherwise it centres on x=3 and falls off the canvas. */
+.ws-star .ws-title {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.3px;
+  fill: var(--ink-faint);
+  text-anchor: start;
+}
+.ws-star .ws-drift {
+  font-size: 22px;
+  font-weight: 700;
+  fill: var(--amber-deep);
+  text-anchor: start;
+}
+
+/* the units key, printed beneath the way it is on the kneeboard */
+.ws-key {
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--p) * 16);
+  margin: calc(var(--p) * 14) 0 0;
+  font-size: calc(var(--p) * 11);
+  color: var(--ink-faint);
+}
+.ws-key b { font-weight: 700; }
+.ws-key .k-deg { color: var(--amber-deep); }
+.ws-key .k-kt { color: var(--ink); }
 
 .p-home {
   align-self: center;
@@ -439,92 +441,7 @@ h1, h2, h3 {
 
 /* ------------------------------------------------ chapters */
 .chapter { padding-block: clamp(72px, 10vh, 128px); border-top: 1px solid var(--hairline); }
-.chapter-flush { border-top: 0; }          /* the rail already drew the line */
 .chapter-recessed { background: var(--recessed); }
-
-.chapter-amber .eyebrow { color: var(--amber-deep); }
-.chapter-copper .eyebrow { color: var(--copper-deep); }
-
-/* ---------- our apps: the register as shelf */
-.apps-head { max-width: 46em; margin-bottom: clamp(34px, 5vh, 48px); }
-.apps-head h2 { font-size: clamp(1.9rem, 3.4vw, 2.7rem); margin-bottom: 14px; }
-.apps-head p { color: var(--ink-soft); margin: 0; }
-
-.apps-grid {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(16px, 2.5vw, 26px);
-}
-
-/* the space between number and kind is the room the product will fill */
-.app-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 40px;
-  min-height: 172px;
-  padding: 20px 22px;
-  border-radius: var(--r-card);
-}
-
-/* Nº 001 — live, wearing the rail's copper→amber mark. The mark is a
-   background layer, not a pseudo-element: it clips with the card's own
-   radius and can't detach from the edge under fractional scaling. */
-.app-live {
-  background:
-    linear-gradient(90deg, var(--copper) 0%, var(--amber) 100%)
-      22px 0 / 44px 3px no-repeat border-box,
-    var(--sheet);
-  border: 1px solid var(--hairline);
-  box-shadow: var(--lift);
-}
-
-/* Nº 002+ — ghosts holding the next spaces on the shelf */
-.app-ghost { border: 1px dashed color-mix(in srgb, var(--ink-faint) 38%, var(--bone)); }
-.app-ghost .app-no, .app-ghost .app-kind { color: var(--ink-faint); }
-
-.app-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-.app-no {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 12.5px;
-  letter-spacing: 0.08em;
-  color: var(--ink);
-}
-.app-kind {
-  font-family: var(--font-display);
-  font-weight: 620;
-  font-size: 19px;
-  letter-spacing: -0.014em;
-  color: var(--ink);
-}
-
-.app-status {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  white-space: nowrap;
-}
-.app-status-live {
-  font-weight: 600;
-  color: var(--amber-deep);
-  background: var(--amber-wash);
-  border: 1px solid color-mix(in srgb, var(--amber) 45%, var(--hairline));
-  border-radius: 999px;
-  padding: 5px 12px;
-}
 
 /* kept for the support page's card labels */
 .ws-eyebrow {
@@ -537,34 +454,45 @@ h1, h2, h3 {
   margin-bottom: 16px;
 }
 
-/* ---------- how we work */
-.principles {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(20px, 3vw, 36px);
-  margin: 0;
-}
-.principle { border-top: 2px solid var(--copper); padding-top: 16px; }
-.principle dt {
-  font-family: var(--font-display);
-  font-weight: 620;
-  font-size: 16.5px;
-  letter-spacing: -0.014em;
-  margin-bottom: 8px;
-}
-.principle dd { margin: 0; font-size: 14px; color: var(--ink-soft); }
-
 /* ---------- about */
-.about-story { max-width: 46em; }
-.about-story h2 { font-size: clamp(1.9rem, 3.4vw, 2.7rem); margin-bottom: 18px; }
-.about-story p { color: var(--ink-soft); margin: 0 0 16px; max-width: 40em; }
-.about-story p:last-child { margin-bottom: 0; }
+.about-title {
+  font-size: clamp(1.95rem, 3.6vw, 2.85rem);
+  max-width: 16em;
+  margin-bottom: clamp(30px, 4vh, 44px);
+}
+
+/* Two statements, set at reading size rather than caption size — there are
+   only two, so they can be said properly instead of filed as features. */
+.creed {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(26px, 4vw, 52px);
+  max-width: 60em;
+}
+.creed li {
+  padding-top: 20px;
+  border-top: 2px solid var(--copper);
+  font-size: clamp(1rem, 1.3vw, 1.14rem);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
 
 /* ---------- contact */
+.contact-stack { text-align: center; }
 .contact-title {
   font-size: clamp(1.8rem, 3.2vw, 2.5rem);
-  max-width: 22em;
-  margin-bottom: 26px;
+  margin-bottom: 14px;
+}
+.contact-lede {
+  font-size: clamp(1rem, 1.35vw, 1.18rem);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 32em;
+  margin: 0 auto 28px;
+  text-wrap: balance;
 }
 .contact-mail {
   display: inline-block;
@@ -581,18 +509,25 @@ h1, h2, h3 {
 .contact-mail:hover { text-decoration-color: var(--copper); }
 
 /* ------------------------------------------------ inner pages (legal, support) */
-.page-head { padding-block: clamp(44px, 7vh, 80px) clamp(24px, 3.5vh, 40px); }
+/* A recessed masthead gives every inner page the same opening beat the home
+   page uses for its chapters, and separates the title from the reading. */
+.page-head {
+  background: var(--recessed);
+  border-bottom: 1px solid var(--hairline);
+  padding-block: clamp(52px, 8vh, 92px) clamp(46px, 7vh, 80px);
+}
 .page-head h1 {
-  font-size: clamp(2.05rem, 4.4vw, 3.05rem);
-  letter-spacing: -0.026em;
-  margin-bottom: 18px;
+  font-size: clamp(2.15rem, 4.6vw, 3.2rem);
+  letter-spacing: -0.028em;
+  margin-bottom: 20px;
+  max-width: 15em;
 }
 .page-lede {
-  font-size: clamp(1.02rem, 1.4vw, 1.14rem);
-  line-height: 1.65;
+  font-size: clamp(1.04rem, 1.45vw, 1.2rem);
+  line-height: 1.62;
   color: var(--ink-soft);
   max-width: 34em;
-  margin: 0 0 22px;
+  margin: 0 0 26px;
 }
 .page-stamp {
   font-family: var(--font-mono);
@@ -604,13 +539,31 @@ h1, h2, h3 {
   margin: 0;
 }
 
-.legal { padding-bottom: clamp(64px, 9vh, 104px); }
-.legal-body { max-width: 40em; }
+.legal { padding-block: clamp(48px, 7vh, 78px) clamp(64px, 9vh, 104px); }
+.legal-body { max-width: 38em; counter-reset: clause; }
+
+/* Clauses number themselves, so the headings stay plain language and the
+   numbering can never drift out of step with the document. */
 .legal-body h2 {
-  font-size: clamp(1.22rem, 2vw, 1.48rem);
+  counter-increment: clause;
+  font-size: clamp(1.28rem, 2.1vw, 1.55rem);
   letter-spacing: -0.018em;
-  margin: 46px 0 14px;
+  margin: 52px 0 14px;
 }
+.legal-body h2::before {
+  content: counter(clause, decimal-leading-zero);
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--copper);
+  margin-bottom: 10px;
+}
+/* headings outside the numbered run (support page) opt out */
+.legal-body h2.unnumbered { counter-increment: none; }
+.legal-body h2.unnumbered::before { content: none; }
+
 .legal-body h3 {
   font-family: var(--font-display);
   font-weight: 620;
@@ -623,7 +576,12 @@ h1, h2, h3 {
 .legal-body li { margin-bottom: 9px; }
 .legal-body li::marker { color: var(--copper); }
 .legal-body strong { color: var(--ink); font-weight: 600; }
-.legal-body dl { margin: 0 0 15px; }
+
+/* company particulars, set as a table rather than a list of stray lines */
+.legal-body dl {
+  margin: 0 0 15px;
+  border-top: 1px solid var(--hairline);
+}
 .legal-body dt {
   font-family: var(--font-mono);
   font-weight: 600;
@@ -631,31 +589,45 @@ h1, h2, h3 {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-faint);
-  margin-bottom: 3px;
+  padding-top: 14px;
 }
-.legal-body dd { margin: 0 0 14px; color: var(--ink-soft); }
+.legal-body dd {
+  margin: 4px 0 0;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--ink-soft);
+}
 
 /* the standout summary card at the top of a legal page */
 .key-card {
   background: var(--sheet);
   border: 1px solid var(--hairline);
-  border-left: 3px solid var(--copper);
   border-radius: var(--r-card);
   box-shadow: var(--lift);
-  padding: clamp(22px, 3vw, 30px);
-  margin-bottom: 8px;
+  padding: clamp(24px, 3.2vw, 34px);
+  overflow: hidden;
+}
+/* the copper→amber mark the home page's chapters carry */
+.key-card::before {
+  content: '';
+  display: block;
+  width: 44px;
+  height: 3px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+  background: linear-gradient(90deg, var(--copper) 0%, var(--amber) 100%);
 }
 .key-card .key-line {
-  font-family: var(--font-display);
-  font-weight: 640;
-  font-size: clamp(1.12rem, 1.9vw, 1.36rem);
-  letter-spacing: -0.02em;
-  line-height: 1.3;
-  color: var(--ink);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
   margin: 0 0 14px;
 }
-.key-card ul { margin: 0; padding-left: 1.15em; color: var(--ink-soft); }
-.key-card li { margin-bottom: 8px; }
+.key-card ul { margin: 0; padding-left: 1.15em; color: var(--ink); }
+.key-card li { margin-bottom: 10px; }
 .key-card li:last-child { margin-bottom: 0; }
 .key-card li::marker { color: var(--copper); }
 
@@ -725,25 +697,6 @@ h1, h2, h3 {
   line-height: 1.8;
 }
 
-/* the whisper — the studio's name, told quietly, once */
-.foot-whisper {
-  margin: 40px 0 34px;
-  text-align: center;
-  font-style: italic;
-  font-size: 14.5px;
-  color: var(--ink-faint);
-}
-.foot-whisper::before {
-  content: '';
-  display: block;
-  width: 44px;
-  height: 2px;
-  margin: 0 auto 14px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--copper) 0%, var(--amber) 100%);
-  opacity: 0.75;
-}
-
 .foot-links {
   display: flex;
   flex-wrap: wrap;
@@ -810,25 +763,13 @@ h1, h2, h3 {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js .rise, .js .reveal { opacity: 1; transform: none; animation: none; transition: none; }
-  .js .rail-fill { width: 92%; transition: none; }
   .help-card:hover { transform: none; }
 }
 
 /* ------------------------------------------------ responsive */
 @media (max-width: 980px) {
-  .apps-grid { grid-template-columns: 1fr; }
-  .app-card { min-height: 0; gap: 30px; }
-  .principles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .creed { grid-template-columns: 1fr; gap: 26px; }
   .help-grid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 900px) {
-  /* on smaller screens the device is the page — full height, no crop */
-  .hero { height: auto; min-height: 0; }
-  .hero-body { display: block; }
-  .hero-stage { overflow: visible; padding-top: 40px; }
-  .hero-stage .phone { --phone-w: min(304px, 80vw); }
-  .rail-labels { padding-block: 12px 14px; }
 }
 
 @media (max-width: 640px) {
@@ -838,10 +779,8 @@ h1, h2, h3 {
   .head-nav { gap: 12px; }
   .head-nav a { font-size: 13px; }
   .eyebrow { font-size: 10.5px; letter-spacing: 0.12em; }
-  .hero { padding-top: 34px; }
-  .hero-stage .phone { --phone-w: min(288px, 82vw); }
-  .rail-no .sep, .rail-no .kind { display: none; }
-  .principles { grid-template-columns: 1fr; }
+  .hero { min-height: 0; padding-block: 56px 44px; }
+  .product-stage .phone { --phone-w: min(300px, 84vw); }
   .foot-contact { text-align: left; }
   .legal-body h2 { margin-top: 38px; }
   .imprint { gap: 2px 14px; }
