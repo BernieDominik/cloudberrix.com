@@ -443,17 +443,6 @@ h1, h2, h3 {
 .chapter { padding-block: clamp(72px, 10vh, 128px); border-top: 1px solid var(--hairline); }
 .chapter-recessed { background: var(--recessed); }
 
-/* kept for the support page's card labels */
-.ws-eyebrow {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  margin-bottom: 16px;
-}
-
 /* ---------- about */
 .about-title {
   font-size: clamp(1.95rem, 3.6vw, 2.85rem);
@@ -643,36 +632,8 @@ h1, h2, h3 {
 .note-card p { margin: 0; color: var(--ink); }
 
 /* ---------- support */
-.help-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(16px, 2.4vw, 24px);
-  max-width: 46em;
-  margin-bottom: 44px;
-}
-.help-card {
-  background: var(--sheet);
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-card);
-  box-shadow: var(--lift);
-  padding: clamp(20px, 2.6vw, 26px);
-  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
-}
-.help-card:hover { transform: translateY(-3px); box-shadow: var(--lift-hover); }
-.help-card h2 {
-  font-size: 1.08rem;
-  font-weight: 640;
-  letter-spacing: -0.016em;
-  margin: 10px 0 8px;
-}
-.help-card p { font-size: 14.5px; color: var(--ink-soft); margin: 0 0 12px; }
-.help-card p:last-child { margin-bottom: 0; }
-.help-mail {
-  font-family: var(--font-display);
-  font-weight: 560;
-  font-size: 15px;
-  letter-spacing: -0.01em;
-}
+/* the home page's contact-mail link doubles as the page's one action */
+.legal-body .contact-mail { margin-bottom: 26px; }
 
 /* ------------------------------------------------ footer */
 .site-foot {
@@ -763,13 +724,11 @@ h1, h2, h3 {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js .rise, .js .reveal { opacity: 1; transform: none; animation: none; transition: none; }
-  .help-card:hover { transform: none; }
 }
 
 /* ------------------------------------------------ responsive */
 @media (max-width: 980px) {
   .creed { grid-template-columns: 1fr; gap: 26px; }
-  .help-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
