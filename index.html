@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cloudberrix — an independent software studio in Tallinn</title>
-<meta name="description" content="Cloudberrix is an independent software studio in Tallinn, Estonia. We design, build, and ship products across platforms. Our first product ships soon.">
+<meta name="description" content="Cloudberrix is an independent software studio in Tallinn, Estonia. We design, build, and ship software for desktop, mobile, and the web.">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#F7F5F0">
 <link rel="canonical" href="https://cloudberrix.com/">
 <meta property="og:title" content="Cloudberrix — an independent software studio in Tallinn">
-<meta property="og:description" content="An independent software studio in Tallinn, Estonia. Our first product ships soon.">
+<meta property="og:description" content="An independent software studio in Tallinn, Estonia. Software for desktop, mobile, and the web.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cloudberrix.com/">
 <meta property="og:image" content="https://cloudberrix.com/assets/og.jpg">
@@ -30,6 +30,17 @@
      pointing at it is already parked at the top of the viewport and the
      browser scrolls nowhere. Left unclaimed, #top falls through to the
      spec's own meaning: the beginning of the document. -->
+<!-- The spine: a fixed index of the page and where you are in it.
+     Home page only — the legal pages have no chapters to index. -->
+<nav class="spine" aria-label="Page index">
+  <span class="spine-track"></span>
+  <span class="spine-fill"></span>
+  <a href="#top" data-for="hero">Studio</a>
+  <a href="#apps" data-for="apps">Products</a>
+  <a href="#about" data-for="about">About</a>
+  <a href="#contact" data-for="contact">Contact</a>
+</nav>
+
 <header class="site-head">
   <div class="shell head-row">
     <a class="head-logo" href="#top" aria-label="Cloudberrix — back to top">
@@ -50,104 +61,140 @@
 <main id="main">
 
   <!-- ============================================= HERO
-       Type only, at full scale: header + hero own the first viewport
-       exactly, so the first chapter below never leaks into the opening
-       frame. The studio register closes the frame — the copper→amber
-       rail, and the coordinates under it. -->
+       Header + hero own the first viewport exactly, so the first chapter
+       below never leaks into the opening frame. The statement sits off
+       centre and the sentence lands under its right shoulder; the mark
+       stands behind at watermark scale. The studio register closes the
+       frame — the copper→amber rail, the coordinates, and the way down. -->
   <section class="hero" aria-labelledby="hero-title">
+    <img class="hero-mark" src="assets/logo-mark.png" alt="" width="560" height="400" aria-hidden="true">
     <div class="shell hero-stack">
       <p class="eyebrow rise">Cloudberrix · Tallinn, Estonia</p>
       <h1 id="hero-title" class="hero-title rise d1">We are an independent software studio.</h1>
-      <p class="hero-lede rise d2">We design, build, and ship products across&nbsp;platforms.</p>
+      <p class="hero-lede rise d2">We design, build, and ship software for desktop, mobile, and the&nbsp;web.</p>
     </div>
     <div class="shell">
       <div class="hero-base rise d3">
         <span class="hero-coord">59°26′ N · 24°45′ E</span>
+        <a class="hero-down" href="#apps">What we build <span aria-hidden="true">↓</span></a>
       </div>
     </div>
   </section>
 
-  <!-- ============================================= FIRST PRODUCT -->
-  <section class="chapter chapter-recessed product" id="apps" aria-labelledby="apps-title">
-    <div class="shell product-stack">
-      <p class="eyebrow reveal">Products</p>
-      <h2 id="apps-title" class="reveal">We’re about to ship our first&nbsp;product.</h2>
-      <p class="product-lede reveal">Stay tuned.</p>
-
-      <!-- The device is the hint: a mobile app, and a screen from it. -->
-      <div class="product-stage reveal" role="img"
-           aria-label="An iPhone showing a screen from the app: a wind-star dial with eight tracks, each giving a heading correction in degrees and a groundspeed in knots.">
-        <div class="phone">
-          <div class="phone-screen" aria-hidden="true">
-            <div class="p-status">
-              <span class="p-time">9:41</span>
-              <span class="p-glyphs">
-                <svg width="17" height="11" viewBox="0 0 17 11"><g fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1" opacity=".35"/></g></svg>
-                <svg width="16" height="11" viewBox="0 0 16 11"><path fill="currentColor" d="M8 9.1a1.4 1.4 0 1 0 .01 2.81A1.4 1.4 0 0 0 8 9.1Zm-4.9-2.5 1.6 1.6a4.7 4.7 0 0 1 6.6 0l1.6-1.6a7 7 0 0 0-9.8 0ZM.2 3.7l1.6 1.6a8.7 8.7 0 0 1 12.4 0l1.6-1.6a11 11 0 0 0-15.6 0Z" transform="translate(0 -1)"/></svg>
-                <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="15" height="8" rx="2" fill="currentColor"/><path d="M23 4v4a2.2 2.2 0 0 0 0-4Z" fill="currentColor" opacity=".4"/></svg>
-              </span>
+  <!-- ============================================= PRODUCTS
+       No product named, none shown. The ledger says what kinds of
+       software the studio builds; the stage puts the three kinds of
+       screen in one picture — the studio mark on each, nothing more. -->
+  <section class="chapter product" id="apps" aria-labelledby="apps-title">
+    <div class="shell">
+      <div class="product-head">
+        <div>
+          <p class="eyebrow reveal">Products</p>
+          <h2 id="apps-title" class="reveal">What we&nbsp;build.</h2>
+          <dl class="product-ledger reveal">
+            <div class="ledger-row"><dt>Desktop</dt><dd>Apps for Mac and Windows.</dd></div>
+            <div class="ledger-row"><dt>Mobile</dt><dd>Apps for phones and tablets.</dd></div>
+            <div class="ledger-row"><dt>Website</dt><dd>Sites and apps that run in the browser.</dd></div>
+            <div class="ledger-row"><dt>Tools</dt><dd>Command-line tools and small services.</dd></div>
+          </dl>
+        </div>
+        <div class="stage-col">
+      <div class="product-stage" role="img"
+           aria-label="A laptop and a phone running unnamed apps, and a browser window showing the cloudberrix.com home page in miniature.">
+        <figure class="stage-fig fig-desktop reveal">
+          <div class="laptop" aria-hidden="true">
+            <div class="lap-lid">
+              <div class="lap-screen">
+                <div class="lap-titlebar"><i></i><i></i><i></i></div>
+                <div class="lap-work">
+                  <div class="lap-side">
+                    <div class="lap-active"></div>
+                    <div class="g"></div>
+                    <div class="g"></div>
+                    <div class="g"></div>
+                    <div class="g"></div>
+                  </div>
+                  <div class="lap-main">
+                    <div class="lap-toolbar"><span class="g g-ink g-ttl"></span><span class="g g-btn"></span></div>
+                    <div class="lap-cards">
+                      <div class="lap-card lap-chart">
+                        <span class="g"></span>
+                        <svg viewBox="0 0 100 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                          <line x1="0" y1="14" x2="100" y2="14" stroke="var(--hairline)" stroke-width="1"/>
+                          <line x1="0" y1="28" x2="100" y2="28" stroke="var(--hairline)" stroke-width="1"/>
+                          <line x1="0" y1="42" x2="100" y2="42" stroke="var(--hairline)" stroke-width="1"/>
+                          <polyline points="0,44 14,38 28,41 42,30 56,33 70,22 84,26 100,12"
+                                    fill="none" stroke="var(--copper)" stroke-width="2.4"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    vector-effect="non-scaling-stroke"/>
+                        </svg>
+                      </div>
+                      <div class="lap-card"><span class="g"></span><span class="g g-ink"></span></div>
+                      <div class="lap-card"><span class="g"></span><span class="g g-ink"></span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <p class="p-nav">Wind Star</p>
-
-            <div class="p-fields">
-              <div class="p-field"><span class="p-field-l">Wind Dir. (°T)</span><span class="p-field-v">240</span></div>
-              <div class="p-field"><span class="p-field-l">Wind (KT)</span><span class="p-field-v">15</span></div>
-              <div class="p-field"><span class="p-field-l">TAS (KT)</span><span class="p-field-v">110</span></div>
-            </div>
-
-            <div class="p-stage">
-<svg class="ws-star" viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="175" cy="183" r="70.14" fill="var(--ink)" fill-opacity=".025" stroke="var(--ink-faint)" stroke-opacity=".45" stroke-width="1"/>
-              <path d="M175.5 164.06L176.15 112.86L173.85 112.86L174.5 164.06Z" fill="var(--ink-soft)" fill-opacity=".58"/>
-              <path d="M188.74 169.96L225.41 134.22L223.78 132.59L188.04 169.26Z" fill="var(--ink-soft)" fill-opacity=".36"/>
-              <path d="M193.94 183.5L245.14 184.15L245.14 181.85L193.94 182.5Z" fill="var(--ink-soft)" fill-opacity=".58"/>
-              <path d="M188.04 196.74L223.78 233.41L225.41 231.78L188.74 196.04Z" fill="var(--ink-soft)" fill-opacity=".36"/>
-              <path d="M174.5 201.94L173.85 253.14L176.15 253.14L175.5 201.94Z" fill="var(--ink-soft)" fill-opacity=".58"/>
-              <path d="M161.26 196.04L124.59 231.78L126.22 233.41L161.96 196.74Z" fill="var(--ink-soft)" fill-opacity=".36"/>
-              <path d="M156.06 182.5L104.86 181.85L104.86 184.15L156.06 183.5Z" fill="var(--ink-soft)" fill-opacity=".58"/>
-              <path d="M161.96 169.26L126.22 132.59L124.59 134.22L161.26 169.96Z" fill="var(--ink-soft)" fill-opacity=".36"/>
-              <path d="M116.38 216.84L167.41 187.38" stroke="var(--amber)" stroke-width="3.2" stroke-linecap="round" fill="none"/>
-              <path d="M167.41 187.38L159.57 197.75L154.51 188.99Z" fill="var(--amber)"/>
-              <path d="M115.3 209.96L121.8 221.22" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round"/>
-              <path d="M120.49 206.96L126.99 218.22" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round"/>
-              <circle cx="175" cy="183" r="3.5" fill="var(--ink)"/>
-              <text class="ws-desig ws-card" x="175" y="103.96">000</text>
-              <text class="ws-desig" x="235.34" y="126.26">045</text>
-              <text class="ws-desig ws-card" x="263.14" y="186.6">090</text>
-              <text class="ws-desig" x="235.34" y="246.94">135</text>
-              <text class="ws-desig ws-card" x="175" y="269.24">180</text>
-              <text class="ws-desig" x="114.66" y="246.94">225</text>
-              <text class="ws-desig ws-card" x="86.86" y="186.6">270</text>
-              <text class="ws-desig" x="114.66" y="126.26">315</text>
-              <text class="ws-deg" x="175" y="50.86">−7°</text>
-              <text class="ws-kt" x="175" y="70.86">117<tspan class="ws-unit"> kt</tspan></text>
-              <text class="ws-deg" x="272.47" y="82.53">−2°</text>
-              <text class="ws-kt" x="272.47" y="102.53">124<tspan class="ws-unit"> kt</tspan></text>
-              <text class="ws-deg" x="309.14" y="180">+4°</text>
-              <text class="ws-kt" x="309.14" y="200">123<tspan class="ws-unit"> kt</tspan></text>
-              <text class="ws-deg" x="272.47" y="277.47">+8°</text>
-              <text class="ws-kt" x="272.47" y="297.47">113<tspan class="ws-unit"> kt</tspan></text>
-              <text class="ws-deg" x="175" y="309.14">+7°</text>
-              <text class="ws-kt" x="175" y="329.14">102<tspan class="ws-unit"> kt</tspan></text>
-              <text class="ws-deg" x="77.53" y="277.47">+2°</text>
-              <text class="ws-kt" x="77.53" y="297.47">95<tspan class="ws-unit"> kt</tspan></text>
-              <text class="ws-deg" x="40.86" y="180">−4°</text>
-              <text class="ws-kt" x="40.86" y="200">97<tspan class="ws-unit"> kt</tspan></text>
-              <text class="ws-deg" x="77.53" y="82.53">−8°</text>
-              <text class="ws-kt" x="77.53" y="102.53">105<tspan class="ws-unit"> kt</tspan></text>
-              <text class="ws-title" x="3" y="10">MAX DRIFT</text>
-              <text class="ws-drift" x="2" y="32">±8°</text>
-              </svg>
-
-              <p class="ws-key">
-                <span><b class="k-deg">°</b> correction</span>
-                <span><b class="k-kt">kt</b> groundspeed</span>
-              </p>
-            </div>
-
-            <div class="p-home"></div>
+            <div class="lap-base"></div>
           </div>
+          <figcaption class="stage-cap">Desktop</figcaption>
+        </figure>
+
+        <figure class="stage-fig fig-mobile reveal">
+          <div class="phone" aria-hidden="true">
+            <div class="phone-screen">
+              <div class="p-status">
+                <span class="p-time">9:41</span>
+                <span class="p-glyphs">
+                  <svg width="17" height="11" viewBox="0 0 17 11"><g fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1" opacity=".35"/></g></svg>
+                  <svg width="16" height="11" viewBox="0 0 16 11"><path fill="currentColor" d="M8 9.1a1.4 1.4 0 1 0 .01 2.81A1.4 1.4 0 0 0 8 9.1Zm-4.9-2.5 1.6 1.6a4.7 4.7 0 0 1 6.6 0l1.6-1.6a7 7 0 0 0-9.8 0ZM.2 3.7l1.6 1.6a8.7 8.7 0 0 1 12.4 0l1.6-1.6a11 11 0 0 0-15.6 0Z" transform="translate(0 -1)"/></svg>
+                  <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="15" height="8" rx="2" fill="currentColor"/><path d="M23 4v4a2.2 2.2 0 0 0 0-4Z" fill="currentColor" opacity=".4"/></svg>
+                </span>
+              </div>
+              <div class="p-ui">
+                <span class="g g-ink p-ttl"></span>
+                <span class="g p-sub"></span>
+                <div class="p-duo">
+                  <div class="p-card"><span class="g"></span><span class="g g-ink"></span></div>
+                  <div class="p-card"><span class="g"></span><span class="g g-ink"></span></div>
+                </div>
+                <div class="p-rows">
+                  <div class="p-row is-live"><i></i><div><span class="g"></span><span class="g"></span></div></div>
+                  <div class="p-row"><i></i><div><span class="g"></span><span class="g"></span></div></div>
+                </div>
+                <div class="p-panel">
+                  <span class="g"></span><span class="g"></span><span class="g"></span>
+                  <span class="g"></span><span class="g"></span><span class="g"></span>
+                  <span class="g"></span><span class="g"></span><span class="g"></span>
+                </div>
+                <div class="p-go"><span class="g"></span></div>
+              </div>
+              <div class="p-home"></div>
+            </div>
+          </div>
+          <figcaption class="stage-cap">Mobile</figcaption>
+        </figure>
+
+        <figure class="stage-fig fig-web reveal">
+          <div class="win" aria-hidden="true">
+            <div class="win-bar"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-url"></span></div>
+            <div class="win-body">
+              <div class="win-mini-head">
+                <img src="assets/logo-full.png" alt="" width="964" height="200">
+                <span class="win-mini-nav"><span class="g"></span><span class="g"></span><span class="g"></span></span>
+              </div>
+              <div class="win-mini-hero">
+                <span class="g g-eyebrow"></span>
+                <p class="win-mini-title">We are an independent software&nbsp;studio.</p>
+                <span class="g g-lede"></span>
+              </div>
+              <div class="win-mini-rail"></div>
+            </div>
+          </div>
+          <figcaption class="stage-cap">Website</figcaption>
+        </figure>
+      </div>
         </div>
       </div>
     </div>
@@ -158,7 +205,7 @@
        Soft voice for the setup, ink for the words that carry weight, and
        the section's one copper line to close. -->
   <section class="chapter" id="about" aria-labelledby="about-title">
-    <div class="shell">
+    <div class="shell about-grid">
       <div class="about-head">
         <p class="eyebrow reveal">About</p>
         <h2 id="about-title" class="about-title reveal">A small software studio in&nbsp;Tallinn.</h2>
@@ -175,7 +222,7 @@
   </section>
 
   <!-- ============================================= CONTACT -->
-  <section class="chapter chapter-recessed" id="contact" aria-labelledby="contact-title">
+  <section class="chapter" id="contact" aria-labelledby="contact-title">
     <div class="shell contact-stack">
       <p class="eyebrow reveal">Contact</p>
       <h2 id="contact-title" class="contact-title reveal">Say hello.</h2>
