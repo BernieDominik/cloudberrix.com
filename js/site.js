@@ -9,11 +9,13 @@
 
   /* header elevation */
   var head = document.querySelector('.site-head');
-  var onScroll = function () {
-    head.classList.toggle('is-scrolled', window.scrollY > 8);
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  if (head) {
+    var onScroll = function () {
+      head.classList.toggle('is-scrolled', window.scrollY > 8);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 
   /* current year */
   var year = document.getElementById('year');
@@ -61,6 +63,33 @@
       var r = Math.min(1, Math.max(0, (sec.offsetTop - 64) / doc));
       a.style.top = (r * 100).toFixed(2) + '%';
     });
+    relaxMarks();
+  }
+
+  /* Each mark sits at its chapter's true depth, which collides as soon as one
+     chapter is several times the height of its neighbours — they bunch into a
+     few per cent of the track and the labels overlap. Nudge them apart,
+     forward then backward, without moving any of them off its own chapter. */
+  function relaxMarks() {
+    var H = spine.getBoundingClientRect().height;
+    if (!H || marks.length < 2) return;
+    var GAP = 13;
+    var items = marks.map(function (a) {
+      return { a: a, h: a.getBoundingClientRect().height,
+               y: parseFloat(a.style.top || '0') / 100 * H };
+    });
+    for (var i = 1; i < items.length; i++) {
+      var lo = items[i - 1].y + items[i - 1].h / 2 + GAP + items[i].h / 2;
+      if (items[i].y < lo) items[i].y = lo;
+    }
+    var last = items.length - 1;
+    var over = items[last].y + items[last].h / 2 - H;
+    if (over > 0) items[last].y -= over;
+    for (var j = items.length - 2; j >= 0; j--) {
+      var hi = items[j + 1].y - items[j + 1].h / 2 - GAP - items[j].h / 2;
+      if (items[j].y > hi) items[j].y = hi;
+    }
+    items.forEach(function (it) { it.a.style.top = (it.y / H * 100).toFixed(2) + '%'; });
   }
 
   /* ---- the hero recedes as the page slides over it ---- */

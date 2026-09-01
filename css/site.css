@@ -356,6 +356,97 @@ h1, h2, h3 {
   color: var(--ink-soft);
 }
 
+/* ---------- the first release, entered in the ledger it belongs to.
+   A row, not a banner: the ledger above still says what kinds of software
+   the studio builds, and this says what it has shipped. Amber, because on
+   this site amber is the release accent and nothing else uses it. */
+.release {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(12px, 1.3vw, 17px);
+  margin-top: 20px;
+  padding: 14px 17px 15px 15px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card);
+  background: var(--sheet);
+  box-shadow: var(--lift);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: border-color 0.25s var(--ease-out),
+              box-shadow 0.25s var(--ease-out),
+              transform 0.25s var(--ease-out);
+}
+/* the studio rail, drawn down the edge as the row is reached for */
+.release::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--copper) 0%, var(--amber) 100%);
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+  transition: transform 0.4s var(--ease-out);
+}
+.release:hover,
+.release:focus-visible {
+  border-color: color-mix(in srgb, var(--amber) 52%, var(--hairline));
+  box-shadow: var(--lift-hover);
+  transform: translateY(-1px);
+}
+.release:hover::before,
+.release:focus-visible::before { transform: scaleY(1); }
+
+.release-icon {
+  width: clamp(42px, 4vw, 50px);
+  height: auto;
+  border-radius: 22.4%;
+  box-shadow:
+    0 1px 2px rgba(26, 27, 33, 0.10),
+    inset 0 0 0 1px rgba(26, 27, 33, 0.06);
+}
+.release-body { display: block; min-width: 0; }
+.release-eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--amber-deep);
+}
+.release-name {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 3px;
+  font-family: var(--font-display);
+  font-weight: 640;
+  font-size: 1.06rem;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+}
+.release-name i {
+  font-style: normal;
+  font-size: 15px;
+  color: var(--ink-faint);
+  transition: transform 0.25s var(--ease-out), color 0.25s var(--ease-out);
+}
+.release:hover .release-name i,
+.release:focus-visible .release-name i { transform: translateX(3px); color: var(--copper-deep); }
+.release-sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
 /* ---------- the stage: three kinds of screen in one picture.
    --sw is the stage's own measured width (site.js writes it), so every
    frame is a fraction of the stage and the composition scales as one
@@ -1267,6 +1358,8 @@ h1, h2, h3 {
   .creed p + p::before,
   .contact-mail::after { transform: scaleX(1); transition: none; }
   .hero-down span { animation: none; }
+  .release, .release::before, .release-name i { transition: none; }
+  .release::before { transform: scaleY(1); }
 }
 
 /* ------------------------------------------------ responsive */
