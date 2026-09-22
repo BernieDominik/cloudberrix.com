@@ -25,14 +25,14 @@
 
 .pf-band {
   position: relative;
-  padding-block: clamp(66px, 9vh, 118px);
+  padding-block: clamp(56px, 7.5vh, 96px);
   scroll-margin-top: 24px;   /* nothing sticky to land under any more */
 }
 
 /* ------------------------------------------------------------------
    A product page carries no site bar. The studio's own pages have the
    logo and the four chapters; this one is a place you arrive at, so it
-   gets one small way back in the corner and the footer for the rest.
+   gets one small way back in the corner, and a foot of its own.
    The <header> element stays because site.js reaches for .site-head
    without checking whether it is there — see the README.
    ------------------------------------------------------------------ */
@@ -102,7 +102,7 @@ body.on-dusk .spine a.is-here { color: var(--pf-dusk-amber); }
    ------------------------------------------------------------------ */
 .pf-announce {
   overflow: hidden;
-  padding-block: clamp(84px, 11vh, 132px) 0;
+  padding-block: clamp(72px, 9vh, 112px) 0;
   background:
     linear-gradient(180deg,
       rgba(247, 245, 240, 0) 0%,
@@ -129,12 +129,7 @@ body.on-dusk .spine a.is-here { color: var(--pf-dusk-amber); }
   gap: clamp(28px, 4.4vw, 76px);
   align-items: end;
 }
-.pf-hero-copy { padding-bottom: clamp(56px, 8vh, 104px); }
-
-
-/* Seven bands means seven marks. The shipping spine is sized for four,
-   so on this page it runs longer and the labels are given room. */
-.spine { height: min(64vh, 560px); }
+.pf-hero-copy { padding-bottom: clamp(48px, 7vh, 88px); }
 
 /* the lockup: the icon at the scale it is tapped, and the name */
 .pf-lockup {
@@ -178,109 +173,25 @@ body.on-dusk .spine a.is-here { color: var(--pf-dusk-amber); }
   text-wrap: pretty;
 }
 
-/* the register: three counts, hairlined like a ledger */
-.pf-stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: clamp(26px, 3.8vh, 44px) 0 0;
-  border-top: 1px solid var(--hairline);
-}
-.pf-stat { padding: 15px 18px 0; border-left: 1px solid var(--hairline); }
-.pf-stat:first-child { border-left: none; padding-left: 0; }
-.pf-stat b {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(1.75rem, 3.1vw, 2.55rem);
-  letter-spacing: -0.035em;
-  line-height: 1.04;
-  color: var(--ink);
-  font-variant-numeric: tabular-nums;
-}
-.pf-stat span {
-  display: block;
-  margin-top: 6px;
-  max-width: 19ch;
-  font-size: 13px;
-  line-height: 1.42;
-  color: var(--ink-soft);
-}
-
 .pf-cta {
   display: flex;
   align-items: center;
   gap: clamp(16px, 2vw, 26px);
   flex-wrap: wrap;
-  margin-top: clamp(26px, 3.8vh, 42px);
+  margin-top: clamp(26px, 3.6vh, 38px);
 }
-/* Until the app is on the store there is no badge and no link: a
-   "Download" button that goes nowhere is worse than no button. When it
-   lands, .pf-badge below takes this one's place — with Apple's OFFICIAL
-   artwork, which must be downloaded from Apple Marketing Resources and
-   never hand-drawn. */
-.pf-soon {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0;
-  padding: 11px 20px 12px;
-  border-radius: 13px;
-  border: 1px dashed color-mix(in srgb, var(--amber) 58%, var(--hairline));
-  background: var(--amber-wash);
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--amber-deep);
-}
-.pf-soon i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--amber);
-  flex: none;
-}
-.pf-buy .pf-soon { width: 100%; justify-content: center; }
-
-.pf-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 11px;
-  padding: 9px 19px 10px 16px;
-  border-radius: 13px;
-  background: var(--ink);
-  color: #fff;
-  text-decoration: none;
-  box-shadow: var(--lift);
+/* Apple's own badge, never redrawn, kept in assets/ rather than loaded
+   from Apple so no third party learns you visited. 40px is its minimum
+   height on screen, and a quarter of its height stays clear around it. */
+.pf-store {
+  display: inline-block;
+  border-radius: 9px;
   transition: transform 0.22s var(--ease-out), box-shadow 0.22s var(--ease-out);
+  box-shadow: 0 1px 2px rgba(26, 27, 33, 0.10), 0 8px 22px rgba(26, 27, 33, 0.10);
 }
-.pf-badge:hover { transform: translateY(-1px); box-shadow: var(--lift-hover); }
-.pf-badge svg { flex: none; width: 23px; height: 27px; fill: #fff; }
-.pf-badge small {
-  display: block;
-  font-size: 9.5px;
-  letter-spacing: 0.045em;
-  line-height: 1.2;
-  opacity: 0.78;
-}
-.pf-badge b {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.022em;
-  line-height: 1.2;
-}
-.pf-price {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.45;
-  color: var(--ink-soft);
-  max-width: 19em;
-}
-.pf-price b { color: var(--ink); font-weight: 600; }
+.pf-store img { display: block; width: auto; height: 48px; }
+.pf-store:hover { transform: translateY(-1px); box-shadow: 0 2px 4px rgba(26, 27, 33, 0.12), 0 12px 30px rgba(26, 27, 33, 0.14); }
+.pf-store:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; }
 
 /* the phones stand in the band and are cropped by its floor */
 .pf-hero-stage {
@@ -338,7 +249,7 @@ body.on-dusk .spine a.is-here { color: var(--pf-dusk-amber); }
 /* ------------------------------------------------------------------
    2 · THE STATEMENT, and the thing the statement is about
    ------------------------------------------------------------------ */
-.pf-thesis { padding-block: clamp(76px, 11vh, 136px); }
+.pf-thesis { padding-block: clamp(60px, 8.5vh, 108px); }
 .pf-split {
   display: grid;
   grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
@@ -555,9 +466,11 @@ body.on-dusk .spine a.is-here { color: var(--pf-dusk-amber); }
 }
 
 /* ------------------------------------------------------------------
-   3 · THE KIT — twelve modules in three groups
+   3 · THE KIT — the screens as its picture, the twelve named in
+   three groups under them, and the aeroplane as one line at the end
    ------------------------------------------------------------------ */
 .pf-kit {
+  overflow: hidden;   /* the rail crosses the whole window */
   background: rgba(241, 239, 233, 0.66);
   border-block: 1px solid var(--hairline);
 }
@@ -566,20 +479,64 @@ body.on-dusk .spine a.is-here { color: var(--pf-dusk-amber); }
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: clamp(24px, 4vw, 68px);
   align-items: end;
-  margin-bottom: clamp(30px, 4.6vh, 54px);
 }
-.pf-kit-head p {
+.pf-kit-head > p {
   margin: 0;
   font-size: 15.5px;
   line-height: 1.6;
   color: var(--ink-soft);
   max-width: 40em;
 }
+/* the rail: the screens drift across the whole window, the band's
+   picture before its list */
+.pf-rail {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(16px, 2vw, 30px);
+  margin-top: clamp(24px, 3.4vh, 40px);
+  /* the rail crosses the whole window — it is a band, not a column. The
+     left padding still lands the first frame on the content column, so
+     the run starts aligned with the heading above it. */
+  margin-inline: calc(-1 * ((100vw - min(1240px, 100vw)) / 2 + clamp(20px, 4vw, 36px)));
+  padding: 6px clamp(20px, 4vw, 36px) 20px
+           max(clamp(20px, 4vw, 36px), calc(50vw - 620px + clamp(20px, 4vw, 36px)));
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  cursor: grab;
+  /* no scroll-snap: it fought the drift, and it fought the trackpad too */
+  /* both edges dissolve, so frames arrive and leave rather than being
+     cut off — and nothing collides with the spine on its way past */
+  -webkit-mask-image: linear-gradient(90deg,
+    transparent 0, #000 clamp(30px, 5vw, 78px),
+    #000 calc(100% - clamp(40px, 8vw, 132px)), transparent 100%);
+  mask-image: linear-gradient(90deg,
+    transparent 0, #000 clamp(30px, 5vw, 78px),
+    #000 calc(100% - clamp(40px, 8vw, 132px)), transparent 100%);
+}
+.pf-rail.is-dragging { cursor: grabbing; }
+.pf-rail::-webkit-scrollbar { display: none; }
+.pf-shot { flex: none; margin: 0; }
+.pf-shot .phone { --phone-w: clamp(142px, 13.5vw, 188px); }
+/* the raised frames are marked, not counted: the run is duplicated to
+   loop, and nth-child would flip the rhythm at the seam */
+.pf-shot.is-raised { margin-top: clamp(16px, 2.2vw, 30px); }
+.pf-shot figcaption {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
 .pf-groups {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(20px, 3vw, 44px);
   align-items: stretch;
+  margin-top: clamp(18px, 2.6vh, 30px);
 }
 /* every group runs the same four rows, so the hairlines line up across
    all three columns however the descriptions happen to wrap */
@@ -608,19 +565,20 @@ body.on-dusk .spine a.is-here { color: var(--pf-dusk-amber); }
   letter-spacing: 0.1em;
   color: var(--ink-faint);
 }
+/* names only: the row is the icon and the name */
 .pf-mod {
   display: grid;
-  grid-template-columns: 26px minmax(0, 1fr);
-  gap: 13px;
-  align-items: start;
-  align-content: start;
-  padding: 15px 0;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  align-content: center;
+  padding: 11px 0;
   border-bottom: 1px solid var(--hairline);
 }
 .pf-mod:last-child { border-bottom: none; }
 .pf-mod svg {
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   color: var(--amber-deep);
   overflow: visible;
 }
@@ -628,24 +586,17 @@ body.on-dusk .spine a.is-here { color: var(--pf-dusk-amber); }
   display: block;
   font-family: var(--font-display);
   font-weight: 640;
-  font-size: 15.5px;
+  font-size: 15px;
   letter-spacing: -0.014em;
   color: var(--ink);
   line-height: 1.3;
-}
-.pf-mod span {
-  display: block;
-  margin-top: 3px;
-  font-size: 13.5px;
-  line-height: 1.48;
-  color: var(--ink-soft);
 }
 .pf-kit-foot {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: 16px;
   align-items: baseline;
-  margin-top: clamp(26px, 3.6vh, 40px);
+  margin-top: clamp(20px, 3vh, 32px);
   padding: 16px 20px;
   border-radius: var(--r-control);
   background: var(--sheet);
@@ -660,266 +611,8 @@ body.on-dusk .spine a.is-here { color: var(--pf-dusk-amber); }
   color: var(--amber-deep);
   white-space: nowrap;
 }
-.pf-kit-foot p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
-
-/* ------------------------------------------------------------------
-   4 · THE AEROPLANE — the book figures, and the envelope
-   ------------------------------------------------------------------ */
-.pf-air-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
-  gap: clamp(26px, 3.4vw, 52px);
-  align-items: start;
-  margin-top: clamp(26px, 3.6vh, 42px);
-}
-/* what arrives with the type, beside the envelope it draws */
-.pf-brings > h3 {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  margin: 0 0 2px;
-  padding-bottom: 11px;
-  border-bottom: 1px solid var(--ink);
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 10.5px;
-  letter-spacing: 0.17em;
-  text-transform: uppercase;
-  color: var(--ink);
-}
-.pf-brings dl { margin: 0; }
-.pf-brings dl > div { padding: 14px 0; border-bottom: 1px solid var(--hairline); }
-.pf-brings dl > div:last-child { border-bottom: none; }
-.pf-brings dt {
-  font-family: var(--font-display);
-  font-weight: 640;
-  font-size: 15.5px;
-  letter-spacing: -0.014em;
-  color: var(--ink);
-}
-.pf-brings dd { margin: 3px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--ink-soft); }
-.pf-brings .pf-hand dt { color: var(--amber-deep); }
-.pf-air-table { margin-top: clamp(26px, 3.6vh, 46px); }
-/* the type column takes the slack, so the figures stay a block you can
-   read down rather than eight columns strung across the page */
-.pf-table th:first-child, .pf-table td:first-child { width: 38%; }
-.pf-table {
-  background: var(--sheet);
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-card);
-  overflow: hidden;
-  box-shadow: var(--lift);
-}
-.pf-table header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 18px;
-  border-bottom: 1px solid var(--hairline);
-  background: var(--sheet-hi);
-}
-.pf-table header h3 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 640;
-  letter-spacing: -0.014em;
-}
-.pf-table header span {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 9.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-.pf-tw { overflow-x: auto; }
-.pf-table table { border-collapse: collapse; width: 100%; min-width: 720px; }
-.pf-table th {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 9px;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  text-align: right;
-  padding: 9px 10px;
-  background: var(--recessed);
-  border-bottom: 1px solid var(--hairline);
-  white-space: nowrap;
-}
-.pf-table th:first-child { text-align: left; }
-.pf-table td {
-  padding: 11px 10px;
-  border-bottom: 1px solid var(--hairline);
-  font-size: 13px;
-  text-align: right;
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  color: var(--ink);
-  white-space: nowrap;
-}
-.pf-table tr:last-child td { border-bottom: none; }
-.pf-table td:first-child {
-  text-align: left;
-  font-family: var(--font-display);
-  font-weight: 620;
-  font-size: 14px;
-  letter-spacing: -0.012em;
-}
-.pf-table td:first-child em {
-  display: block;
-  font-style: normal;
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  margin-top: 2px;
-}
-.pf-note {
-  margin: 14px 2px 0;
-  font-size: 12.5px;
-  line-height: 1.55;
-  color: var(--ink-faint);
-}
-.pf-note b { color: var(--ink-soft); font-weight: 600; }
-
-.pf-env {
-  background: var(--sheet);
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-card);
-  box-shadow: var(--lift);
-  padding: 16px 18px 14px;
-}
-.pf-env > h3 {
-  margin: 0 0 2px;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-.pf-env svg { display: block; width: 100%; height: auto; margin: 6px 0 4px; }
-.pf-env svg text { font-family: var(--font-mono); font-weight: 500; }
-.pf-load { border-top: 1px solid var(--hairline); margin-top: 8px; }
-.pf-load div {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
-  gap: 12px;
-  padding: 6px 0;
-  border-bottom: 1px solid var(--hairline);
-  font-size: 12.5px;
-  color: var(--ink-soft);
-}
-.pf-load div span:not(:first-child) {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  color: var(--ink);
-  min-width: 5.4em;
-  text-align: right;
-}
-.pf-load div span:last-child { color: var(--ink-faint); min-width: 4.6em; }
-.pf-load .pf-total {
-  border-bottom: none;
-  padding-top: 9px;
-  font-weight: 600;
-  color: var(--ink);
-}
-.pf-load .pf-total span:first-child { font-family: var(--font-display); font-weight: 640; }
-.pf-verdict {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-top: 11px;
-  padding: 9px 13px;
-  border-radius: var(--r-row);
-  background: var(--pf-green-glow);
-  color: var(--pf-green);
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.pf-verdict svg { width: 14px; height: 14px; flex: none; }
-.pf-verdict em { font-style: normal; margin-left: auto; opacity: 0.82; letter-spacing: 0.08em; }
-
-/* ------------------------------------------------------------------
-   5 · THE SCREENS — a rail that runs off the edge of the page
-   ------------------------------------------------------------------ */
-.pf-screens { overflow: hidden; padding-bottom: clamp(52px, 7vh, 86px); }
-.pf-rail-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-.pf-rail-head p {
-  margin: 0;
-  font-size: 14.5px;
-  color: var(--ink-faint);
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-.pf-rail {
-  display: flex;
-  align-items: flex-start;
-  gap: clamp(16px, 2vw, 30px);
-  margin-top: clamp(26px, 3.6vh, 44px);
-  /* the rail crosses the whole window — it is a band, not a column. The
-     left padding still lands the first frame on the content column, so
-     the run starts aligned with the heading above it. */
-  margin-inline: calc(-1 * ((100vw - min(1240px, 100vw)) / 2 + clamp(20px, 4vw, 36px)));
-  padding: 6px clamp(20px, 4vw, 36px) 30px
-           max(clamp(20px, 4vw, 36px), calc(50vw - 620px + clamp(20px, 4vw, 36px)));
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
-  cursor: grab;
-  /* no scroll-snap: it fought the drift, and it fought the trackpad too */
-  /* both edges dissolve, so frames arrive and leave rather than being
-     cut off — and nothing collides with the spine on its way past */
-  -webkit-mask-image: linear-gradient(90deg,
-    transparent 0, #000 clamp(30px, 5vw, 78px),
-    #000 calc(100% - clamp(40px, 8vw, 132px)), transparent 100%);
-  mask-image: linear-gradient(90deg,
-    transparent 0, #000 clamp(30px, 5vw, 78px),
-    #000 calc(100% - clamp(40px, 8vw, 132px)), transparent 100%);
-}
-.pf-rail.is-dragging { cursor: grabbing; }
-.pf-rail::-webkit-scrollbar { display: none; }
-.pf-shot { flex: none; margin: 0; }
-.pf-shot .phone { --phone-w: clamp(158px, 15.5vw, 202px); }
-/* the raised frames are marked, not counted: the run is duplicated to
-   loop, and nth-child would flip the rhythm at the seam */
-.pf-shot.is-raised { margin-top: clamp(20px, 3vw, 40px); }
-.pf-shot figcaption {
-  margin-top: 15px;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-.pf-shot figcaption em {
-  display: block;
-  font-style: normal;
-  letter-spacing: 0.02em;
-  text-transform: none;
-  font-weight: 500;
-  font-size: 11px;
-  color: color-mix(in srgb, var(--ink-faint) 78%, transparent);
-  margin-top: 3px;
-}
+.pf-kit-foot p { margin: 0; max-width: 70em; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+.pf-kit-foot p span { color: var(--ink); font-weight: 600; }
 
 /* ------------------------------------------------------------------
    6 · DUSK — the app's own night palette, for the one claim that is
@@ -929,7 +622,7 @@ body.on-dusk .spine a.is-here { color: var(--pf-dusk-amber); }
   background: linear-gradient(180deg, var(--pf-dusk) 0%, var(--pf-dusk-2) 62%, var(--pf-dusk) 100%);
   color: var(--pf-dusk-cream);
   overflow: hidden;
-  padding-block: clamp(76px, 11vh, 132px);
+  padding-block: clamp(60px, 8.5vh, 108px);
 }
 .pf-dusk::before {
   content: '';
@@ -955,234 +648,93 @@ body.on-dusk .spine a.is-here { color: var(--pf-dusk-amber); }
   z-index: 1;
   pointer-events: none;
 }
-.pf-dusk-foot {
+/* the claim beside its three rows, the label under the claim (and
+   under the rows, once they stack) */
+.pf-dusk-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr);
-  gap: clamp(16px, 2.2vw, 30px);
-  align-items: stretch;
-  margin-top: clamp(30px, 4.4vh, 50px);
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  grid-template-areas: "head list" "pill list";
+  gap: clamp(22px, 3vh, 32px) clamp(30px, 5vw, 84px);
 }
+.pf-dusk-head { grid-area: head; align-self: end; }
+.pf-nolist { grid-area: list; align-self: center; margin: 0; }
+.pf-nolist > div {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: 20px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-top: 1px solid var(--pf-dusk-line);
+}
+.pf-nolist > div:last-child { border-bottom: 1px solid var(--pf-dusk-line); }
+.pf-nolist dt {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 640;
+  letter-spacing: -0.018em;
+  line-height: 1.3;
+  color: var(--pf-dusk-cream);
+}
+.pf-nolist dd { margin: 0; font-size: 13.5px; line-height: 1.55; color: #A9AAB6; }
 /* the App Store privacy label, which for this app has one line on it */
-.pf-label {
+.pf-privacy {
+  grid-area: pill;
+  align-self: start;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  padding: 11px 17px 11px 14px;
   border: 1px solid var(--pf-dusk-line);
   border-radius: var(--r-control);
   background: rgba(250, 247, 240, 0.045);
-  padding: 15px 20px 17px;
+  color: var(--pf-dusk-cream);
+  text-decoration: none;
+  transition: border-color 0.25s var(--ease-out), background 0.25s var(--ease-out);
 }
-.pf-label-k {
-  margin: 0;
+.pf-privacy svg { width: 19px; height: 19px; flex: none; color: var(--pf-dusk-amber); }
+.pf-privacy span { display: flex; flex-direction: column; gap: 3px; }
+.pf-privacy small {
   font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 9.5px;
+  font-size: 9px;
   letter-spacing: 0.17em;
   text-transform: uppercase;
   color: var(--pf-dusk-soft);
 }
-.pf-label-v {
-  margin: 9px 0 0;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.pf-privacy b {
   font-family: var(--font-display);
   font-weight: 640;
-  font-size: 18px;
-  letter-spacing: -0.02em;
-  color: var(--pf-dusk-cream);
-}
-.pf-label-v svg { width: 17px; height: 17px; flex: none; color: var(--pf-dusk-amber); }
-.pf-label-d { margin: 8px 0 0; font-size: 12.5px; line-height: 1.55; color: #9799A5; }
-.pf-label-go {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 13px;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--pf-dusk-amber);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(223, 175, 72, 0.35);
-  padding-bottom: 3px;
-  transition: color 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
-}
-.pf-label-go:hover { color: var(--pf-dusk-cream); border-color: rgba(250, 247, 240, 0.6); }
-.pf-label-go i { font-style: normal; display: inline-block; transition: transform 0.25s var(--ease-out); }
-.pf-label-go:hover i { transform: translateX(3px); }
-
-/* the app's own documents, named as the app's so they are not mistaken
-   for the studio's, which the footer carries */
-.pf-disclaimer .pf-docs {
-  margin: 13px 0 0;
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: var(--ink-soft);
-}
-.pf-docs a { color: var(--copper-deep); text-underline-offset: 3px; }
-.pf-dusk .eyebrow { color: var(--pf-dusk-amber); }
-.pf-dusk .pf-h2 { color: var(--pf-dusk-cream); max-width: 15ch; }
-.pf-dusk-lede {
-  margin: clamp(20px, 2.8vh, 28px) 0 0;
-  max-width: 46em;
-  font-size: clamp(1rem, 1.3vw, 1.16rem);
-  line-height: 1.58;
-  color: #C6C7D2;
-}
-.pf-trio {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(22px, 3.4vw, 46px);
-  margin-top: clamp(34px, 5vh, 60px);
-}
-.pf-trio > div { border-top: 1px solid var(--pf-dusk-line); padding-top: 15px; }
-.pf-trio h3 {
-  margin: 0 0 8px;
-  font-size: 17px;
-  font-weight: 640;
+  font-size: 16px;
   letter-spacing: -0.018em;
-  color: var(--pf-dusk-cream);
+  line-height: 1.2;
 }
-.pf-trio p { margin: 0; font-size: 13.5px; line-height: 1.6; color: #A9AAB6; }
-.pf-pledge {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  padding: 16px 22px;
-  border-radius: var(--r-control);
-  background: rgba(250, 247, 240, 0.055);
-  border: 1px solid var(--pf-dusk-line);
-}
-.pf-pledge b {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 0.17em;
-  text-transform: uppercase;
+.pf-privacy i {
+  font-style: normal;
+  margin-left: 8px;
   color: var(--pf-dusk-amber);
-  white-space: nowrap;
+  transition: transform 0.25s var(--ease-out);
 }
-.pf-pledge p {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(1.05rem, 1.7vw, 1.42rem);
-  font-weight: 600;
-  letter-spacing: -0.022em;
-  line-height: 1.32;
-  color: var(--pf-dusk-cream);
+.pf-privacy:hover, .pf-privacy:focus-visible {
+  border-color: rgba(223, 175, 72, 0.45);
+  background: rgba(250, 247, 240, 0.075);
 }
+.pf-privacy:hover i, .pf-privacy:focus-visible i { transform: translateX(3px); }
+.pf-dusk .eyebrow { color: var(--pf-dusk-amber); }
+.pf-dusk .pf-h2 { color: var(--pf-dusk-cream); max-width: 11ch; }
 
 /* ------------------------------------------------------------------
-   7 · THE CLOSE — daylight again, and the one thing to act on
+   THE FOOT — the app's, not the studio's. The studio's details are one
+   click away, behind the pill in the corner; what stays is what belongs
+   to the app: the disclaimer, its own two documents, and the trademark
+   line Apple asks for wherever its badge appears.
    ------------------------------------------------------------------ */
-.pf-close {
-  position: relative;
-  overflow: hidden;
-  padding-block: clamp(72px, 10vh, 124px);
-  border-bottom: 1px solid var(--hairline);
-}
-.pf-close::before {
-  content: '';
-  position: absolute;
-  z-index: 0;
-  right: -10%;
-  top: -30%;
-  width: 62%;
-  aspect-ratio: 1.2;
-  background: radial-gradient(closest-side,
-    rgba(199, 154, 42, 0.16) 0%, rgba(199, 154, 42, 0.06) 50%, rgba(199, 154, 42, 0) 76%);
-  pointer-events: none;
-}
-.pf-close > .shell { position: relative; z-index: 2; }
-.pf-close-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-  gap: clamp(30px, 4.6vw, 76px);
-  align-items: center;
-}
-.pf-close-grid > div > p {
-  margin: clamp(20px, 2.8vh, 28px) 0 0;
-  max-width: 34em;
-  font-size: 15.5px;
-  line-height: 1.62;
-  color: var(--ink-soft);
-}
-.pf-buy {
-  background: var(--sheet);
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-card);
-  box-shadow: var(--lift);
-  padding: clamp(20px, 2.2vw, 28px);
-}
-.pf-buy-rows { margin: 0 0 clamp(18px, 2.4vh, 24px); }
-.pf-buy-rows div {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 11px 0;
-  border-bottom: 1px solid var(--hairline);
-}
-.pf-buy-rows dt {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 9.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-.pf-buy-rows dd {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 620;
-  font-size: 14.5px;
-  letter-spacing: -0.012em;
-  color: var(--ink);
-  text-align: right;
-}
-.pf-buy-price {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  margin-bottom: clamp(16px, 2.2vh, 22px);
-}
-.pf-buy-price b {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(2.6rem, 5vw, 3.7rem);
-  letter-spacing: -0.045em;
-  line-height: 0.92;
-  color: var(--ink);
-  font-variant-numeric: tabular-nums;
-}
-.pf-buy-price span {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--amber-deep);
-  line-height: 1.6;
-}
-.pf-buy-price span i { display: block; font-style: normal; white-space: nowrap; }
-.pf-buy .pf-badge { width: 100%; justify-content: center; }
-.pf-buy-foot {
-  margin: 13px 0 0;
-  font-size: 11.5px;
-  line-height: 1.5;
-  color: var(--ink-faint);
-  text-align: center;
-}
-.pf-buy-foot a { color: var(--ink-faint); }
-
+.pf-foot { padding-block: clamp(30px, 4.4vh, 46px) clamp(26px, 3.8vh, 40px); }
 .pf-disclaimer {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: 16px;
   align-items: baseline;
-  margin-top: clamp(34px, 5vh, 58px);
-  padding-top: 20px;
-  border-top: 1px solid var(--hairline);
 }
 .pf-disclaimer b {
   font-family: var(--font-mono);
@@ -1194,64 +746,60 @@ body.on-dusk .spine a.is-here { color: var(--pf-dusk-amber); }
   white-space: nowrap;
 }
 .pf-disclaimer p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); max-width: 62ch; }
+.pf-foot-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 28px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--hairline);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-faint);
+}
+.pf-foot-legal p { margin: 0; }
+.pf-foot-legal a { color: var(--ink-soft); text-underline-offset: 3px; }
+.pf-foot-legal a:hover { color: var(--copper-deep); }
 
 /* ------------------------------------------------------------------
    responsive
    ------------------------------------------------------------------ */
 @media (max-width: 1080px) {
   .pf-hero { grid-template-columns: 1fr; gap: 8px; }
-  .pf-hero-copy { padding-bottom: clamp(30px, 5vh, 52px); }
   /* one column: the pair centres and grows, because the space is there */
   .pf-hero-stage { justify-content: center; padding-right: 0; padding-top: 8px; translate: 0 6%; }
   .pf-pair .is-lead .phone { --phone-w: clamp(226px, 29vw, 318px); }
   .pf-pair .pf-phone-back .phone { --phone-w: clamp(178px, 22.8vw, 250px); }
   .pf-split { grid-template-columns: 1fr; gap: 34px; }
   .pf-kit-head { grid-template-columns: 1fr; gap: 18px; align-items: start; }
-  .pf-groups { grid-template-columns: 1fr 1fr; gap: 10px 34px; }
-  .pf-air-grid { grid-template-columns: 1fr; }
-  .pf-close-grid { grid-template-columns: 1fr; gap: 34px; }
+  /* names are short, so the three groups hold three columns longer */
+  .pf-groups { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 24px; }
+  .pf-dusk-grid { grid-template-columns: 1fr; grid-template-areas: "head" "list" "pill"; gap: 26px; }
 }
 @media (max-width: 760px) {
-  .pf-groups { grid-template-columns: 1fr; }
-  .pf-group { display: block; }
-  .pf-dusk-foot { grid-template-columns: 1fr; }
+  .pf-groups { grid-template-columns: 1fr; gap: 22px; }
+  .pf-group {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+    column-gap: 18px;
+  }
+  .pf-group > h3 { grid-column: 1 / -1; }
+  .pf-group .pf-mod:nth-last-child(-n+2) { border-bottom: none; }
   .pf-dusk-mark { width: 78%; right: -18%; bottom: -8%; }
-  .pf-trio { grid-template-columns: 1fr; gap: 20px; }
+  .pf-nolist > div { grid-template-columns: 1fr; gap: 4px; }
+  .pf-privacy { justify-self: stretch; }
   .pf-read { grid-template-columns: 1fr 1fr; }
   .pf-read div:nth-child(3) { border-left: none; padding-left: 2px; }
   .pf-ctrls { grid-template-columns: 1fr; gap: 2px; }
-  .pf-stats { grid-template-columns: 1fr; border-top: none; }
-  .pf-stat {
-    border-left: none;
-    border-top: 1px solid var(--hairline);
-    padding: 13px 0 0;
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-  }
-  .pf-stat b { font-size: 1.7rem; }
-  .pf-stat span { margin-top: 0; max-width: none; }
   .pf-pair .pf-phone-back { display: none; }
   .pf-pair::before { left: -22%; right: -22%; }
   .pf-read div:nth-child(n+3) { border-top: 1px solid var(--hairline); padding-top: 13px; }
-  .pf-pledge, .pf-kit-foot, .pf-disclaimer {
+  .pf-kit-foot, .pf-disclaimer {
     grid-template-columns: 1fr;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: start;
     gap: 8px;
   }
-}
-/* the types table scrolls sideways below this; the fade says so */
-@media (max-width: 900px) {
-  .pf-tw {
-    -webkit-mask-image: linear-gradient(90deg, #000 0 86%, rgba(0, 0, 0, 0.16) 100%);
-    mask-image: linear-gradient(90deg, #000 0 86%, rgba(0, 0, 0, 0.16) 100%);
-  }
-}
-@media (max-width: 520px) {
-  .pf-cta { gap: 14px; }
-  .pf-badge { width: 100%; justify-content: center; }
-  .pf-buy-price { flex-direction: column; gap: 6px; }
 }
 
 /* the demo's motion is the point of the demo, but it still stops here */
