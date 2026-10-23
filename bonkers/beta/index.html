@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BONKERS beta</title>
+<!-- Invite-only: reached from the link we send, never from the site. Kept out of search and the sitemap. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Join the BONKERS beta on your iPhone through Apple's TestFlight. It's free, and the whole game is open.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#6bd3f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191329" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="BONKERS beta">
+<meta property="og:description" content="Join on your iPhone through Apple's TestFlight. It's free, and the whole game is open.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://cloudberrix.com/bonkers/beta/icon-512.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="bangers.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="patrick-hand.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* A page of its own: no site.css, no site.js, nothing from another server.
+   The game's two faces, its sky and its paper; one taped pass carries the join button. */
+@font-face {
+  font-family: 'Bangers';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('bangers.woff2') format('woff2');
+}
+/* the game's footed 1 and crossed 7 */
+@font-face {
+  font-family: 'Bangers';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('bangers-digits.woff2') format('woff2');
+  unicode-range: U+0030-0039;
+}
+@font-face {
+  font-family: 'Patrick Hand';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('patrick-hand.woff2') format('woff2');
+}
+
+:root {
+  --sky-top: #6bd3f0;
+  --sky-bottom: #b4e7f2;
+  --cloud: #fff6e5;
+  --cloud-soft: rgba(255, 246, 229, .72);
+  --star: transparent;
+  --text: #2b2340;
+  --text-soft: #3d335c;
+  --paper: #f7f1e3;
+  --paper-ink: #2b2340;
+  --paper-soft: #5a5274;
+  --outline: #2b2340;
+  --shadow: #2b2340;
+  --pink: #ff7eb6;
+  --stamp: #e0458f;
+  --gold: #ffc94a;
+  --tape: rgba(255, 233, 160, .78);
+  --focus: #2b2340;
+  --font-display: 'Bangers', 'Impact', 'Arial Black', sans-serif;
+  --font-body: 'Patrick Hand', 'Chalkboard SE', 'Comic Sans MS', cursive;
+  color-scheme: light;
+}
+/* night: the same sky after dark; the pass stays paper */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sky-top: #191329; --sky-bottom: #332a4d; --cloud: #443a63; --cloud-soft: rgba(68, 58, 99, .55);
+    --star: #fff6e5; --text: #fff6e5; --text-soft: #d8d1ea; --outline: #120e1f; --shadow: #0c0915;
+    --focus: #ffc94a; color-scheme: dark;
+  }
+}
+
+html { background: var(--sky-top); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background-color: var(--sky-bottom);
+  background-image:
+    radial-gradient(1.6px 1.6px at 9% 7%, var(--star) 99%, transparent),
+    radial-gradient(1.2px 1.2px at 23% 21%, var(--star) 99%, transparent),
+    radial-gradient(1.8px 1.8px at 71% 5%, var(--star) 99%, transparent),
+    radial-gradient(1.2px 1.2px at 88% 16%, var(--star) 99%, transparent),
+    radial-gradient(1.4px 1.4px at 54% 12%, var(--star) 99%, transparent),
+    linear-gradient(var(--sky-top), var(--sky-bottom));
+  background-repeat: no-repeat;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 1.38;
+}
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+
+.page { overflow: hidden; }
+.sky {
+  position: relative;
+  max-width: 940px;
+  margin: 0 auto;
+  padding-block: 56px 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 56px;
+}
+.cloud { position: absolute; fill: var(--cloud-soft); pointer-events: none; }
+.cloud.a { width: 220px; top: 10px; left: -60px; }
+.cloud.b { width: 280px; top: 330px; right: -110px; }
+
+/* ---------- the pass ---------- */
+.pass {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 248px;
+  background: var(--paper);
+  color: var(--paper-ink);
+  border: 3px solid var(--outline);
+  border-radius: 14px;
+  box-shadow: 8px 8px 0 var(--shadow);
+  animation: land .7s cubic-bezier(.2, 1.4, .4, 1) both;
+}
+@keyframes land { from { transform: translateY(-18px) rotate(-1.5deg); } to { transform: none; } }
+
+.pass-main {
+  position: relative;
+  min-width: 0;
+  padding: 44px 40px 36px;
+  display: grid;
+  gap: 18px;
+  justify-items: start;
+}
+.sticker {
+  position: absolute;
+  top: -38px;
+  left: 30px;
+  width: 92px;
+  height: 92px;
+  border: 3px solid var(--outline);
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 var(--shadow);
+  transform: rotate(-6deg);
+  background: var(--paper);
+}
+.sticker::after {
+  content: "";
+  position: absolute;
+  top: -10px; left: 50%;
+  width: 70px; height: 22px;
+  margin-left: -35px;
+  background: var(--tape);
+  transform: rotate(9deg);
+  box-shadow: 0 1px 0 rgba(43, 35, 64, .08);
+}
+.sticker img { width: 100%; height: 100%; border-radius: 21px; display: block; }
+
+.eyebrow {
+  margin: 40px 0 0;
+  font-size: 17px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--paper-soft);
+}
+h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(42px, 7.4vw, 66px);
+  line-height: .98;
+  letter-spacing: .01em;
+  text-wrap: balance;
+  max-width: 13ch;
+}
+h1 em { font-style: normal; color: var(--stamp); }
+.lead { margin: 0; max-width: 36ch; font-size: 22px; }
+
+.join {
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 26px 12px;
+  background: var(--pink);
+  color: var(--paper-ink);
+  border: 3px solid var(--outline);
+  border-radius: 12px;
+  box-shadow: 5px 5px 0 var(--outline);
+  font-family: var(--font-display);
+  font-size: 30px;
+  letter-spacing: .04em;
+  text-decoration: none;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.join:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--outline); }
+.join:active { transform: translate(4px, 4px); box-shadow: 1px 1px 0 var(--outline); }
+.join svg { width: 26px; height: 26px; flex: none; }
+
+.linkrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  font-size: 17px;
+  color: var(--paper-soft);
+}
+.linkrow code {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 15px;
+  color: var(--paper-ink);
+  background: rgba(43, 35, 64, .07);
+  padding: 3px 8px;
+  border-radius: 6px;
+  user-select: all;
+  -webkit-user-select: all;
+  overflow-wrap: anywhere;
+}
+.copy {
+  font: inherit;
+  font-size: 16px;
+  color: var(--paper-ink);
+  background: transparent;
+  border: 2px solid var(--outline);
+  border-radius: 8px;
+  padding: 1px 10px;
+  cursor: pointer;
+}
+.copy:hover { background: rgba(43, 35, 64, .07); }
+
+.stamp {
+  position: absolute;
+  top: 26px;
+  right: 26px;
+  padding: 4px 12px 0;
+  border: 4px solid var(--stamp);
+  border-radius: 10px;
+  color: var(--stamp);
+  font-family: var(--font-display);
+  font-size: 34px;
+  letter-spacing: .08em;
+  transform: rotate(8deg);
+  opacity: .82;
+  animation: thunk .45s .55s cubic-bezier(.3, 1.6, .5, 1) both;
+}
+@keyframes thunk { from { transform: rotate(8deg) scale(1.5); } to { transform: rotate(8deg) scale(1); } }
+
+/* the stub: only for someone reading this on a computer */
+.stub {
+  min-width: 0;
+  padding: 30px 26px 28px;
+  border-left: 3px dashed var(--outline);
+  display: grid;
+  align-content: start;
+  gap: 16px;
+}
+.stub-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: .06em;
+}
+.qr {
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 100%;
+  background: #fff;
+  border: 2px solid var(--outline);
+  border-radius: 8px;
+  padding: 8px;
+  box-sizing: border-box;
+  color: #2b2340;
+}
+.qr svg { width: 100%; height: 100%; display: block; }
+.qr-note { margin: -6px 0 0; font-size: 16px; line-height: 1.25; color: var(--paper-soft); }
+.stub-small {
+  margin: 0;
+  font-size: 16px;
+  color: var(--paper-soft);
+  border-top: 2px solid rgba(43, 35, 64, .14);
+  padding-top: 12px;
+}
+
+/* ---------- notes ---------- */
+.notes {
+  display: grid;
+  gap: 40px;
+  max-width: 660px;
+}
+.notes section { display: grid; gap: 10px; }
+h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 32px;
+  letter-spacing: .03em;
+  line-height: 1;
+}
+.notes p { margin: 0; }
+.steps, .facts { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.steps { counter-reset: step; }
+.steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+.steps li::before {
+  content: counter(step);
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  background: var(--gold);
+  color: #2b2340;
+  border: 3px solid var(--outline);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 22px;
+  padding-top: 2px;
+  box-sizing: border-box;
+}
+.steps b { font-weight: 400; font-family: var(--font-display); letter-spacing: .03em; font-size: 22px; }
+.facts li {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 12px;
+}
+.facts li::before {
+  content: "";
+  width: 14px; height: 14px;
+  margin-top: 7px;
+  background: var(--text);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+}
+.signoff { font-size: 24px; line-height: 1.2; }
+a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.mail { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: .8em; overflow-wrap: anywhere; }
+
+/* ---------- cloud floor ---------- */
+.floor {
+  position: relative;
+  margin-top: 80px;
+  background: var(--cloud);
+  color: var(--text);
+}
+.floor::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: -38px;
+  height: 40px;
+  background:
+    radial-gradient(circle at 50% 100%, var(--cloud) 34px, transparent 35px) 0 0 / 96px 40px repeat-x,
+    radial-gradient(circle at 50% 100%, var(--cloud) 24px, transparent 25px) 48px 14px / 96px 26px repeat-x;
+}
+.floor-inner {
+  max-width: 940px;
+  margin: 0 auto;
+  padding-block: 26px max(40px, env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  font-size: 16px;
+  line-height: 1.35;
+}
+.floor-inner p { margin: 0; max-width: 70ch; color: var(--text-soft); }
+
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+
+@media (max-width: 720px) {
+  body { font-size: 19px; }
+  .sky { padding-block: 48px 0; gap: 44px; }
+  .pass { grid-template-columns: minmax(0, 1fr); box-shadow: 6px 6px 0 var(--shadow); }
+  .pass-main { padding: 36px 22px 26px; gap: 16px; }
+  .sticker { width: 76px; height: 76px; top: -32px; left: 20px; border-radius: 20px; }
+  .sticker img { border-radius: 17px; }
+  .eyebrow { margin-top: 30px; font-size: 15px; }
+  .lead { font-size: 20px; }
+  .join { font-size: 26px; padding: 12px 20px 10px; }
+  .stamp { top: 18px; right: 16px; font-size: 26px; border-width: 3px; padding: 3px 9px 0; }
+  .stub { display: none; }
+  .cloud.b { top: 520px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pass, .stamp { animation: none; }
+  .join { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="sky">
+  <svg class="cloud a" viewBox="0 0 220 90" aria-hidden="true"><circle cx="60" cy="58" r="32"/><circle cx="105" cy="42" r="40"/><circle cx="152" cy="58" r="30"/><rect x="40" y="58" width="135" height="32" rx="16"/></svg>
+  <svg class="cloud b" viewBox="0 0 220 90" aria-hidden="true"><circle cx="58" cy="60" r="28"/><circle cx="100" cy="44" r="38"/><circle cx="148" cy="56" r="32"/><rect x="34" y="58" width="146" height="32" rx="16"/></svg>
+
+  <article class="pass" aria-labelledby="title">
+    <div class="pass-main">
+      <div class="sticker"><img alt="BONKERS app icon" src="icon-256.png" width="92" height="92"></div>
+      <div class="stamp" aria-hidden="true">BETA</div>
+      <p class="eyebrow">BONKERS beta</p>
+      <h1 id="title">Hey, thanks for trying <em>the beta!</em></h1>
+      <p class="lead">Join on your iPhone through Apple's TestFlight. It's free, and the whole game is open.</p>
+      <a class="join" id="join" href="https://testflight.apple.com/join/JKXCTbqd" rel="noopener">
+        <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M2 12.5 24 3l-7.5 20-4.2-8.3z" fill="#fff6e5" stroke="#2b2340" stroke-width="2.4" stroke-linejoin="round"/><path d="m12.3 14.7 4.2-4.2" stroke="#2b2340" stroke-width="2.4" stroke-linecap="round"/></svg>
+        Join the beta
+      </a>
+      <div class="linkrow">
+        <span>Or copy the link:</span>
+        <code id="beta-link">testflight.apple.com/join/JKXCTbqd</code>
+        <button class="copy" id="copy" type="button">Copy</button>
+      </div>
+    </div>
+
+    <aside class="stub" aria-label="Scan to join">
+      <p class="stub-title">On a computer?</p>
+      <div class="qr" role="img" aria-label="QR code that opens the TestFlight link"><svg viewBox="-2 -2 33 33" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM16 0h1v1h-1zM17 0h1v1h-1zM18 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM10 1h1v1h-1zM12 1h1v1h-1zM14 1h1v1h-1zM16 1h1v1h-1zM17 1h1v1h-1zM18 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM13 2h1v1h-1zM15 2h1v1h-1zM16 2h1v1h-1zM19 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM17 3h1v1h-1zM20 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM9 4h1v1h-1zM11 4h1v1h-1zM12 4h1v1h-1zM14 4h1v1h-1zM16 4h1v1h-1zM17 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM16 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM8 7h1v1h-1zM9 7h1v1h-1zM10 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM17 7h1v1h-1zM18 7h1v1h-1zM20 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM9 8h1v1h-1zM10 8h1v1h-1zM13 8h1v1h-1zM14 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM25 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM1 9h1v1h-1zM3 9h1v1h-1zM4 9h1v1h-1zM5 9h1v1h-1zM7 9h1v1h-1zM8 9h1v1h-1zM9 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM16 9h1v1h-1zM17 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM24 9h1v1h-1zM28 9h1v1h-1zM0 10h1v1h-1zM2 10h1v1h-1zM3 10h1v1h-1zM4 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM11 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM21 10h1v1h-1zM23 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM0 11h1v1h-1zM2 11h1v1h-1zM4 11h1v1h-1zM8 11h1v1h-1zM9 11h1v1h-1zM12 11h1v1h-1zM13 11h1v1h-1zM15 11h1v1h-1zM19 11h1v1h-1zM23 11h1v1h-1zM28 11h1v1h-1zM0 12h1v1h-1zM3 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM8 12h1v1h-1zM12 12h1v1h-1zM13 12h1v1h-1zM14 12h1v1h-1zM17 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM26 12h1v1h-1zM0 13h1v1h-1zM1 13h1v1h-1zM2 13h1v1h-1zM5 13h1v1h-1zM7 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM17 13h1v1h-1zM19 13h1v1h-1zM22 13h1v1h-1zM26 13h1v1h-1zM27 13h1v1h-1zM28 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM9 14h1v1h-1zM10 14h1v1h-1zM12 14h1v1h-1zM16 14h1v1h-1zM17 14h1v1h-1zM19 14h1v1h-1zM21 14h1v1h-1zM23 14h1v1h-1zM24 14h1v1h-1zM26 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM3 15h1v1h-1zM4 15h1v1h-1zM5 15h1v1h-1zM8 15h1v1h-1zM9 15h1v1h-1zM12 15h1v1h-1zM16 15h1v1h-1zM19 15h1v1h-1zM20 15h1v1h-1zM21 15h1v1h-1zM24 15h1v1h-1zM27 15h1v1h-1zM1 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM8 16h1v1h-1zM12 16h1v1h-1zM13 16h1v1h-1zM15 16h1v1h-1zM18 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM21 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM3 17h1v1h-1zM5 17h1v1h-1zM8 17h1v1h-1zM10 17h1v1h-1zM12 17h1v1h-1zM13 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM17 17h1v1h-1zM23 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM0 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM12 18h1v1h-1zM15 18h1v1h-1zM16 18h1v1h-1zM17 18h1v1h-1zM21 18h1v1h-1zM22 18h1v1h-1zM23 18h1v1h-1zM24 18h1v1h-1zM26 18h1v1h-1zM3 19h1v1h-1zM7 19h1v1h-1zM8 19h1v1h-1zM9 19h1v1h-1zM10 19h1v1h-1zM11 19h1v1h-1zM17 19h1v1h-1zM18 19h1v1h-1zM21 19h1v1h-1zM26 19h1v1h-1zM1 20h1v1h-1zM2 20h1v1h-1zM3 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM7 20h1v1h-1zM9 20h1v1h-1zM14 20h1v1h-1zM15 20h1v1h-1zM16 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM19 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM25 20h1v1h-1zM26 20h1v1h-1zM8 21h1v1h-1zM9 21h1v1h-1zM16 21h1v1h-1zM17 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM16 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM11 23h1v1h-1zM12 23h1v1h-1zM13 23h1v1h-1zM15 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM9 24h1v1h-1zM11 24h1v1h-1zM12 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM28 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h1v1h-1zM9 25h1v1h-1zM10 25h1v1h-1zM12 25h1v1h-1zM14 25h1v1h-1zM15 25h1v1h-1zM16 25h1v1h-1zM20 25h1v1h-1zM21 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM10 26h1v1h-1zM12 26h1v1h-1zM13 26h1v1h-1zM14 26h1v1h-1zM16 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM19 26h1v1h-1zM20 26h1v1h-1zM23 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM11 27h1v1h-1zM13 27h1v1h-1zM20 27h1v1h-1zM24 27h1v1h-1zM25 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM11 28h1v1h-1zM12 28h1v1h-1zM15 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM22 28h1v1h-1zM25 28h1v1h-1zM27 28h1v1h-1z"/></svg></div>
+      <p class="qr-note">Scan this with your iPhone camera and it'll open TestFlight.</p>
+      <p class="stub-small">iPhone only, iOS 17 or newer.</p>
+    </aside>
+  </article>
+
+  <main class="notes">
+    <section aria-labelledby="h-join">
+      <h2 id="h-join">How to get it</h2>
+      <ol class="steps">
+        <li><span><b>Get TestFlight.</b> It's Apple's free app for trying games before they come out. <a href="https://apps.apple.com/app/testflight/id899247664" rel="noopener">Here it is on the App Store</a>.</span></li>
+        <li><span><b>Open the link.</b> Tap Join the beta on your iPhone, then Accept.</span></li>
+        <li><span><b>Install.</b> BONKERS shows up on your home screen with an orange dot next to the name. That just means it's a beta.</span></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="h-know">
+      <h2 id="h-know">Before you play</h2>
+      <ul class="facts">
+        <li><span>It's not finished, so expect bugs and the odd crash. Stuff will change from one build to the next.</span></li>
+        <li><span>Everything's unlocked for free in the beta. The final game may work differently.</span></li>
+        <li><span>You need an iPhone on iOS 17 or newer.</span></li>
+        <li><span>Each build runs out after 90 days. TestFlight will tell you when there's a new one.</span></li>
+        <li><span>Leaderboard scores from the beta might get wiped before launch.</span></li>
+        <li><span>There's a cap on testers. If the link says the beta is full, that's why.</span></li>
+        <li><span>Had enough? Delete the app, or tap Stop Testing in TestFlight.</span></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="h-tell">
+      <h2 id="h-tell">Tell us what you think</h2>
+      <p>There aren't many of us, so we read every bit of feedback. We especially want to hear about anything that's confusing, annoying or too hard. You can send feedback from the TestFlight app, or take a screenshot while you're playing and share it as beta feedback. Or just email us at <a class="mail" href="mailto:support@cloudberrix.com">support@cloudberrix.com</a>.</p>
+      <p class="signoff">Thanks for helping us out,<br>The BONKERS team</p>
+    </section>
+
+    <section aria-labelledby="h-privacy">
+      <h2 id="h-privacy">Privacy</h2>
+      <p>The game itself doesn't collect anything about you. There are no ads, no analytics and no sign-up. Your progress is saved on your phone, and in your iCloud if you have that switched on.</p>
+      <p>TestFlight is Apple's. Because you joined with a public link, we can't see your name or email. Apple does send us crash reports, install numbers and any feedback you send, and feedback can include your name and email.</p>
+      <p>We only use this to fix the game and never pass it on. If you'd like something deleted, email <a class="mail" href="mailto:support@cloudberrix.com">support@cloudberrix.com</a>.</p>
+      <p><a href="https://www.apple.com/legal/privacy/data/en/test-flight/" rel="noopener">Apple's TestFlight privacy page</a></p>
+    </section>
+  </main>
+</div>
+
+<footer class="floor">
+  <div class="floor-inner">
+    <p>Apple, iPhone, App Store and TestFlight are trademarks of Apple Inc.</p>
+  </div>
+</footer>
+</div>
+
+<script>
+(function () {
+  var URL = 'https://testflight.apple.com/join/JKXCTbqd';
+  var btn = document.getElementById('copy');
+  var code = document.getElementById('beta-link');
+  function reset() { setTimeout(function () { btn.textContent = 'Copy'; }, 1800); }
+  function selectLink() {
+    var range = document.createRange();
+    range.selectNodeContents(code);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    btn.textContent = 'Selected';
+    reset();
+  }
+  btn.addEventListener('click', function () {
+    if (!navigator.clipboard) { selectLink(); return; }
+    navigator.clipboard.writeText(URL).then(function () { btn.textContent = 'Copied'; reset(); }, selectLink);
+  });
+})();
+</script>
+</body>
+</html>
