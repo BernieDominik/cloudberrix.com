@@ -1,0 +1,740 @@
+/* ============================================================
+   Cloudberrix — the home page.
+   The home page has its own stylesheet; site.css serves the inner pages
+   (legal, Preflight Kit, BONKERS). One grid, one type voice, nothing
+   decorative that does not carry information. The lit device stage is
+   the only picture, and it sits in the first frame so the page opens on
+   what the studio makes.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+  --bone: #F7F5F0;
+  --sheet: #FFFFFF;
+  --hairline: #E3E0D8;
+  --ink: #1A1B21;
+  --ink-soft: #5C5D68;
+  --ink-faint: #8E8F9A;
+  --copper: #BC5A32;
+  --copper-deep: #9A4526;
+
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
+
+  --g: clamp(20px, 4vw, 40px);       /* page gutter */
+  --content: 1200px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bone);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  letter-spacing: -0.008em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+h1, h2 { font-family: var(--font-display); margin: 0; }
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -48px;
+  z-index: 100;
+  background: var(--ink);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  text-decoration: none;
+  transition: top 0.2s var(--ease);
+}
+.skip-link:focus-visible { top: 12px; }
+
+.shell {
+  width: 100%;
+  max-width: calc(var(--content) + 2 * var(--g));
+  margin: 0 auto;
+  padding: 0 var(--g);
+}
+
+/* the one small voice: section labels and device captions */
+.label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ------------------------------------------------ header */
+.head {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(247, 245, 240, 0.82);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+          backdrop-filter: saturate(1.4) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s var(--ease);
+}
+.head.is-scrolled { border-bottom-color: var(--hairline); }
+.head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.logo img { width: 138px; }
+.nav { display: flex; gap: 28px; }
+.nav a {
+  font-size: 14px;
+  font-weight: 520;
+  text-decoration: none;
+  color: var(--ink-soft);
+  transition: color 0.2s var(--ease);
+}
+.nav a:hover { color: var(--ink); }
+
+/* ------------------------------------------------ hero
+   Words left, the lit stage right, running off the page edge. Header +
+   hero own the first frame exactly. */
+.hero { overflow-x: clip; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+  min-height: calc(100svh - 64px);
+  padding-block: clamp(40px, 6vh, 72px);
+}
+.hero-text .label { margin-bottom: 26px; }
+.hero h1 {
+  font-size: clamp(2.6rem, 4.7vw, 4.6rem);
+  font-weight: 660;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  max-width: 11ch;
+  text-wrap: balance;
+}
+.lede {
+  margin: 24px 0 0;
+  max-width: 22em;
+  font-size: clamp(1.1rem, 1.45vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  text-wrap: balance;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 26px;
+  margin-top: 36px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  height: 46px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 560;
+  text-decoration: none;
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.btn:hover { background: #000; transform: translateY(-1px); }
+.more {
+  font-size: 15px;
+  font-weight: 560;
+  text-decoration: none;
+  color: var(--ink);
+}
+.more span, .mail span { display: inline-block; transition: transform 0.25s var(--ease); }
+.more:hover span, .mail:hover span { transform: translateX(3px); }
+
+/* ------------------------------------------------ bands
+   Every section below the hero sits on the same grid: a narrow label
+   column and one content column, separated from the band above by a
+   hairline. Nothing else marks a section. */
+.band { padding-block: clamp(64px, 9vh, 112px); }
+.band-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+  gap: 24px clamp(24px, 4vw, 64px);
+  padding-top: clamp(28px, 4vh, 40px);
+  border-top: 1px solid var(--hairline);
+}
+.band-grid > .label { padding-top: 0.9em; }
+.band h2 {
+  font-size: clamp(2.05rem, 3.7vw, 3.35rem);
+  font-weight: 650;
+  line-height: 1.06;
+  letter-spacing: -0.032em;
+  max-width: 17ch;
+  text-wrap: balance;
+}
+.body-lg {
+  margin: 26px 0 0;
+  max-width: 31em;
+  font-size: clamp(1.08rem, 1.4vw, 1.28rem);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.goal { color: var(--copper-deep); font-weight: 560; }
+
+.mail {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  margin-top: 40px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--hairline);
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 3vw, 2.4rem);
+  font-weight: 620;
+  letter-spacing: -0.025em;
+  text-decoration: none;
+  color: var(--copper-deep);
+  transition: border-color 0.25s var(--ease);
+}
+.mail:hover { border-bottom-color: var(--copper); }
+.mail span { font-weight: 400; color: var(--copper); }
+
+/* ------------------------------------------------ footer */
+.foot { padding-block: 0 44px; }
+.foot-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-block: 32px 26px;
+  border-top: 1px solid var(--hairline);
+}
+.foot-top img { width: 124px; }
+.foot-links { display: flex; gap: 24px; }
+.foot-links a {
+  font-size: 13.5px;
+  font-weight: 520;
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+.foot-links a:hover { color: var(--ink); }
+.imprint {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-faint);
+}
+.imprint b { font-weight: 600; color: var(--ink-soft); }
+
+/* ------------------------------------------------ arrival
+   One soft rise as things come into view. That is all the motion there
+   is, besides the devices drifting a few pixels as the hero scrolls. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  transition-delay: var(--d, 0s);
+}
+.js .reveal.in { opacity: 1; transform: none; }
+
+/* ---------- the stage: three devices, one light.
+   --sw is the stage's own measured width (site.js writes it), so every
+   frame is a fraction of the stage and the composition scales as one
+   picture: laptop grounded at the left, phone standing in front of its
+   right shoulder, browser floating clear at the top right.
+
+   Every screen is a window onto the same copper dawn (--wall). site.js
+   sizes the field to the whole stage and shows each screen its own slice,
+   re-cut as the devices drift, so the light holds still behind them.
+   Copper and dusk only — no amber, because nothing here is a release.
+
+   The column's right edge is pulled onto the viewport edge at every
+   width, so the browser's crop is a constant property of the
+   composition rather than an accident of the window. */
+.stage-col {
+  margin-right: calc(-1 * ((100vw - min(calc(var(--content) + 2 * var(--g)), 100vw)) / 2 + var(--g)));
+}
+.product-stage {
+  position: relative;
+  aspect-ratio: 1.22;
+  /* fallback until site.js measures; keeps the frames sane without JS */
+  --sw: min(700px, 58vw);
+  --wall:
+    radial-gradient(34% 26% at 47% 88%, #FFE6CC 0%, rgba(255, 196, 148, 0.8) 30%, rgba(255, 170, 120, 0) 100%),
+    radial-gradient(68% 52% at 46% 92%, rgba(232, 128, 76, 0.95) 0%, rgba(188, 90, 50, 0.72) 42%, rgba(188, 90, 50, 0) 78%),
+    radial-gradient(58% 48% at 86% 10%, rgba(214, 120, 108, 0.78) 0%, rgba(214, 120, 108, 0) 72%),
+    radial-gradient(40% 34% at 64% 40%, rgba(200, 96, 62, 0.45) 0%, rgba(200, 96, 62, 0) 74%),
+    radial-gradient(46% 50% at 6% 40%, rgba(128, 54, 66, 0.6) 0%, rgba(128, 54, 66, 0) 72%),
+    linear-gradient(180deg, #1B1519 0%, #2A1A1D 38%, #4B231B 68%, #7C3421 100%);
+}
+/* the horizon the devices stand on */
+.product-stage::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--hairline);
+}
+/* the glow the screens throw into the room */
+.product-stage::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  left: 8%;
+  top: 6%;
+  width: 96%;
+  aspect-ratio: 1.3;
+  background: radial-gradient(closest-side, rgba(214, 112, 64, 0.20) 0%, rgba(188, 90, 50, 0.09) 48%, rgba(188, 90, 50, 0) 76%);
+  pointer-events: none;
+  transform: translateY(var(--wy, 0px));
+}
+/* and the pool it leaves on the table */
+.stage-floor {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: 4%;
+  bottom: -9%;
+  height: 20%;
+  background: radial-gradient(closest-side, rgba(226, 124, 72, 0.30) 0%, rgba(226, 124, 72, 0.10) 50%, rgba(226, 124, 72, 0) 100%);
+  pointer-events: none;
+}
+
+.stage-fig { position: absolute; margin: 0; }
+.fig-desktop { left: 0; bottom: 0; z-index: 1; }
+.fig-mobile { left: 46%; bottom: 0; z-index: 3; }
+.fig-web { left: 58%; top: 2%; z-index: 2; }
+
+/* captions hang under their frames like annotations */
+.stage-cap {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink-faint);
+}
+
+/* ---------- a lit screen: the shared light, under glass and grain.
+   Without JS each screen shows the whole field (cover), which still
+   reads as light. */
+.scr {
+  position: relative;
+  overflow: hidden;
+  background: var(--wall);
+  background-color: #2A1A1D;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+/* glass: one raking highlight across the panel */
+.scr::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(118deg, rgba(255, 255, 255, 0.17) 0%, rgba(255, 255, 255, 0.05) 26%, rgba(255, 255, 255, 0) 40%);
+  pointer-events: none;
+}
+/* grain, so the light reads as light and not as a gradient */
+.scr::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.22;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  pointer-events: none;
+}
+.scr > * { position: relative; z-index: 1; }
+
+/* ---------- the hand-built device frame */
+/* True iPhone proportions: 9:19.5 screen, even bezels, side buttons.
+   Every interior metric scales with the frame: --p is one "design pixel"
+   (the 304px-wide reference frame = 1.0), so the screen reads identically
+   at whatever size the stage sets — no fixed-px content rattling inside
+   a larger frame. The Preflight Kit page builds its phones on this frame
+   too; the home stage dresses it in titanium below. */
+.phone {
+  --phone-w: min(304px, 78vw);
+  --p: calc(var(--phone-w) / 304);
+  position: relative;
+  width: var(--phone-w);
+  background: var(--ink);
+  border-radius: 15.5%  / 7.15%;
+  padding: calc(var(--p) * 10);
+  box-shadow:
+    0 2px 6px rgba(26, 27, 33, 0.18),
+    0 24px 70px rgba(26, 27, 33, 0.16),
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.09);
+}
+/* power (right) */
+.phone::before {
+  content: '';
+  position: absolute;
+  right: calc(var(--p) * -2.5);
+  top: 29%;
+  width: calc(var(--p) * 2.5);
+  height: calc(var(--p) * 62);
+  background: #33343d;
+  border-radius: 0 2px 2px 0;
+}
+/* volume rocker (left) — second bar via box-shadow */
+.phone::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--p) * -2.5);
+  top: 24%;
+  width: calc(var(--p) * 2.5);
+  height: calc(var(--p) * 36);
+  background: #33343d;
+  border-radius: 2px 0 0 2px;
+  box-shadow: 0 calc(var(--p) * 48) 0 #33343d;
+}
+
+.phone-screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 9 / 19.5;
+  background: var(--bone);
+  border-radius: calc(var(--p) * 38);
+  padding: calc(var(--p) * 12) calc(var(--p) * 18) calc(var(--p) * 10);
+  overflow: hidden;
+}
+/* dynamic island */
+.phone-screen::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--p) * 11);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--p) * 90);
+  height: calc(var(--p) * 26);
+  background: var(--ink);
+  border-radius: 999px;
+}
+
+/* ---------- the stage's phone: titanium rim, black glass, lock screen */
+.fig-mobile .phone { --phone-w: calc(var(--sw) * 0.185); }
+.product-stage .phone {
+  background: linear-gradient(140deg, #D2D3D8 0%, #8C8D94 16%, #45464D 46%, #6E6F76 74%, #C4C5CB 100%);
+  border-radius: 17% / 7.9%;
+  padding: calc(var(--p) * 4);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+    0 calc(var(--p) * 8) calc(var(--p) * 16) rgba(26, 27, 33, 0.16),
+    0 calc(var(--p) * 50) calc(var(--p) * 90) calc(var(--p) * -30) rgba(70, 28, 14, 0.5);
+}
+.product-stage .phone::before,
+.product-stage .phone::after { background: #8C8D94; }
+.product-stage .phone::after { box-shadow: 0 calc(var(--p) * 48) 0 #8C8D94; }
+.phone-body {
+  background: #050507;
+  border-radius: calc(var(--p) * 47);
+  padding: calc(var(--p) * 8);
+}
+.phone-scr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  aspect-ratio: 9 / 19.5;
+  border-radius: calc(var(--p) * 39);
+}
+.ls-island {
+  position: absolute;
+  z-index: 4;
+  top: calc(var(--p) * 11);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--p) * 86);
+  height: calc(var(--p) * 25);
+  border-radius: 999px;
+  background: #000;
+}
+.ls-status {
+  align-self: stretch;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: calc(var(--p) * 5);
+  height: calc(var(--p) * 47);
+  padding: 0 calc(var(--p) * 22);
+}
+.ls-status svg:nth-child(1) { width: calc(var(--p) * 17); }
+.ls-status svg:nth-child(2) { width: calc(var(--p) * 16); }
+.ls-status svg:nth-child(3) { width: calc(var(--p) * 25); }
+.ls-date {
+  margin-top: calc(var(--p) * 14);
+  font-size: calc(var(--p) * 16);
+  font-weight: 560;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.86);
+}
+.ls-time {
+  margin-top: calc(var(--p) * -2);
+  font-family: var(--font-display);
+  font-size: calc(var(--p) * 100);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: rgba(255, 255, 255, 0.94);
+}
+/* torch and camera, as glass */
+.ls-foot {
+  margin-top: auto;
+  align-self: stretch;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 calc(var(--p) * 40);
+}
+.ls-foot i {
+  width: calc(var(--p) * 46);
+  height: calc(var(--p) * 46);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+}
+.ls-home {
+  width: calc(var(--p) * 108);
+  height: calc(var(--p) * 5);
+  margin: calc(var(--p) * 22) 0 calc(var(--p) * 9);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+/* ---------- the laptop: --l is one design pixel of a 380px-wide reference.
+   Black glass in an aluminium rim, on an aluminium base. */
+.laptop {
+  --lw: calc(var(--sw) * 0.56);
+  --l: calc(var(--lw) / 380);
+  width: var(--lw);
+}
+.lap-lid {
+  position: relative;
+  background: #0B0C0F;
+  border-radius: calc(var(--l) * 15) calc(var(--l) * 15) calc(var(--l) * 4) calc(var(--l) * 4);
+  padding: calc(var(--l) * 9) calc(var(--l) * 9) calc(var(--l) * 12);
+  box-shadow:
+    0 0 0 calc(var(--l) * 1.6) #B9BAC1,
+    0 0 0 calc(var(--l) * 2.4) rgba(26, 27, 33, 0.18),
+    0 calc(var(--l) * 30) calc(var(--l) * 60) calc(var(--l) * -24) rgba(70, 28, 14, 0.45);
+}
+/* camera */
+.lap-lid::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--l) * 3.2);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--l) * 3.4);
+  height: calc(var(--l) * 3.4);
+  border-radius: 50%;
+  background: #23242b;
+}
+.lap-scr {
+  aspect-ratio: 16 / 10;
+  border-radius: calc(var(--l) * 6) calc(var(--l) * 6) 0 0;
+}
+/* the menu bar: the studio mark, four menus, the clock */
+.mac-bar {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--l) * 9);
+  height: calc(var(--l) * 13);
+  padding: 0 calc(var(--l) * 10);
+  background: rgba(20, 12, 12, 0.22);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+}
+.mac-bar .mk {
+  width: calc(var(--l) * 10);
+  height: calc(var(--l) * 7.2);
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-mask: url(../assets/logo-mark.png) center / contain no-repeat;
+          mask: url(../assets/logo-mark.png) center / contain no-repeat;
+}
+.mac-bar .bar {
+  height: calc(var(--l) * 3);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+}
+.mac-bar .bar:nth-of-type(1) { width: calc(var(--l) * 15); background: rgba(255, 255, 255, 0.82); }
+.mac-bar .bar:nth-of-type(2) { width: calc(var(--l) * 11); }
+.mac-bar .bar:nth-of-type(3) { width: calc(var(--l) * 13); }
+.mac-bar .bar:nth-of-type(4) { width: calc(var(--l) * 9); }
+.mac-clock {
+  margin-left: auto;
+  font-size: calc(var(--l) * 7);
+  font-weight: 560;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.9);
+}
+/* the base, a little wider than the lid, with the trackpad notch */
+.lap-base {
+  position: relative;
+  margin: 0 calc(var(--l) * -30);
+  height: calc(var(--l) * 13);
+  background: linear-gradient(180deg, #F4F4F6 0%, #DADBDF 22%, #BDBEC4 70%, #8F9097 100%);
+  border-radius: 0 0 calc(var(--l) * 16) calc(var(--l) * 16) / 0 0 calc(var(--l) * 11) calc(var(--l) * 11);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 calc(var(--l) * 10) calc(var(--l) * 22) calc(var(--l) * -6) rgba(26, 27, 33, 0.32);
+}
+.lap-base::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--l) * 70);
+  height: calc(var(--l) * 4.5);
+  background: linear-gradient(180deg, #A9AAB1, #C9CACF);
+  border-radius: 0 0 999px 999px;
+}
+
+/* ---------- the browser window: --w is one design pixel of a 280px-wide reference.
+   The one screen whose words are real: the site's own headline. */
+.win {
+  --ww: calc(var(--sw) * 0.44);
+  --w: calc(var(--ww) / 280);
+  width: var(--ww);
+  background: #FAF9F7;
+  border: 1px solid rgba(26, 27, 33, 0.07);
+  border-radius: calc(var(--w) * 11);
+  box-shadow:
+    0 calc(var(--w) * 4) calc(var(--w) * 10) rgba(26, 27, 33, 0.06),
+    0 calc(var(--w) * 36) calc(var(--w) * 70) calc(var(--w) * -24) rgba(70, 28, 14, 0.42);
+  overflow: hidden;
+}
+.win-bar {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--w) * 12);
+  height: calc(var(--w) * 26);
+  padding: 0 calc(var(--w) * 10);
+  background: #F6F5F2;
+  border-bottom: 1px solid rgba(26, 27, 33, 0.06);
+}
+.win-dots { display: flex; gap: calc(var(--w) * 4.5); }
+.win-dots i {
+  width: calc(var(--w) * 7);
+  height: calc(var(--w) * 7);
+  border-radius: 50%;
+}
+.win-dots i:nth-child(1) { background: #FF5F57; }
+.win-dots i:nth-child(2) { background: #FEBC2E; }
+.win-dots i:nth-child(3) { background: #28C840; }
+/* centred on the window, not on the space the dots leave */
+.win-url {
+  flex: 0 1 46%;
+  margin: 0 auto;
+  height: calc(var(--w) * 15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(26, 27, 33, 0.055);
+  font-size: calc(var(--w) * 7.2);
+  font-weight: 520;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  transform: translateX(calc(var(--w) * -18));
+}
+.win-scr {
+  aspect-ratio: 16 / 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--w) * 9);
+  padding: 0 calc(var(--w) * 24);
+  text-align: center;
+}
+.win-line {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 660;
+  font-size: calc(var(--w) * 16.5);
+  line-height: 1.05;
+  letter-spacing: -0.032em;
+  color: #fff;
+  text-wrap: balance;
+  max-width: 10em;
+}
+.win-rule {
+  width: calc(var(--w) * 26);
+  height: calc(var(--w) * 1.6);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+
+/* ------------------------------------------------ responsive */
+@media (max-width: 1000px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: 40px;
+    padding-block: 56px 72px;
+  }
+  .stage-col { margin-right: calc(-1 * var(--g)); }
+  .band-grid { grid-template-columns: 1fr; }
+  .band-grid > .label { padding-top: 0; }
+}
+
+@media (max-width: 900px) {
+  .product-stage { aspect-ratio: 0.9; margin-top: 8px; }
+  .stage-floor { left: -6%; right: -6%; }
+  .fig-desktop { left: 5%; bottom: 3%; }
+  .laptop { --lw: calc(var(--sw) * 0.62); }
+  .fig-mobile { left: 57%; bottom: 0; }
+  .fig-mobile .phone { --phone-w: calc(var(--sw) * 0.31); }
+  .fig-web { left: 26%; top: 0; }
+  .win { --ww: calc(var(--sw) * 0.8); }
+  .stage-cap { display: none; }
+}
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .logo img { width: 116px; }
+  .nav { gap: 20px; }
+  .hero h1 { font-size: clamp(2.4rem, 11vw, 3.2rem); }
+  .foot-top { flex-direction: column; align-items: flex-start; }
+  .mail { font-size: clamp(1.15rem, 6.4vw, 1.6rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .btn, .more span, .mail span { transition: none; }
+}

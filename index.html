@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cloudberrix — an independent software studio in Tallinn</title>
-<meta name="description" content="Cloudberrix is an independent software studio in Tallinn, Estonia. We design, build, and ship software for desktop, mobile, and the web.">
+<meta name="description" content="Cloudberrix is a small, independent software studio in Tallinn, Estonia. We make apps for computers, phones and the web.">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#F7F5F0">
 <link rel="canonical" href="https://cloudberrix.com/">
 <meta property="og:title" content="Cloudberrix — an independent software studio in Tallinn">
-<meta property="og:description" content="An independent software studio in Tallinn, Estonia. Software for desktop, mobile, and the web.">
+<meta property="og:description" content="A small, independent software studio in Tallinn, Estonia. Apps for computers, phones and the web.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cloudberrix.com/">
 <meta property="og:image" content="https://cloudberrix.com/assets/og.jpg">
@@ -20,38 +20,19 @@
 <link rel="preload" href="assets/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/ibmplexmono-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/fonts.css">
-<link rel="stylesheet" href="css/site.css?v=20261024">
+<link rel="stylesheet" href="css/home.css?v=20261024">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- The header deliberately carries no id of top. It is sticky, so an anchor
-     pointing at it is already parked at the top of the viewport and the
-     browser scrolls nowhere. Left unclaimed, #top falls through to the
-     spec's own meaning: the beginning of the document. -->
-<!-- The spine: a fixed index of the page and where you are in it.
-     Home page only — the legal pages have no chapters to index. -->
-<nav class="spine" aria-label="Page index">
-  <span class="spine-track"></span>
-  <span class="spine-fill"></span>
-  <a href="#top" data-for="hero">Studio</a>
-  <a href="#apps" data-for="apps">Products</a>
-  <a href="#about" data-for="about">About</a>
-  <a href="#contact" data-for="contact">Contact</a>
-</nav>
 
-<header class="site-head">
+<header class="head">
   <div class="shell head-row">
-    <a class="head-logo" href="#top" aria-label="Cloudberrix — back to top">
-      <picture>
-        <source media="(max-width: 430px)" srcset="assets/logo-mark.png">
-        <img src="assets/logo-full.png" alt="Cloudberrix" width="164" height="34">
-      </picture>
+    <a class="logo" href="#top" aria-label="Cloudberrix — back to top">
+      <img src="assets/logo-full.png" alt="Cloudberrix" width="164" height="34">
     </a>
-    <nav class="head-nav" aria-label="Site">
-      <a href="#top">Home</a>
-      <a href="#apps">Products</a>
+    <nav class="nav" aria-label="Site">
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -60,151 +41,119 @@
 
 <main id="main">
 
-  <!-- ============================================= HERO
-       Header + hero own the first viewport exactly, so the first chapter
-       below never leaks into the opening frame. The statement sits off
-       centre and the sentence lands under its right shoulder; the mark
-       stands behind at watermark scale. The studio register closes the
-       frame — the copper→amber rail, the coordinates, and the way down. -->
-  <section class="hero" aria-labelledby="hero-title">
-    <img class="hero-mark" src="assets/logo-mark.png" alt="" width="560" height="400" aria-hidden="true">
-    <div class="shell hero-stack">
-      <p class="eyebrow rise">Cloudberrix · Tallinn, Estonia</p>
-      <h1 id="hero-title" class="hero-title rise d1">We are an independent software studio.</h1>
-      <p class="hero-lede rise d2">We design, build, and ship software for desktop, mobile, and the&nbsp;web.</p>
-    </div>
-    <div class="shell">
-      <div class="hero-base rise d3">
-        <span class="hero-coord">59°26′ N · 24°45′ E</span>
-        <a class="hero-down" href="#apps">What we build <span aria-hidden="true">↓</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================= PRODUCTS
-       Deliberately vague: no product named, none shown, no link out.
-       One sentence beside the stage — the picture carries the rest. -->
-  <section class="chapter product" id="apps" aria-labelledby="apps-title">
-    <div class="shell">
-      <div class="product-head">
-        <div>
-          <p class="eyebrow reveal">Products</p>
-          <h2 id="apps-title" class="reveal">What we&nbsp;build.</h2>
-          <p class="product-lede reveal">Apps for computers, phones and the&nbsp;web.</p>
+  <!-- ============================================= HERO -->
+  <section class="hero" id="apps" aria-labelledby="hero-title">
+    <div class="shell hero-grid">
+      <div class="hero-text">
+        <p class="label reveal">Tallinn, Estonia</p>
+        <h1 id="hero-title" class="reveal">A small, independent software&nbsp;studio.</h1>
+        <p class="lede reveal">We make apps for computers, phones and the&nbsp;web.</p>
+        <div class="actions reveal">
+          <a class="btn" href="#contact">Say hello</a>
+          <a class="more" href="#about">About us <span aria-hidden="true">→</span></a>
         </div>
-        <div class="stage-col">
-      <div class="product-stage" role="img"
-           aria-label="A laptop, a phone and a browser window, every screen lit by the same warm light.">
-        <span class="stage-floor" aria-hidden="true"></span>
-
-        <figure class="stage-fig fig-desktop reveal">
-          <div class="laptop" aria-hidden="true">
-            <div class="lap-lid">
-              <div class="scr lap-scr">
-                <div class="mac-bar"><i class="mk"></i><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="mac-clock">9:41</span></div>
-              </div>
-            </div>
-            <div class="lap-base"></div>
-          </div>
-          <figcaption class="stage-cap">Desktop</figcaption>
-        </figure>
-
-        <figure class="stage-fig fig-mobile reveal">
-          <div class="phone" aria-hidden="true">
-            <div class="phone-body">
-              <div class="scr phone-scr">
-                <span class="ls-island"></span>
-                <div class="ls-status">
-                  <svg width="17" height="11" viewBox="0 0 17 11"><g fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1" opacity=".35"/></g></svg>
-                  <svg width="16" height="11" viewBox="0 0 16 11"><path fill="currentColor" d="M8 9.1a1.4 1.4 0 1 0 .01 2.81A1.4 1.4 0 0 0 8 9.1Zm-4.9-2.5 1.6 1.6a4.7 4.7 0 0 1 6.6 0l1.6-1.6a7 7 0 0 0-9.8 0ZM.2 3.7l1.6 1.6a8.7 8.7 0 0 1 12.4 0l1.6-1.6a11 11 0 0 0-15.6 0Z" transform="translate(0 -1)"/></svg>
-                  <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="15" height="8" rx="2" fill="currentColor"/><path d="M23 4v4a2.2 2.2 0 0 0 0-4Z" fill="currentColor" opacity=".4"/></svg>
-                </div>
-                <div class="ls-date">Monday 9 June</div>
-                <div class="ls-time">9:41</div>
-                <div class="ls-foot"><i></i><i></i></div>
-                <div class="ls-home"></div>
-              </div>
-            </div>
-          </div>
-          <figcaption class="stage-cap">Mobile</figcaption>
-        </figure>
-
-        <figure class="stage-fig fig-web reveal">
-          <div class="win" aria-hidden="true">
-            <div class="win-bar"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-url">cloudberrix.com</span></div>
-            <div class="scr win-scr">
-              <p class="win-line">We are an independent software&nbsp;studio.</p>
-              <span class="win-rule"></span>
-            </div>
-          </div>
-          <figcaption class="stage-cap">Website</figcaption>
-        </figure>
       </div>
+      <div class="stage-col">
+        <div class="product-stage" role="img"
+             aria-label="A laptop, a phone and a browser window, every screen lit by the same warm light.">
+          <span class="stage-floor" aria-hidden="true"></span>
+
+          <figure class="stage-fig fig-desktop reveal">
+            <div class="laptop" aria-hidden="true">
+              <div class="lap-lid">
+                <div class="scr lap-scr">
+                  <div class="mac-bar"><i class="mk"></i><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="mac-clock">9:41</span></div>
+                </div>
+              </div>
+              <div class="lap-base"></div>
+            </div>
+            <figcaption class="stage-cap">Desktop</figcaption>
+          </figure>
+
+          <figure class="stage-fig fig-mobile reveal">
+            <div class="phone" aria-hidden="true">
+              <div class="phone-body">
+                <div class="scr phone-scr">
+                  <span class="ls-island"></span>
+                  <div class="ls-status">
+                    <svg width="17" height="11" viewBox="0 0 17 11"><g fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1" opacity=".35"/></g></svg>
+                    <svg width="16" height="11" viewBox="0 0 16 11"><path fill="currentColor" d="M8 9.1a1.4 1.4 0 1 0 .01 2.81A1.4 1.4 0 0 0 8 9.1Zm-4.9-2.5 1.6 1.6a4.7 4.7 0 0 1 6.6 0l1.6-1.6a7 7 0 0 0-9.8 0ZM.2 3.7l1.6 1.6a8.7 8.7 0 0 1 12.4 0l1.6-1.6a11 11 0 0 0-15.6 0Z" transform="translate(0 -1)"/></svg>
+                    <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="15" height="8" rx="2" fill="currentColor"/><path d="M23 4v4a2.2 2.2 0 0 0 0-4Z" fill="currentColor" opacity=".4"/></svg>
+                  </div>
+                  <div class="ls-date">Monday 9 June</div>
+                  <div class="ls-time">9:41</div>
+                  <div class="ls-foot"><i></i><i></i></div>
+                  <div class="ls-home"></div>
+                </div>
+              </div>
+            </div>
+            <figcaption class="stage-cap">Mobile</figcaption>
+          </figure>
+
+          <figure class="stage-fig fig-web reveal">
+            <div class="win" aria-hidden="true">
+              <div class="win-bar"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-url">cloudberrix.com</span></div>
+              <div class="scr win-scr">
+                <p class="win-line">We are an independent software&nbsp;studio.</p>
+                <span class="win-rule"></span>
+              </div>
+            </div>
+            <figcaption class="stage-cap">Website</figcaption>
+          </figure>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================= ABOUT
-       The creed alone, at display scale — the statements are the design.
-       Soft voice for the setup, ink for the words that carry weight, and
-       the section's one copper line to close. -->
-  <section class="chapter" id="about" aria-labelledby="about-title">
-    <div class="shell about-grid">
-      <div class="about-head">
-        <p class="eyebrow reveal">About</p>
-        <h2 id="about-title" class="about-title reveal">A small software studio in&nbsp;Tallinn.</h2>
+       The creed, re-set: its middle sentence becomes the heading, because
+       it is the most indie thing the studio says about itself. -->
+  <section class="band" id="about" aria-labelledby="about-title">
+    <div class="shell"><div class="band-grid">
+      <p class="label reveal">About</p>
+      <div>
+        <h2 id="about-title" class="reveal">No investors, no board meetings, no growth&nbsp;targets.</h2>
+        <p class="body-lg reveal">We do what we’re passionate about: writing code, designing software,
+        and tinkering with systems until they’re right. Just one goal:
+        <span class="goal">build products people&nbsp;love.</span></p>
       </div>
-      <div class="creed">
-        <p class="reveal">We do what we’re passionate about:
-        <span class="creed-ink">writing code, designing software, and tinkering
-        with systems until they’re right.</span></p>
-        <p class="reveal"><span class="creed-ink">No investors, no board meetings,
-        no growth&nbsp;targets.</span> Just one&nbsp;goal:
-        <span class="creed-goal">build products people&nbsp;love.</span></p>
-      </div>
-    </div>
+    </div></div>
   </section>
 
   <!-- ============================================= CONTACT -->
-  <section class="chapter" id="contact" aria-labelledby="contact-title">
-    <div class="shell contact-stack">
-      <p class="eyebrow reveal">Contact</p>
-      <h2 id="contact-title" class="contact-title reveal">Say hello.</h2>
-      <p class="contact-lede reveal">Tell us about your ideas, any issues you run into, or just
-      drop a note — whatever you send is read by the team that wrote the&nbsp;code.</p>
-      <a class="contact-mail reveal" href="mailto:support@cloudberrix.com">support@cloudberrix.com</a>
-    </div>
+  <section class="band" id="contact" aria-labelledby="contact-title">
+    <div class="shell"><div class="band-grid">
+      <p class="label reveal">Contact</p>
+      <div>
+        <h2 id="contact-title" class="reveal">Say hello.</h2>
+        <p class="body-lg reveal">Tell us about your ideas, any issues you run into, or just drop a
+        note — whatever you send is read by the team that wrote the&nbsp;code.</p>
+        <a class="mail reveal" href="mailto:support@cloudberrix.com">support@cloudberrix.com <span aria-hidden="true">→</span></a>
+      </div>
+    </div></div>
   </section>
 
 </main>
 
-<!-- ============================================= FOOTER -->
-<footer class="site-foot">
+<footer class="foot">
   <div class="shell">
-    <div class="foot-row">
-      <img class="foot-logo" src="assets/logo-full-ink.png" alt="Cloudberrix" width="148" height="31">
-      <address class="foot-contact">
-        Cloudberrix OÜ · Tallinn, Estonia<br>
+    <div class="foot-top">
+      <img src="assets/logo-full-ink.png" alt="Cloudberrix" width="148" height="31">
+      <nav class="foot-links" aria-label="Legal">
+        <a href="privacy/">Privacy</a>
+        <a href="terms/">Terms</a>
         <a href="mailto:support@cloudberrix.com">support@cloudberrix.com</a>
-      </address>
-    </div>
-    <div class="foot-links">
-      <a href="#contact">Contact</a>
-      <a href="privacy/">Privacy</a>
-      <a href="terms/">Terms</a>
+      </nav>
     </div>
     <p class="imprint">
       <span><b>Cloudberrix OÜ</b></span>
       <span>Registry code 17557468</span>
-      <span class="imprint-addr">Tartu mnt 67/1-13b, Kesklinna linnaosa, Tallinn, 10115, Harju maakond, Estonia</span>
+      <span>Tartu mnt 67/1-13b, Kesklinna linnaosa, Tallinn, 10115, Harju maakond, Estonia</span>
+      <span>© <span id="year">2026</span> Cloudberrix OÜ. All rights reserved.</span>
     </p>
-    <div class="foot-legal">
-      <p>© <span id="year">2026</span> Cloudberrix OÜ. All rights reserved.</p>
-    </div>
   </div>
 </footer>
 
-<script src="js/site.js?v=20261024" defer></script>
+<script src="js/home.js?v=20261024" defer></script>
 </body>
 </html>

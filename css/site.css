@@ -2,9 +2,8 @@
    Cloudberrix — "Ante Daylight" web
    Warm paper, ink, two accents: studio copper & first-release amber.
    Light-only by doctrine (our products are daylight-first).
-   Hero is a monument that owns the whole first frame: header + hero
-   = one viewport, type at full scale, closed by the studio register
-   (coordinates · copper→amber rail · entry Nº 001).
+   This sheet serves the inner pages: the legal pages, Preflight Kit
+   (with preflight.css) and BONKERS. The home page has its own, home.css.
    ============================================================ */
 
 :root {
@@ -187,286 +186,12 @@ h1, h2, h3 {
 }
 .head-nav a:hover { color: var(--copper-deep); border-bottom-color: var(--copper); }
 
-/* ------------------------------------------------ hero — the statement */
-/* The monument stands off centre. The eye enters top-left at the eyebrow,
-   falls down the headline, and lands bottom-right on the sentence — a
-   diagonal, not a stack. Header (64px) + hero still own the first frame
-   exactly, so nothing of the next chapter shows before a scroll. */
-.hero {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100vh - 64px);   /* fallback for pre-svh engines */
-  min-height: calc(100svh - 64px);
-}
-
-/* (width:100% because .shell's auto margins beat flex `stretch`
-   and would collapse it to content width.) */
-.hero .shell { position: relative; z-index: 1; width: 100%; }
-
-.hero-stack {
-  flex: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.72fr);
-  grid-template-rows: auto auto;
-  align-content: center;
-  column-gap: clamp(24px, 4vw, 64px);
-  text-align: left;
-  padding-block: clamp(40px, 6vh, 96px) clamp(28px, 4vh, 56px);
-}
-.hero-stack .eyebrow {
-  grid-column: 1 / -1;
-  color: var(--copper-deep);
-  font-size: clamp(11.5px, 0.85vw, 13.5px);
-  margin-bottom: clamp(18px, 2.6vh, 30px);
-}
-
-/* sized to fill the stage at every width — a monument, not a laptop layout */
-.hero-title {
-  grid-column: 1 / -1;
-  font-size: clamp(2.9rem, 8.6vw, 8.2rem);
-  font-weight: 690;
-  letter-spacing: -0.042em;
-  line-height: 0.94;
-  max-width: 13ch;
-  margin: 0;
-}
-
-/* the sentence lands under the headline's right shoulder */
-.hero-lede {
-  grid-column: 2 / -1;
-  justify-self: end;
-  max-width: 24em;
-  margin: clamp(26px, 4vh, 52px) 0 0;
-  font-size: clamp(1.02rem, 1.35vw, 1.28rem);
-  line-height: 1.5;
-  color: var(--ink-soft);
-  text-wrap: pretty;
-}
-
-/* the mark at watermark scale, bleeding off the right edge and turning
-   slowly the whole way down the page (site.js drives the rotation) */
-.hero-mark {
-  position: absolute;
-  right: -13vw;
-  top: 50%;
-  width: min(62vw, 860px);
-  height: auto;
-  opacity: 0.055;
-  transform: translateY(-50%);
-  transform-origin: 50% 50%;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ---------- the register that closes the first frame.
-   The rail runs studio copper into first-release amber. It also does
-   the peeking chapter's old job: it says there is more below. */
-.hero-base {
-  position: relative;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding-top: 18px;
-  margin-bottom: clamp(22px, 3.5vh, 36px);
-}
-.hero-base::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--copper) 0%, var(--amber) 100%);
-}
-.hero-coord {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 11.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--ink-faint);
-}
-/* the one affordance the opening frame was missing: a way down */
-.hero-down {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 10.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--ink-faint);
-  text-decoration: none;
-  transition: color 0.25s var(--ease-out);
-}
-.hero-down:hover { color: var(--copper-deep); }
-.hero-down span { display: inline-block; animation: nudge 2.4s var(--ease-out) infinite; }
-@keyframes nudge {
-  0%, 62%, 100% { transform: translateY(0); opacity: 0.75; }
-  78% { transform: translateY(4px); opacity: 1; }
-}
-
-/* ---------- products: one sentence and the stage */
-/* Deliberately vague: no product is named, shown or linked. Words left,
-   picture right — and the picture runs off the right edge of the page
-   rather than floating in the middle of a void. The crop is the point:
-   there is more software than fits in the frame. */
-.product { overflow: hidden; }
-.product-head {
-  display: grid;
-  grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
-  gap: clamp(32px, 5vw, 84px);
-  align-items: center;
-}
-.product-head h2 {
-  font-size: clamp(2.6rem, 6vw, 5.2rem);
-  line-height: 0.98;
-  letter-spacing: -0.035em;
-  max-width: 8ch;
-}
-.product-lede {
-  max-width: 17em;
-  margin: clamp(22px, 3.2vh, 34px) 0 0;
-  font-size: clamp(1.08rem, 1.45vw, 1.34rem);
-  line-height: 1.5;
-  color: var(--ink-soft);
-  text-wrap: pretty;
-}
-
-/* ---------- the stage: three devices, one light.
-   --sw is the stage's own measured width (site.js writes it), so every
-   frame is a fraction of the stage and the composition scales as one
-   picture: laptop grounded at the left, phone standing in front of its
-   right shoulder, browser floating clear at the top right.
-
-   Every screen is a window onto the same copper dawn (--wall). site.js
-   sizes the field to the whole stage and shows each screen its own slice,
-   re-cut as the devices drift, so the light holds still behind them.
-   Copper and dusk only — no amber, because nothing here is a release.
-
-   The column's right edge is pulled onto the viewport edge at every
-   width, so the browser's crop is a constant property of the
-   composition rather than an accident of the window. */
-.stage-col {
-  margin-right: calc(-1 * ((100vw - min(1240px, 100vw)) / 2 + clamp(20px, 4vw, 36px)));
-}
-.product-stage {
-  position: relative;
-  margin-top: clamp(12px, 2vh, 26px);
-  aspect-ratio: 1.22;
-  /* fallback until site.js measures; keeps the frames sane without JS */
-  --sw: min(700px, 58vw);
-  --wall:
-    radial-gradient(34% 26% at 47% 88%, #FFE6CC 0%, rgba(255, 196, 148, 0.8) 30%, rgba(255, 170, 120, 0) 100%),
-    radial-gradient(68% 52% at 46% 92%, rgba(232, 128, 76, 0.95) 0%, rgba(188, 90, 50, 0.72) 42%, rgba(188, 90, 50, 0) 78%),
-    radial-gradient(58% 48% at 86% 10%, rgba(214, 120, 108, 0.78) 0%, rgba(214, 120, 108, 0) 72%),
-    radial-gradient(40% 34% at 64% 40%, rgba(200, 96, 62, 0.45) 0%, rgba(200, 96, 62, 0) 74%),
-    radial-gradient(46% 50% at 6% 40%, rgba(128, 54, 66, 0.6) 0%, rgba(128, 54, 66, 0) 72%),
-    linear-gradient(180deg, #1B1519 0%, #2A1A1D 38%, #4B231B 68%, #7C3421 100%);
-}
-/* the horizon the devices stand on */
-.product-stage::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background: var(--hairline);
-}
-/* the glow the screens throw into the room */
-.product-stage::after {
-  content: '';
-  position: absolute;
-  z-index: 0;
-  left: 8%;
-  top: 6%;
-  width: 96%;
-  aspect-ratio: 1.3;
-  background: radial-gradient(closest-side, rgba(214, 112, 64, 0.20) 0%, rgba(188, 90, 50, 0.09) 48%, rgba(188, 90, 50, 0) 76%);
-  pointer-events: none;
-  transform: translateY(var(--wy, 0px));
-}
-/* and the pool it leaves on the table */
-.stage-floor {
-  position: absolute;
-  z-index: 0;
-  left: 0;
-  right: 4%;
-  bottom: -9%;
-  height: 20%;
-  background: radial-gradient(closest-side, rgba(226, 124, 72, 0.30) 0%, rgba(226, 124, 72, 0.10) 50%, rgba(226, 124, 72, 0) 100%);
-  pointer-events: none;
-}
-
-.stage-fig { position: absolute; margin: 0; }
-.fig-desktop { left: 0; bottom: 0; z-index: 1; }
-.fig-mobile { left: 46%; bottom: 0; z-index: 3; }
-.fig-web { left: 58%; top: 2%; z-index: 2; }
-
-/* captions hang under their frames like annotations */
-.stage-cap {
-  position: absolute;
-  top: calc(100% + 12px);
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--ink-faint);
-}
-
-/* ---------- a lit screen: the shared light, under glass and grain.
-   Without JS each screen shows the whole field (cover), which still
-   reads as light. */
-.scr {
-  position: relative;
-  overflow: hidden;
-  background: var(--wall);
-  background-color: #2A1A1D;
-  background-size: cover;
-  background-repeat: no-repeat;
-  color: #fff;
-}
-/* glass: one raking highlight across the panel */
-.scr::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  background: linear-gradient(118deg, rgba(255, 255, 255, 0.17) 0%, rgba(255, 255, 255, 0.05) 26%, rgba(255, 255, 255, 0) 40%);
-  pointer-events: none;
-}
-/* grain, so the light reads as light and not as a gradient */
-.scr::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  opacity: 0.22;
-  mix-blend-mode: soft-light;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  pointer-events: none;
-}
-.scr > * { position: relative; z-index: 1; }
-
 /* ---------- the hand-built device frame */
 /* True iPhone proportions: 9:19.5 screen, even bezels, side buttons.
    Every interior metric scales with the frame: --p is one "design pixel"
    (the 304px-wide reference frame = 1.0), so the screen reads identically
-   at whatever size the stage sets — no fixed-px content rattling inside
-   a larger frame. The Preflight Kit page builds its phones on this frame
-   too; the home stage dresses it in titanium below. */
+   at whatever size the page sets — no fixed-px content rattling inside
+   a larger frame. The Preflight Kit page builds its phones on it. */
 .phone {
   --phone-w: min(304px, 78vw);
   --p: calc(var(--phone-w) / 304);
@@ -527,267 +252,11 @@ h1, h2, h3 {
   border-radius: 999px;
 }
 
-/* ---------- the stage's phone: titanium rim, black glass, lock screen */
-.fig-mobile .phone { --phone-w: calc(var(--sw) * 0.185); }
-.product-stage .phone {
-  background: linear-gradient(140deg, #D2D3D8 0%, #8C8D94 16%, #45464D 46%, #6E6F76 74%, #C4C5CB 100%);
-  border-radius: 17% / 7.9%;
-  padding: calc(var(--p) * 4);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
-    0 calc(var(--p) * 8) calc(var(--p) * 16) rgba(26, 27, 33, 0.16),
-    0 calc(var(--p) * 50) calc(var(--p) * 90) calc(var(--p) * -30) rgba(70, 28, 14, 0.5);
-}
-.product-stage .phone::before,
-.product-stage .phone::after { background: #8C8D94; }
-.product-stage .phone::after { box-shadow: 0 calc(var(--p) * 48) 0 #8C8D94; }
-.phone-body {
-  background: #050507;
-  border-radius: calc(var(--p) * 47);
-  padding: calc(var(--p) * 8);
-}
-.phone-scr {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  aspect-ratio: 9 / 19.5;
-  border-radius: calc(var(--p) * 39);
-}
-.ls-island {
-  position: absolute;
-  z-index: 4;
-  top: calc(var(--p) * 11);
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(var(--p) * 86);
-  height: calc(var(--p) * 25);
-  border-radius: 999px;
-  background: #000;
-}
-.ls-status {
-  align-self: stretch;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: calc(var(--p) * 5);
-  height: calc(var(--p) * 47);
-  padding: 0 calc(var(--p) * 22);
-}
-.ls-status svg:nth-child(1) { width: calc(var(--p) * 17); }
-.ls-status svg:nth-child(2) { width: calc(var(--p) * 16); }
-.ls-status svg:nth-child(3) { width: calc(var(--p) * 25); }
-.ls-date {
-  margin-top: calc(var(--p) * 14);
-  font-size: calc(var(--p) * 16);
-  font-weight: 560;
-  letter-spacing: 0;
-  color: rgba(255, 255, 255, 0.86);
-}
-.ls-time {
-  margin-top: calc(var(--p) * -2);
-  font-family: var(--font-display);
-  font-size: calc(var(--p) * 100);
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -0.045em;
-  color: rgba(255, 255, 255, 0.94);
-}
-/* torch and camera, as glass */
-.ls-foot {
-  margin-top: auto;
-  align-self: stretch;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 calc(var(--p) * 40);
-}
-.ls-foot i {
-  width: calc(var(--p) * 46);
-  height: calc(var(--p) * 46);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.16);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
-  -webkit-backdrop-filter: blur(8px);
-          backdrop-filter: blur(8px);
-}
-.ls-home {
-  width: calc(var(--p) * 108);
-  height: calc(var(--p) * 5);
-  margin: calc(var(--p) * 22) 0 calc(var(--p) * 9);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-}
-
-/* ---------- the laptop: --l is one design pixel of a 380px-wide reference.
-   Black glass in an aluminium rim, on an aluminium base. */
-.laptop {
-  --lw: calc(var(--sw) * 0.56);
-  --l: calc(var(--lw) / 380);
-  width: var(--lw);
-}
-.lap-lid {
-  position: relative;
-  background: #0B0C0F;
-  border-radius: calc(var(--l) * 15) calc(var(--l) * 15) calc(var(--l) * 4) calc(var(--l) * 4);
-  padding: calc(var(--l) * 9) calc(var(--l) * 9) calc(var(--l) * 12);
-  box-shadow:
-    0 0 0 calc(var(--l) * 1.6) #B9BAC1,
-    0 0 0 calc(var(--l) * 2.4) rgba(26, 27, 33, 0.18),
-    0 calc(var(--l) * 30) calc(var(--l) * 60) calc(var(--l) * -24) rgba(70, 28, 14, 0.45);
-}
-/* camera */
-.lap-lid::before {
-  content: '';
-  position: absolute;
-  top: calc(var(--l) * 3.2);
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(var(--l) * 3.4);
-  height: calc(var(--l) * 3.4);
-  border-radius: 50%;
-  background: #23242b;
-}
-.lap-scr {
-  aspect-ratio: 16 / 10;
-  border-radius: calc(var(--l) * 6) calc(var(--l) * 6) 0 0;
-}
-/* the menu bar: the studio mark, four menus, the clock */
-.mac-bar {
-  display: flex;
-  align-items: center;
-  gap: calc(var(--l) * 9);
-  height: calc(var(--l) * 13);
-  padding: 0 calc(var(--l) * 10);
-  background: rgba(20, 12, 12, 0.22);
-  -webkit-backdrop-filter: blur(6px);
-          backdrop-filter: blur(6px);
-}
-.mac-bar .mk {
-  width: calc(var(--l) * 10);
-  height: calc(var(--l) * 7.2);
-  background: rgba(255, 255, 255, 0.92);
-  -webkit-mask: url(../assets/logo-mark.png) center / contain no-repeat;
-          mask: url(../assets/logo-mark.png) center / contain no-repeat;
-}
-.mac-bar .bar {
-  height: calc(var(--l) * 3);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.55);
-}
-.mac-bar .bar:nth-of-type(1) { width: calc(var(--l) * 15); background: rgba(255, 255, 255, 0.82); }
-.mac-bar .bar:nth-of-type(2) { width: calc(var(--l) * 11); }
-.mac-bar .bar:nth-of-type(3) { width: calc(var(--l) * 13); }
-.mac-bar .bar:nth-of-type(4) { width: calc(var(--l) * 9); }
-.mac-clock {
-  margin-left: auto;
-  font-size: calc(var(--l) * 7);
-  font-weight: 560;
-  letter-spacing: 0.01em;
-  color: rgba(255, 255, 255, 0.9);
-}
-/* the base, a little wider than the lid, with the trackpad notch */
-.lap-base {
-  position: relative;
-  margin: 0 calc(var(--l) * -30);
-  height: calc(var(--l) * 13);
-  background: linear-gradient(180deg, #F4F4F6 0%, #DADBDF 22%, #BDBEC4 70%, #8F9097 100%);
-  border-radius: 0 0 calc(var(--l) * 16) calc(var(--l) * 16) / 0 0 calc(var(--l) * 11) calc(var(--l) * 11);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 calc(var(--l) * 10) calc(var(--l) * 22) calc(var(--l) * -6) rgba(26, 27, 33, 0.32);
-}
-.lap-base::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(var(--l) * 70);
-  height: calc(var(--l) * 4.5);
-  background: linear-gradient(180deg, #A9AAB1, #C9CACF);
-  border-radius: 0 0 999px 999px;
-}
-
-/* ---------- the browser window: --w is one design pixel of a 280px-wide reference.
-   The one screen whose words are real: the site's own headline. */
-.win {
-  --ww: calc(var(--sw) * 0.44);
-  --w: calc(var(--ww) / 280);
-  width: var(--ww);
-  background: #FAF9F7;
-  border: 1px solid rgba(26, 27, 33, 0.07);
-  border-radius: calc(var(--w) * 11);
-  box-shadow:
-    0 calc(var(--w) * 4) calc(var(--w) * 10) rgba(26, 27, 33, 0.06),
-    0 calc(var(--w) * 36) calc(var(--w) * 70) calc(var(--w) * -24) rgba(70, 28, 14, 0.42);
-  overflow: hidden;
-}
-.win-bar {
-  display: flex;
-  align-items: center;
-  gap: calc(var(--w) * 12);
-  height: calc(var(--w) * 26);
-  padding: 0 calc(var(--w) * 10);
-  background: #F6F5F2;
-  border-bottom: 1px solid rgba(26, 27, 33, 0.06);
-}
-.win-dots { display: flex; gap: calc(var(--w) * 4.5); }
-.win-dots i {
-  width: calc(var(--w) * 7);
-  height: calc(var(--w) * 7);
-  border-radius: 50%;
-}
-.win-dots i:nth-child(1) { background: #FF5F57; }
-.win-dots i:nth-child(2) { background: #FEBC2E; }
-.win-dots i:nth-child(3) { background: #28C840; }
-/* centred on the window, not on the space the dots leave */
-.win-url {
-  flex: 0 1 46%;
-  margin: 0 auto;
-  height: calc(var(--w) * 15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: rgba(26, 27, 33, 0.055);
-  font-size: calc(var(--w) * 7.2);
-  font-weight: 520;
-  letter-spacing: 0;
-  color: var(--ink-soft);
-  transform: translateX(calc(var(--w) * -18));
-}
-.win-scr {
-  aspect-ratio: 16 / 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: calc(var(--w) * 9);
-  padding: 0 calc(var(--w) * 24);
-  text-align: center;
-}
-.win-line {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 660;
-  font-size: calc(var(--w) * 16.5);
-  line-height: 1.05;
-  letter-spacing: -0.032em;
-  color: #fff;
-  text-wrap: balance;
-  max-width: 10em;
-}
-.win-rule {
-  width: calc(var(--w) * 26);
-  height: calc(var(--w) * 1.6);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.7);
-}
-
 /* ------------------------------------------------ the spine
    A fixed index down the left edge: what the page contains, and where
-   you are in it. The fill runs copper into amber — the same rail the
-   hero closes with. It carries real information, so it earns its place.
-   Home page only; there is no markup for it on the legal pages. */
+   you are in it. The fill runs copper into amber. It carries real
+   information, so it earns its place. The Preflight Kit page is the one
+   page with markup for it. */
 .spine {
   position: fixed;
   left: 30px;
@@ -844,96 +313,7 @@ h1, h2, h3 {
 .spine a:hover { color: var(--ink); }
 @media (max-width: 1180px) { .spine { display: none; } }
 
-/* ------------------------------------------------ chapters */
-/* The chapters ride on the lit ground, so they no longer paint their own.
-   A chapter opens with a short copper mark at the content column's edge —
-   a mark, not a rule across the page. */
-.chapter {
-  position: relative;
-  padding-block: clamp(72px, 10vh, 128px);
-  scroll-margin-top: 64px;   /* anchor jumps land below the sticky header */
-}
-.chapter::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: max(clamp(20px, 4vw, 36px), calc(50% - 620px + clamp(20px, 4vw, 36px)));
-  width: clamp(64px, 9vw, 132px);
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--copper) 0%, color-mix(in srgb, var(--copper) 0%, transparent) 100%);
-}
-/* ---------- about — the creed as a manifesto, not body copy */
-.about-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.5fr) minmax(0, 1.5fr);
-  gap: clamp(28px, 5vw, 88px);
-  align-items: start;
-}
-.about-head { text-align: left; }
-/* the heading steps back to a margin note; the creed is the statement */
-.about-title {
-  font-size: clamp(1.05rem, 1.3vw, 1.22rem);
-  font-weight: 600;
-  letter-spacing: -0.012em;
-  line-height: 1.4;
-  color: var(--ink-soft);
-  max-width: 18em;
-  margin: 14px 0 0;
-}
-
-/* Two sentences are the whole section, so they are set the way the site
-   means them: display voice, left. The grey carries the setup, ink
-   carries the words with weight, and the last three words are the one
-   copper moment — the studio's accent closing its own creed. */
-.creed { margin-top: 0; text-align: left; }
-.creed p {
-  max-width: 17em;
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3.4vw, 2.95rem);
-  font-weight: 600;
-  letter-spacing: -0.028em;
-  line-height: 1.2;
-  color: var(--ink-soft);
-  text-wrap: balance;
-}
-.creed .creed-ink { color: var(--ink); font-weight: 640; }
-.creed .creed-goal { color: var(--copper-deep); font-weight: 640; }
-
-/* the old creed rule, distilled: one copper breath between the statements,
-   drawn in when the second statement lands */
-.creed p + p::before {
-  content: '';
-  display: block;
-  width: 52px;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--copper) 0%, color-mix(in srgb, var(--copper) 0%, transparent) 100%);
-  margin: clamp(26px, 3.6vh, 42px) 0;
-  transform: scaleX(0);
-  transform-origin: 0 50%;
-  transition: transform 0.9s var(--ease-out) 0.2s;
-}
-.creed .reveal.revealed + .reveal.revealed::before { transform: scaleX(1); }
-/* ---------- contact
-   The page opens with a monument and closes with one: the address set at
-   headline scale, because it is the only thing on the page anyone is
-   asked to act on. */
-.contact-stack { text-align: left; }
-.contact-title {
-  font-size: clamp(1.6rem, 2.9vw, 2.4rem);
-  letter-spacing: -0.028em;
-  margin: 0 0 16px;
-}
-.contact-lede {
-  font-size: clamp(1rem, 1.35vw, 1.18rem);
-  line-height: 1.55;
-  color: var(--ink-soft);
-  max-width: 30em;
-  margin: 0 0 clamp(30px, 4.5vh, 52px);
-  text-wrap: balance;
-}
+/* ---------- the address at display scale (BONKERS support) */
 .contact-mail {
   position: relative;
   display: inline-block;
@@ -963,8 +343,8 @@ h1, h2, h3 {
 .contact-mail.revealed::after { transform: scaleX(1); }
 
 /* ------------------------------------------------ inner pages (legal) */
-/* A recessed masthead gives every inner page the same opening beat the home
-   page uses for its chapters, and separates the title from the reading. */
+/* A recessed masthead gives every inner page the same opening beat, and
+   separates the title from the reading. */
 .page-head {
   background: var(--recessed);
   border-bottom: 1px solid var(--hairline);
@@ -1061,7 +441,7 @@ h1, h2, h3 {
   padding: clamp(24px, 3.2vw, 34px);
   overflow: hidden;
 }
-/* the copper→amber mark the home page's chapters carry */
+/* a short copper→amber mark opens the card */
 .key-card::before {
   content: '';
   display: block;
@@ -1161,17 +541,6 @@ h1, h2, h3 {
 }
 
 /* ------------------------------------------------ motion */
-/* page-load rise (hero only) */
-.js .rise {
-  opacity: 0;
-  transform: translateY(16px);
-  animation: rise 0.75s var(--ease-out) forwards;
-}
-.js .rise.d1 { animation-delay: 0.08s; }
-.js .rise.d2 { animation-delay: 0.16s; }
-.js .rise.d3 { animation-delay: 0.24s; }
-@keyframes rise { to { opacity: 1; transform: none; } }
-
 /* scroll reveals */
 .js .reveal {
   opacity: 0;
@@ -1184,46 +553,12 @@ h1, h2, h3 {
 /* ------------------------------------------------ reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .js .rise, .js .reveal { opacity: 1; transform: none; animation: none; transition: none; }
-  /* the drawn lines arrive already drawn; the arrow stops nudging.
-     site.js also stops driving every scroll transform. */
-  .creed p + p::before,
+  .js .reveal { opacity: 1; transform: none; animation: none; transition: none; }
+  /* the drawn line arrives already drawn */
   .contact-mail::after { transform: scaleX(1); transition: none; }
-  .hero-down span { animation: none; }
 }
 
 /* ------------------------------------------------ responsive */
-
-@media (max-width: 1000px) {
-  /* words over picture; the stage column still reaches the page edge */
-  .product-head { grid-template-columns: 1fr; gap: 34px; }
-  .stage-col { margin-right: calc(-1 * clamp(20px, 4vw, 36px)); }
-  .about-grid { grid-template-columns: 1fr; gap: 26px; }
-}
-
-@media (max-width: 900px) {
-  /* the hero stacks; the watermark falls back behind the type */
-  .hero-stack { grid-template-columns: 1fr; }
-  .hero-lede { grid-column: 1 / -1; justify-self: start; }
-  .hero-title { font-size: clamp(2.7rem, 12.4vw, 4.4rem); max-width: 100%; }
-  .hero-mark { right: -34vw; width: 92vw; opacity: 0.05; }
-
-  .creed p { max-width: 100%; font-size: clamp(1.4rem, 6vw, 2rem); }
-
-  /* the stage folds into a tight cluster: browser across the top running
-     off the edge, laptop grounded below it, phone standing in front of
-     the laptop's right shoulder. Three devices this close need no
-     labels, so the captions rest. */
-  .product-stage { aspect-ratio: 0.9; margin-top: 28px; }
-  .stage-floor { left: -6%; right: -6%; }
-  .fig-desktop { left: 5%; bottom: 3%; }
-  .laptop { --lw: calc(var(--sw) * 0.62); }
-  .fig-mobile { left: 57%; bottom: 0; }
-  .fig-mobile .phone { --phone-w: calc(var(--sw) * 0.31); }
-  .fig-web { left: 26%; top: 0; }
-  .win { --ww: calc(var(--sw) * 0.8); }
-  .stage-cap { display: none; }
-}
 
 @media (max-width: 640px) {
   body { font-size: 16px; }
@@ -1232,9 +567,6 @@ h1, h2, h3 {
   .head-nav { gap: 10px; }
   .head-nav a { font-size: 12.5px; }
   .eyebrow { font-size: 10.5px; letter-spacing: 0.12em; }
-  .hero-stack { padding-block: 36px 28px; }
-  .hero-base { flex-wrap: wrap; gap: 8px 16px; padding-top: 15px; margin-bottom: 22px; }
-  .hero-coord { font-size: 10px; letter-spacing: 0.11em; }
   /* sized to hold one line at 320px — an address that breaks mid-word
      reads as a bug, not a monument */
   .contact-mail { font-size: clamp(1.05rem, 6.6vw, 1.72rem); letter-spacing: -0.03em; }
