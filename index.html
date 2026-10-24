@@ -82,72 +82,26 @@
   </section>
 
   <!-- ============================================= PRODUCTS
-       No product named, none shown. The ledger says what kinds of
-       software the studio builds; the stage puts the three kinds of
-       screen in one picture — the studio mark on each, nothing more. -->
+       Deliberately vague: no product named, none shown, no link out.
+       One sentence beside the stage — the picture carries the rest. -->
   <section class="chapter product" id="apps" aria-labelledby="apps-title">
     <div class="shell">
       <div class="product-head">
         <div>
           <p class="eyebrow reveal">Products</p>
           <h2 id="apps-title" class="reveal">What we&nbsp;build.</h2>
-          <dl class="product-ledger reveal">
-            <div class="ledger-row"><dt>Desktop</dt><dd>Apps for Mac and Windows.</dd></div>
-            <div class="ledger-row"><dt>Mobile</dt><dd>Apps for phones and tablets.</dd></div>
-            <div class="ledger-row"><dt>Website</dt><dd>Sites and apps that run in the browser.</dd></div>
-            <div class="ledger-row"><dt>Tools</dt><dd>Command-line tools and small services.</dd></div>
-          </dl>
-
-          <!-- The first thing we shipped, under the list of what we build.
-               It is a row and not a banner: the ledger above is still the
-               studio-level statement, and this opens the product's own page. -->
-          <a class="release reveal" href="preflight/">
-            <img class="release-icon" src="assets/preflight/icon-512.png"
-                 alt="" width="512" height="512" aria-hidden="true">
-            <span class="release-body">
-              <span class="release-eyebrow">First release · Nº 001</span>
-              <span class="release-name">Preflight Kit <i aria-hidden="true">&rarr;</i></span>
-              <span class="release-sub">Twelve flight-computer tools for student pilots,
-              on&nbsp;iPhone.</span>
-            </span>
-          </a>
+          <p class="product-lede reveal">Apps for computers, phones and the&nbsp;web.</p>
         </div>
         <div class="stage-col">
       <div class="product-stage" role="img"
-           aria-label="A laptop and a phone running unnamed apps, and a browser window showing the cloudberrix.com home page in miniature.">
+           aria-label="A laptop, a phone and a browser window, every screen lit by the same warm light.">
+        <span class="stage-floor" aria-hidden="true"></span>
+
         <figure class="stage-fig fig-desktop reveal">
           <div class="laptop" aria-hidden="true">
             <div class="lap-lid">
-              <div class="lap-screen">
-                <div class="lap-titlebar"><i></i><i></i><i></i></div>
-                <div class="lap-work">
-                  <div class="lap-side">
-                    <div class="lap-active"></div>
-                    <div class="g"></div>
-                    <div class="g"></div>
-                    <div class="g"></div>
-                    <div class="g"></div>
-                  </div>
-                  <div class="lap-main">
-                    <div class="lap-toolbar"><span class="g g-ink g-ttl"></span><span class="g g-btn"></span></div>
-                    <div class="lap-cards">
-                      <div class="lap-card lap-chart">
-                        <span class="g"></span>
-                        <svg viewBox="0 0 100 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                          <line x1="0" y1="14" x2="100" y2="14" stroke="var(--hairline)" stroke-width="1"/>
-                          <line x1="0" y1="28" x2="100" y2="28" stroke="var(--hairline)" stroke-width="1"/>
-                          <line x1="0" y1="42" x2="100" y2="42" stroke="var(--hairline)" stroke-width="1"/>
-                          <polyline points="0,44 14,38 28,41 42,30 56,33 70,22 84,26 100,12"
-                                    fill="none" stroke="var(--copper)" stroke-width="2.4"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    vector-effect="non-scaling-stroke"/>
-                        </svg>
-                      </div>
-                      <div class="lap-card"><span class="g"></span><span class="g g-ink"></span></div>
-                      <div class="lap-card"><span class="g"></span><span class="g g-ink"></span></div>
-                    </div>
-                  </div>
-                </div>
+              <div class="scr lap-scr">
+                <div class="mac-bar"><i class="mk"></i><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="mac-clock">9:41</span></div>
               </div>
             </div>
             <div class="lap-base"></div>
@@ -157,34 +111,19 @@
 
         <figure class="stage-fig fig-mobile reveal">
           <div class="phone" aria-hidden="true">
-            <div class="phone-screen">
-              <div class="p-status">
-                <span class="p-time">9:41</span>
-                <span class="p-glyphs">
+            <div class="phone-body">
+              <div class="scr phone-scr">
+                <span class="ls-island"></span>
+                <div class="ls-status">
                   <svg width="17" height="11" viewBox="0 0 17 11"><g fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1" opacity=".35"/></g></svg>
                   <svg width="16" height="11" viewBox="0 0 16 11"><path fill="currentColor" d="M8 9.1a1.4 1.4 0 1 0 .01 2.81A1.4 1.4 0 0 0 8 9.1Zm-4.9-2.5 1.6 1.6a4.7 4.7 0 0 1 6.6 0l1.6-1.6a7 7 0 0 0-9.8 0ZM.2 3.7l1.6 1.6a8.7 8.7 0 0 1 12.4 0l1.6-1.6a11 11 0 0 0-15.6 0Z" transform="translate(0 -1)"/></svg>
                   <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="15" height="8" rx="2" fill="currentColor"/><path d="M23 4v4a2.2 2.2 0 0 0 0-4Z" fill="currentColor" opacity=".4"/></svg>
-                </span>
+                </div>
+                <div class="ls-date">Monday 9 June</div>
+                <div class="ls-time">9:41</div>
+                <div class="ls-foot"><i></i><i></i></div>
+                <div class="ls-home"></div>
               </div>
-              <div class="p-ui">
-                <span class="g g-ink p-ttl"></span>
-                <span class="g p-sub"></span>
-                <div class="p-duo">
-                  <div class="p-card"><span class="g"></span><span class="g g-ink"></span></div>
-                  <div class="p-card"><span class="g"></span><span class="g g-ink"></span></div>
-                </div>
-                <div class="p-rows">
-                  <div class="p-row is-live"><i></i><div><span class="g"></span><span class="g"></span></div></div>
-                  <div class="p-row"><i></i><div><span class="g"></span><span class="g"></span></div></div>
-                </div>
-                <div class="p-panel">
-                  <span class="g"></span><span class="g"></span><span class="g"></span>
-                  <span class="g"></span><span class="g"></span><span class="g"></span>
-                  <span class="g"></span><span class="g"></span><span class="g"></span>
-                </div>
-                <div class="p-go"><span class="g"></span></div>
-              </div>
-              <div class="p-home"></div>
             </div>
           </div>
           <figcaption class="stage-cap">Mobile</figcaption>
@@ -192,18 +131,10 @@
 
         <figure class="stage-fig fig-web reveal">
           <div class="win" aria-hidden="true">
-            <div class="win-bar"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-url"></span></div>
-            <div class="win-body">
-              <div class="win-mini-head">
-                <img src="assets/logo-full.png" alt="" width="964" height="200">
-                <span class="win-mini-nav"><span class="g"></span><span class="g"></span><span class="g"></span></span>
-              </div>
-              <div class="win-mini-hero">
-                <span class="g g-eyebrow"></span>
-                <p class="win-mini-title">We are an independent software&nbsp;studio.</p>
-                <span class="g g-lede"></span>
-              </div>
-              <div class="win-mini-rail"></div>
+            <div class="win-bar"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-url">cloudberrix.com</span></div>
+            <div class="scr win-scr">
+              <p class="win-line">We are an independent software&nbsp;studio.</p>
+              <span class="win-rule"></span>
             </div>
           </div>
           <figcaption class="stage-cap">Website</figcaption>

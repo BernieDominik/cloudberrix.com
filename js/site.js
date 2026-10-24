@@ -125,6 +125,21 @@
     { els: stage.querySelectorAll('.fig-web .win, .fig-web .stage-cap'), max: 22 }
   ] : [];
 
+  /* every screen is a window onto one light: the field is sized to the
+     whole stage and each screen shows its own slice, re-cut as the
+     devices drift, so the light holds still behind them */
+  var screens = stage ? stage.querySelectorAll('.scr') : [];
+  function light() {
+    if (!screens.length) return;
+    var s = stage.getBoundingClientRect();
+    if (s.bottom < -200 || s.top > window.innerHeight + 200) return;
+    Array.prototype.forEach.call(screens, function (el) {
+      var r = el.getBoundingClientRect();
+      el.style.backgroundSize = s.width.toFixed(1) + 'px ' + s.height.toFixed(1) + 'px';
+      el.style.backgroundPosition = (s.left - r.left).toFixed(1) + 'px ' + (s.top - r.top).toFixed(1) + 'px';
+    });
+  }
+
   /* the goal ripens from the creed's grey into the studio's copper */
   var goal = document.querySelector('.creed-goal');
   var SOFT = [92, 93, 104], COPPER = [154, 69, 38];
@@ -187,6 +202,7 @@
           el.style.transform = sp === 0 ? (base || '') : base + 'translateY(' + (sp * layer.max).toFixed(1) + 'px)';
         });
       });
+      light();
     }
 
     if (goal) {
@@ -205,6 +221,8 @@
   function queue() { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }
 
   window.addEventListener('scroll', queue, { passive: true });
+  /* the devices rise into place on reveal; re-cut the light once they land */
+  if (stage) stage.addEventListener('transitionend', queue);
   window.addEventListener('resize', function () { measure(); placeMarks(); queue(); }, { passive: true });
   window.addEventListener('load', function () { measure(); placeMarks(); queue(); });
   measure(); placeMarks(); queue();

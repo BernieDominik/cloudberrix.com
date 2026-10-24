@@ -312,11 +312,11 @@ h1, h2, h3 {
   78% { transform: translateY(4px); opacity: 1; }
 }
 
-/* ---------- products: the ledger and the stage */
-/* No product is named and none is shown. Words left, picture right — and
-   the picture runs off the right edge of the page rather than floating in
-   the middle of a void. The crop is the point: there is more software
-   than fits in the frame. */
+/* ---------- products: one sentence and the stage */
+/* Deliberately vague: no product is named, shown or linked. Words left,
+   picture right — and the picture runs off the right edge of the page
+   rather than floating in the middle of a void. The crop is the point:
+   there is more software than fits in the frame. */
 .product { overflow: hidden; }
 .product-head {
   display: grid;
@@ -325,135 +325,30 @@ h1, h2, h3 {
   align-items: center;
 }
 .product-head h2 {
-  font-size: clamp(2.3rem, 5.2vw, 4.3rem);
+  font-size: clamp(2.6rem, 6vw, 5.2rem);
   line-height: 0.98;
   letter-spacing: -0.035em;
   max-width: 8ch;
 }
-.product-ledger {
-  margin: clamp(26px, 3.6vh, 40px) 0 0;
-  border-top: 1px solid var(--hairline);
-}
-.ledger-row {
-  display: grid;
-  grid-template-columns: 8em minmax(0, 1fr);
-  gap: 16px;
-  align-items: baseline;
-  padding: 17px 0;
-  border-bottom: 1px solid var(--hairline);
-}
-.ledger-row dt {
-  font-family: var(--font-display);
-  font-weight: 640;
-  font-size: 1.06rem;
-  letter-spacing: -0.012em;
-  color: var(--ink);
-}
-.ledger-row dd {
-  margin: 0;
-  font-size: 15.5px;
+.product-lede {
+  max-width: 17em;
+  margin: clamp(22px, 3.2vh, 34px) 0 0;
+  font-size: clamp(1.08rem, 1.45vw, 1.34rem);
   line-height: 1.5;
   color: var(--ink-soft);
+  text-wrap: pretty;
 }
 
-/* ---------- the first release, entered in the ledger it belongs to.
-   A row, not a banner: the ledger above still says what kinds of software
-   the studio builds, and this says what it has shipped. Amber, because on
-   this site amber is the release accent and nothing else uses it. */
-.release {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(12px, 1.3vw, 17px);
-  margin-top: 20px;
-  padding: 14px 17px 15px 15px;
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-card);
-  background: var(--sheet);
-  box-shadow: var(--lift);
-  text-decoration: none;
-  color: inherit;
-  overflow: hidden;
-  transition: border-color 0.25s var(--ease-out),
-              box-shadow 0.25s var(--ease-out),
-              transform 0.25s var(--ease-out);
-}
-/* the studio rail, drawn down the edge as the row is reached for */
-.release::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg, var(--copper) 0%, var(--amber) 100%);
-  transform: scaleY(0);
-  transform-origin: 50% 0;
-  transition: transform 0.4s var(--ease-out);
-}
-.release:hover,
-.release:focus-visible {
-  border-color: color-mix(in srgb, var(--amber) 52%, var(--hairline));
-  box-shadow: var(--lift-hover);
-  transform: translateY(-1px);
-}
-.release:hover::before,
-.release:focus-visible::before { transform: scaleY(1); }
-
-.release-icon {
-  width: clamp(42px, 4vw, 50px);
-  height: auto;
-  border-radius: 22.4%;
-  box-shadow:
-    0 1px 2px rgba(26, 27, 33, 0.10),
-    inset 0 0 0 1px rgba(26, 27, 33, 0.06);
-}
-.release-body { display: block; min-width: 0; }
-.release-eyebrow {
-  display: block;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 9.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--amber-deep);
-}
-.release-name {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 3px;
-  font-family: var(--font-display);
-  font-weight: 640;
-  font-size: 1.06rem;
-  letter-spacing: -0.014em;
-  color: var(--ink);
-}
-.release-name i {
-  font-style: normal;
-  font-size: 15px;
-  color: var(--ink-faint);
-  transition: transform 0.25s var(--ease-out), color 0.25s var(--ease-out);
-}
-.release:hover .release-name i,
-.release:focus-visible .release-name i { transform: translateX(3px); color: var(--copper-deep); }
-.release-sub {
-  display: block;
-  margin-top: 2px;
-  font-size: 13.5px;
-  line-height: 1.45;
-  color: var(--ink-soft);
-}
-
-/* ---------- the stage: three kinds of screen in one picture.
+/* ---------- the stage: three devices, one light.
    --sw is the stage's own measured width (site.js writes it), so every
    frame is a fraction of the stage and the composition scales as one
-   picture. The three read as a diagonal — laptop grounded at the left,
-   phone rising through the middle, browser floating clear at the top
-   right. They overlap only where overlap means depth, never where it
-   would hide what a screen is showing.
+   picture: laptop grounded at the left, phone standing in front of its
+   right shoulder, browser floating clear at the top right.
+
+   Every screen is a window onto the same copper dawn (--wall). site.js
+   sizes the field to the whole stage and shows each screen its own slice,
+   re-cut as the devices drift, so the light holds still behind them.
+   Copper and dusk only — no amber, because nothing here is a release.
 
    The column's right edge is pulled onto the viewport edge at every
    width, so the browser's crop is a constant property of the
@@ -464,11 +359,18 @@ h1, h2, h3 {
 .product-stage {
   position: relative;
   margin-top: clamp(12px, 2vh, 26px);
-  aspect-ratio: 1.25;
+  aspect-ratio: 1.22;
   /* fallback until site.js measures; keeps the frames sane without JS */
   --sw: min(700px, 58vw);
+  --wall:
+    radial-gradient(34% 26% at 47% 88%, #FFE6CC 0%, rgba(255, 196, 148, 0.8) 30%, rgba(255, 170, 120, 0) 100%),
+    radial-gradient(68% 52% at 46% 92%, rgba(232, 128, 76, 0.95) 0%, rgba(188, 90, 50, 0.72) 42%, rgba(188, 90, 50, 0) 78%),
+    radial-gradient(58% 48% at 86% 10%, rgba(214, 120, 108, 0.78) 0%, rgba(214, 120, 108, 0) 72%),
+    radial-gradient(40% 34% at 64% 40%, rgba(200, 96, 62, 0.45) 0%, rgba(200, 96, 62, 0) 74%),
+    radial-gradient(46% 50% at 6% 40%, rgba(128, 54, 66, 0.6) 0%, rgba(128, 54, 66, 0) 72%),
+    linear-gradient(180deg, #1B1519 0%, #2A1A1D 38%, #4B231B 68%, #7C3421 100%);
 }
-/* the horizon the laptop stands on */
+/* the horizon the devices stand on */
 .product-stage::before {
   content: '';
   position: absolute;
@@ -478,26 +380,35 @@ h1, h2, h3 {
   height: 1px;
   background: var(--hairline);
 }
-/* one wash of studio copper behind the climb — amber stays reserved for
-   first-release accents, and nothing on this stage is a release */
+/* the glow the screens throw into the room */
 .product-stage::after {
   content: '';
   position: absolute;
   z-index: 0;
-  left: 4%;
-  top: -4%;
-  width: 86%;
-  aspect-ratio: 1.45;
-  background: radial-gradient(closest-side, rgba(188, 90, 50, 0.13) 0%, rgba(188, 90, 50, 0.065) 46%, rgba(188, 90, 50, 0) 74%);
+  left: 8%;
+  top: 6%;
+  width: 96%;
+  aspect-ratio: 1.3;
+  background: radial-gradient(closest-side, rgba(214, 112, 64, 0.20) 0%, rgba(188, 90, 50, 0.09) 48%, rgba(188, 90, 50, 0) 76%);
   pointer-events: none;
   transform: translateY(var(--wy, 0px));
+}
+/* and the pool it leaves on the table */
+.stage-floor {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: 4%;
+  bottom: -9%;
+  height: 20%;
+  background: radial-gradient(closest-side, rgba(226, 124, 72, 0.30) 0%, rgba(226, 124, 72, 0.10) 50%, rgba(226, 124, 72, 0) 100%);
+  pointer-events: none;
 }
 
 .stage-fig { position: absolute; margin: 0; }
 .fig-desktop { left: 0; bottom: 0; z-index: 1; }
-.fig-mobile { left: 44%; bottom: 0; z-index: 3; }
-.fig-web { left: 68%; top: 3%; z-index: 2; }
-.fig-mobile .phone { --phone-w: calc(var(--sw) * 0.26); }
+.fig-mobile { left: 46%; bottom: 0; z-index: 3; }
+.fig-web { left: 58%; top: 2%; z-index: 2; }
 
 /* captions hang under their frames like annotations */
 .stage-cap {
@@ -514,12 +425,48 @@ h1, h2, h3 {
   white-space: nowrap;
   color: var(--ink-faint);
 }
+
+/* ---------- a lit screen: the shared light, under glass and grain.
+   Without JS each screen shows the whole field (cover), which still
+   reads as light. */
+.scr {
+  position: relative;
+  overflow: hidden;
+  background: var(--wall);
+  background-color: #2A1A1D;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+/* glass: one raking highlight across the panel */
+.scr::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(118deg, rgba(255, 255, 255, 0.17) 0%, rgba(255, 255, 255, 0.05) 26%, rgba(255, 255, 255, 0) 40%);
+  pointer-events: none;
+}
+/* grain, so the light reads as light and not as a gradient */
+.scr::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.22;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  pointer-events: none;
+}
+.scr > * { position: relative; z-index: 1; }
+
 /* ---------- the hand-built device frame */
 /* True iPhone proportions: 9:19.5 screen, even bezels, side buttons.
    Every interior metric scales with the frame: --p is one "design pixel"
    (the 304px-wide reference frame = 1.0), so the screen reads identically
    at whatever size the stage sets — no fixed-px content rattling inside
-   a larger frame. */
+   a larger frame. The Preflight Kit page builds its phones on this frame
+   too; the home stage dresses it in titanium below. */
 .phone {
   --phone-w: min(304px, 78vw);
   --p: calc(var(--phone-w) / 304);
@@ -580,275 +527,173 @@ h1, h2, h3 {
   border-radius: 999px;
 }
 
-.p-status {
+/* ---------- the stage's phone: titanium rim, black glass, lock screen */
+.fig-mobile .phone { --phone-w: calc(var(--sw) * 0.185); }
+.product-stage .phone {
+  background: linear-gradient(140deg, #D2D3D8 0%, #8C8D94 16%, #45464D 46%, #6E6F76 74%, #C4C5CB 100%);
+  border-radius: 17% / 7.9%;
+  padding: calc(var(--p) * 4);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+    0 calc(var(--p) * 8) calc(var(--p) * 16) rgba(26, 27, 33, 0.16),
+    0 calc(var(--p) * 50) calc(var(--p) * 90) calc(var(--p) * -30) rgba(70, 28, 14, 0.5);
+}
+.product-stage .phone::before,
+.product-stage .phone::after { background: #8C8D94; }
+.product-stage .phone::after { box-shadow: 0 calc(var(--p) * 48) 0 #8C8D94; }
+.phone-body {
+  background: #050507;
+  border-radius: calc(var(--p) * 47);
+  padding: calc(var(--p) * 8);
+}
+.phone-scr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  aspect-ratio: 9 / 19.5;
+  border-radius: calc(var(--p) * 39);
+}
+.ls-island {
+  position: absolute;
+  z-index: 4;
+  top: calc(var(--p) * 11);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--p) * 86);
+  height: calc(var(--p) * 25);
+  border-radius: 999px;
+  background: #000;
+}
+.ls-status {
+  align-self: stretch;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: calc(var(--p) * 5);
+  height: calc(var(--p) * 47);
+  padding: 0 calc(var(--p) * 22);
+}
+.ls-status svg:nth-child(1) { width: calc(var(--p) * 17); }
+.ls-status svg:nth-child(2) { width: calc(var(--p) * 16); }
+.ls-status svg:nth-child(3) { width: calc(var(--p) * 25); }
+.ls-date {
+  margin-top: calc(var(--p) * 14);
+  font-size: calc(var(--p) * 16);
+  font-weight: 560;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.86);
+}
+.ls-time {
+  margin-top: calc(var(--p) * -2);
+  font-family: var(--font-display);
+  font-size: calc(var(--p) * 100);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: rgba(255, 255, 255, 0.94);
+}
+/* torch and camera, as glass */
+.ls-foot {
+  margin-top: auto;
+  align-self: stretch;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  height: calc(var(--p) * 26);
-  padding: 0 calc(var(--p) * 8) 0 calc(var(--p) * 14);
-  color: var(--ink);
+  padding: 0 calc(var(--p) * 40);
 }
-.p-time {
-  font-family: var(--font-body);
-  font-variant-numeric: tabular-nums;
-  font-weight: 600;
-  font-size: calc(var(--p) * 14);
-  letter-spacing: 0.01em;
+.ls-foot i {
+  width: calc(var(--p) * 46);
+  height: calc(var(--p) * 46);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
 }
-.p-glyphs { display: inline-flex; align-items: center; gap: calc(var(--p) * 5); }
-.p-glyphs svg:nth-child(1) { width: calc(var(--p) * 17); }
-.p-glyphs svg:nth-child(2) { width: calc(var(--p) * 16); }
-.p-glyphs svg:nth-child(3) { width: calc(var(--p) * 25); }
-
-/* ---------- the phone's screen: a generic app.
-   No product — an anonymous interface greeked in the site's own
-   component language: bone ground, sheet cards, hairline borders,
-   pill bars for text, one copper moment (the primary button). */
-.p-ui {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--p) * 12);
-  padding-top: calc(var(--p) * 16);
-  min-height: 0;
-}
-/* greeked text: a pill bar wherever type would sit */
-.g {
-  height: calc(var(--p) * 5);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--ink) 13%, transparent);
-}
-.g-ink { background: color-mix(in srgb, var(--ink) 72%, transparent); }
-
-.p-ttl { width: 54%; height: calc(var(--p) * 14); }
-.p-sub { width: 36%; margin-top: calc(var(--p) * -5); }
-.p-duo {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: calc(var(--p) * 8);
-}
-.p-card {
-  background: var(--sheet);
-  border: 1px solid var(--hairline);
-  border-radius: calc(var(--p) * 13);
-  padding: calc(var(--p) * 9);
-  box-shadow: 0 1px 2px rgba(26, 27, 33, 0.04);
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--p) * 6);
-}
-.p-card .g:first-child { width: 58%; height: calc(var(--p) * 4.5); }
-.p-card .g-ink { width: 40%; height: calc(var(--p) * 9); }
-.p-rows {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--p) * 7);
-}
-/* the tall middle is a detail panel, so the screen reads full */
-.p-panel {
-  flex: 1;
-  min-height: 0;
-  background: var(--sheet);
-  border: 1px solid var(--hairline);
-  border-radius: calc(var(--p) * 13);
-  box-shadow: 0 1px 2px rgba(26, 27, 33, 0.04);
-  padding: calc(var(--p) * 12) calc(var(--p) * 11);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.p-panel .g { height: calc(var(--p) * 4.5); }
-.p-panel .g:nth-child(1) { width: 44%; height: calc(var(--p) * 6); background: color-mix(in srgb, var(--ink) 55%, transparent); }
-.p-panel .g:nth-child(2) { width: 96%; }
-.p-panel .g:nth-child(3) { width: 88%; }
-.p-panel .g:nth-child(4) { width: 92%; }
-.p-panel .g:nth-child(5) { width: 74%; }
-.p-panel .g:nth-child(6) { width: 36%; height: calc(var(--p) * 6); background: color-mix(in srgb, var(--ink) 55%, transparent); }
-.p-panel .g:nth-child(7) { width: 90%; }
-.p-panel .g:nth-child(8) { width: 84%; }
-.p-panel .g:nth-child(9) { width: 52%; }
-.p-row {
-  display: flex;
-  align-items: center;
-  gap: calc(var(--p) * 9);
-  background: var(--sheet);
-  border: 1px solid var(--hairline);
-  border-radius: calc(var(--p) * 12);
-  padding: calc(var(--p) * 9) calc(var(--p) * 10);
-  box-shadow: 0 1px 2px rgba(26, 27, 33, 0.04);
-}
-.p-row i {
-  flex: none;
-  width: calc(var(--p) * 17);
-  height: calc(var(--p) * 17);
-  border-radius: calc(var(--p) * 6);
-  background: var(--recessed);
-  border: 1px solid var(--hairline);
-}
-.p-row.is-live i {
-  background: var(--copper-wash);
-  border-color: color-mix(in srgb, var(--copper) 30%, var(--hairline));
-}
-.p-row div { flex: 1; display: flex; flex-direction: column; gap: calc(var(--p) * 4); }
-.p-row .g:first-child { width: 64%; background: color-mix(in srgb, var(--ink) 55%, transparent); }
-.p-row .g:last-child { width: 42%; height: calc(var(--p) * 4); }
-/* the phone's one copper moment */
-.p-go {
-  flex: none;
-  height: calc(var(--p) * 30);
-  border-radius: 999px;
-  background: var(--copper);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.p-go .g { width: 32%; background: rgba(255, 255, 255, 0.85); }
-
-.p-home {
-  align-self: center;
+.ls-home {
   width: calc(var(--p) * 108);
   height: calc(var(--p) * 5);
+  margin: calc(var(--p) * 22) 0 calc(var(--p) * 9);
   border-radius: 999px;
-  background: var(--ink);
-  opacity: 0.9;
-  margin-top: calc(var(--p) * 10);
+  background: rgba(255, 255, 255, 0.92);
 }
 
-/* ---------- the laptop: --l is one design pixel of a 380px-wide reference */
+/* ---------- the laptop: --l is one design pixel of a 380px-wide reference.
+   Black glass in an aluminium rim, on an aluminium base. */
 .laptop {
-  --lw: calc(var(--sw) * 0.34);
+  --lw: calc(var(--sw) * 0.56);
   --l: calc(var(--lw) / 380);
   width: var(--lw);
 }
 .lap-lid {
   position: relative;
-  background: var(--ink);
-  border-radius: calc(var(--l) * 14) calc(var(--l) * 14) calc(var(--l) * 5) calc(var(--l) * 5);
-  padding: calc(var(--l) * 12) calc(var(--l) * 11) calc(var(--l) * 12);
+  background: #0B0C0F;
+  border-radius: calc(var(--l) * 15) calc(var(--l) * 15) calc(var(--l) * 4) calc(var(--l) * 4);
+  padding: calc(var(--l) * 9) calc(var(--l) * 9) calc(var(--l) * 12);
   box-shadow:
-    inset 0 0 0 1.5px rgba(255, 255, 255, 0.09),
-    0 2px 6px rgba(26, 27, 33, 0.16),
-    0 20px 60px rgba(26, 27, 33, 0.12);
+    0 0 0 calc(var(--l) * 1.6) #B9BAC1,
+    0 0 0 calc(var(--l) * 2.4) rgba(26, 27, 33, 0.18),
+    0 calc(var(--l) * 30) calc(var(--l) * 60) calc(var(--l) * -24) rgba(70, 28, 14, 0.45);
 }
 /* camera */
 .lap-lid::before {
   content: '';
   position: absolute;
-  top: calc(var(--l) * 4.5);
+  top: calc(var(--l) * 3.2);
   left: 50%;
   transform: translateX(-50%);
-  width: calc(var(--l) * 4);
-  height: calc(var(--l) * 4);
+  width: calc(var(--l) * 3.4);
+  height: calc(var(--l) * 3.4);
   border-radius: 50%;
-  background: #33343d;
+  background: #23242b;
 }
-.lap-screen {
-  display: flex;
-  flex-direction: column;
+.lap-scr {
   aspect-ratio: 16 / 10;
-  background: var(--bone);
-  border-radius: calc(var(--l) * 5);
-  overflow: hidden;
+  border-radius: calc(var(--l) * 6) calc(var(--l) * 6) 0 0;
 }
-/* a generic desktop app fills it: titlebar · sidebar · toolbar · cards */
-.lap-titlebar {
+/* the menu bar: the studio mark, four menus, the clock */
+.mac-bar {
   display: flex;
   align-items: center;
-  gap: calc(var(--l) * 5);
-  height: calc(var(--l) * 17);
-  padding: 0 calc(var(--l) * 8);
-  background: var(--sheet-hi);
-  border-bottom: 1px solid var(--hairline);
+  gap: calc(var(--l) * 9);
+  height: calc(var(--l) * 13);
+  padding: 0 calc(var(--l) * 10);
+  background: rgba(20, 12, 12, 0.22);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
 }
-.lap-titlebar i {
-  width: calc(var(--l) * 4.5);
-  height: calc(var(--l) * 4.5);
-  border-radius: 50%;
-  background: var(--hairline);
+.mac-bar .mk {
+  width: calc(var(--l) * 10);
+  height: calc(var(--l) * 7.2);
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-mask: url(../assets/logo-mark.png) center / contain no-repeat;
+          mask: url(../assets/logo-mark.png) center / contain no-repeat;
 }
-.lap-work { flex: 1; display: flex; min-height: 0; }
-.lap-side {
-  width: calc(var(--l) * 88);
-  background: var(--recessed);
-  border-right: 1px solid var(--hairline);
-  padding: calc(var(--l) * 8) calc(var(--l) * 7);
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--l) * 8);
-}
-.lap-side .g { height: calc(var(--l) * 5); }
-.lap-side .g:nth-child(2) { width: 74%; }
-.lap-side .g:nth-child(3) { width: 58%; }
-.lap-side .g:nth-child(4) { width: 66%; }
-.lap-side .g:nth-child(5) { width: 48%; }
-/* the active item wears the studio's wash */
-.lap-active {
-  position: relative;
-  height: calc(var(--l) * 14);
-  border-radius: calc(var(--l) * 4);
-  background: var(--copper-wash);
-  border: 1px solid color-mix(in srgb, var(--copper) 25%, transparent);
-}
-.lap-active::after {
-  content: '';
-  position: absolute;
-  left: calc(var(--l) * 5);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 56%;
-  height: calc(var(--l) * 5);
+.mac-bar .bar {
+  height: calc(var(--l) * 3);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--copper-deep) 70%, transparent);
+  background: rgba(255, 255, 255, 0.55);
 }
-.lap-main {
-  flex: 1;
-  min-width: 0;
-  padding: calc(var(--l) * 9);
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--l) * 8);
-}
-.lap-toolbar { display: flex; align-items: center; gap: calc(var(--l) * 6); }
-.lap-toolbar .g-ttl { width: calc(var(--l) * 76); height: calc(var(--l) * 7); }
-.lap-toolbar .g-btn {
+.mac-bar .bar:nth-of-type(1) { width: calc(var(--l) * 15); background: rgba(255, 255, 255, 0.82); }
+.mac-bar .bar:nth-of-type(2) { width: calc(var(--l) * 11); }
+.mac-bar .bar:nth-of-type(3) { width: calc(var(--l) * 13); }
+.mac-bar .bar:nth-of-type(4) { width: calc(var(--l) * 9); }
+.mac-clock {
   margin-left: auto;
-  width: calc(var(--l) * 34);
-  height: calc(var(--l) * 12);
-  border-radius: 999px;
-  background: var(--copper);
+  font-size: calc(var(--l) * 7);
+  font-weight: 560;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.9);
 }
-.lap-cards {
-  flex: 1;
-  min-height: 0;
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: calc(var(--l) * 8);
-}
-.lap-card {
-  background: var(--sheet);
-  border: 1px solid var(--hairline);
-  border-radius: calc(var(--l) * 6);
-  box-shadow: 0 1px 2px rgba(26, 27, 33, 0.04);
-  padding: calc(var(--l) * 8);
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--l) * 6);
-  min-height: 0;
-}
-.lap-card .g { width: 46%; height: calc(var(--l) * 4.5); }
-.lap-card .g-ink { width: 32%; height: calc(var(--l) * 8); }
-/* the tall card charts something, quietly */
-.lap-chart { grid-row: 1 / 3; }
-.lap-chart svg { flex: 1; width: 100%; height: auto; min-height: 0; }
 /* the base, a little wider than the lid, with the trackpad notch */
 .lap-base {
   position: relative;
-  margin: 0 calc(var(--l) * -20);
-  height: calc(var(--l) * 11);
-  background: linear-gradient(#3b3c46, #2a2b33);
-  border-radius: 0 0 calc(var(--l) * 9) calc(var(--l) * 9);
-  box-shadow: 0 5px 16px rgba(26, 27, 33, 0.12);
+  margin: 0 calc(var(--l) * -30);
+  height: calc(var(--l) * 13);
+  background: linear-gradient(180deg, #F4F4F6 0%, #DADBDF 22%, #BDBEC4 70%, #8F9097 100%);
+  border-radius: 0 0 calc(var(--l) * 16) calc(var(--l) * 16) / 0 0 calc(var(--l) * 11) calc(var(--l) * 11);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 calc(var(--l) * 10) calc(var(--l) * 22) calc(var(--l) * -6) rgba(26, 27, 33, 0.32);
 }
 .lap-base::before {
   content: '';
@@ -856,99 +701,86 @@ h1, h2, h3 {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: calc(var(--l) * 62);
-  height: calc(var(--l) * 3.5);
-  background: #4e4f5a;
+  width: calc(var(--l) * 70);
+  height: calc(var(--l) * 4.5);
+  background: linear-gradient(180deg, #A9AAB1, #C9CACF);
   border-radius: 0 0 999px 999px;
 }
 
-/* ---------- the browser window: --w is one design pixel of a 280px-wide reference */
+/* ---------- the browser window: --w is one design pixel of a 280px-wide reference.
+   The one screen whose words are real: the site's own headline. */
 .win {
-  --ww: calc(var(--sw) * 0.245);
+  --ww: calc(var(--sw) * 0.44);
   --w: calc(var(--ww) / 280);
   width: var(--ww);
-  background: var(--sheet);
-  border: 1px solid var(--hairline);
-  border-radius: calc(var(--w) * 12);
-  box-shadow: var(--lift);
+  background: #FAF9F7;
+  border: 1px solid rgba(26, 27, 33, 0.07);
+  border-radius: calc(var(--w) * 11);
+  box-shadow:
+    0 calc(var(--w) * 4) calc(var(--w) * 10) rgba(26, 27, 33, 0.06),
+    0 calc(var(--w) * 36) calc(var(--w) * 70) calc(var(--w) * -24) rgba(70, 28, 14, 0.42);
   overflow: hidden;
 }
 .win-bar {
   display: flex;
   align-items: center;
-  gap: calc(var(--w) * 10);
-  height: calc(var(--w) * 34);
-  padding: 0 calc(var(--w) * 12);
-  background: var(--sheet-hi);
-  border-bottom: 1px solid var(--hairline);
+  gap: calc(var(--w) * 12);
+  height: calc(var(--w) * 26);
+  padding: 0 calc(var(--w) * 10);
+  background: #F6F5F2;
+  border-bottom: 1px solid rgba(26, 27, 33, 0.06);
 }
-.win-dots { display: flex; gap: calc(var(--w) * 6); }
+.win-dots { display: flex; gap: calc(var(--w) * 4.5); }
 .win-dots i {
-  width: calc(var(--w) * 9);
-  height: calc(var(--w) * 9);
+  width: calc(var(--w) * 7);
+  height: calc(var(--w) * 7);
   border-radius: 50%;
-  background: var(--hairline);
 }
+.win-dots i:nth-child(1) { background: #FF5F57; }
+.win-dots i:nth-child(2) { background: #FEBC2E; }
+.win-dots i:nth-child(3) { background: #28C840; }
+/* centred on the window, not on the space the dots leave */
 .win-url {
-  flex: 1;
-  height: calc(var(--w) * 18);
-  border-radius: 999px;
-  background: var(--recessed);
-  border: 1px solid var(--hairline);
-}
-.win-body {
-  display: flex;
-  flex-direction: column;
-  aspect-ratio: 16 / 10;
-  background: var(--bone);
-}
-/* the site's own home page, in miniature — the one screen whose
-   content is real, headline and all */
-.win-mini-head {
+  flex: 0 1 46%;
+  margin: 0 auto;
+  height: calc(var(--w) * 15);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: calc(var(--w) * 22);
-  padding: 0 calc(var(--w) * 10);
-  border-bottom: 1px solid var(--hairline);
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(26, 27, 33, 0.055);
+  font-size: calc(var(--w) * 7.2);
+  font-weight: 520;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  transform: translateX(calc(var(--w) * -18));
 }
-.win-mini-head img { width: calc(var(--w) * 56); height: auto; }
-.win-mini-nav { display: flex; gap: calc(var(--w) * 6); }
-.win-mini-nav .g { width: calc(var(--w) * 14); height: calc(var(--w) * 3.5); }
-.win-mini-hero {
-  flex: 1;
-  min-height: 0;
+.win-scr {
+  aspect-ratio: 16 / 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: calc(var(--w) * 6);
-  padding: calc(var(--w) * 6) calc(var(--w) * 14) 0;
+  gap: calc(var(--w) * 9);
+  padding: 0 calc(var(--w) * 24);
   text-align: center;
 }
-.win-mini-hero .g-eyebrow {
-  width: 20%;
-  height: calc(var(--w) * 3);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--copper-deep) 40%, transparent);
-}
-.win-mini-title {
+.win-line {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 690;
-  font-size: calc(var(--w) * 13);
-  line-height: 1.06;
-  letter-spacing: -0.03em;
-  color: var(--ink);
+  font-weight: 660;
+  font-size: calc(var(--w) * 16.5);
+  line-height: 1.05;
+  letter-spacing: -0.032em;
+  color: #fff;
   text-wrap: balance;
+  max-width: 10em;
 }
-.win-mini-hero .g-lede { width: 56%; height: calc(var(--w) * 4); }
-/* the register that closes the real hero, at 1:5 */
-.win-mini-rail {
-  margin: calc(var(--w) * 10) calc(var(--w) * 12) calc(var(--w) * 12);
-  height: calc(var(--w) * 2);
+.win-rule {
+  width: calc(var(--w) * 26);
+  height: calc(var(--w) * 1.6);
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--copper) 0%, var(--amber) 100%);
+  background: rgba(255, 255, 255, 0.7);
 }
 
 /* ------------------------------------------------ the spine
@@ -1358,8 +1190,6 @@ h1, h2, h3 {
   .creed p + p::before,
   .contact-mail::after { transform: scaleX(1); transition: none; }
   .hero-down span { animation: none; }
-  .release, .release::before, .release-name i { transition: none; }
-  .release::before { transform: scaleY(1); }
 }
 
 /* ------------------------------------------------ responsive */
@@ -1380,17 +1210,18 @@ h1, h2, h3 {
 
   .creed p { max-width: 100%; font-size: clamp(1.4rem, 6vw, 2rem); }
 
-  /* the stage folds into a tight cluster: phone grounded front-centre,
-     laptop behind its left shoulder, browser behind its right. The
-     ledger just above names all three, so the captions rest. */
-  .product-stage { aspect-ratio: 0.95; margin-top: 28px; }
-  .product-stage::after { left: 2%; top: 4%; width: 92%; aspect-ratio: 1.1; }
-  .fig-desktop { left: 0; bottom: 0; }
-  .laptop { --lw: calc(var(--sw) * 0.56); }
-  .fig-mobile { left: 35%; bottom: 0; }
-  .fig-mobile .phone { --phone-w: calc(var(--sw) * 0.37); }
-  .fig-web { left: auto; right: 0; top: 0; }
-  .win { --ww: calc(var(--sw) * 0.44); }
+  /* the stage folds into a tight cluster: browser across the top running
+     off the edge, laptop grounded below it, phone standing in front of
+     the laptop's right shoulder. Three devices this close need no
+     labels, so the captions rest. */
+  .product-stage { aspect-ratio: 0.9; margin-top: 28px; }
+  .stage-floor { left: -6%; right: -6%; }
+  .fig-desktop { left: 5%; bottom: 3%; }
+  .laptop { --lw: calc(var(--sw) * 0.62); }
+  .fig-mobile { left: 57%; bottom: 0; }
+  .fig-mobile .phone { --phone-w: calc(var(--sw) * 0.31); }
+  .fig-web { left: 26%; top: 0; }
+  .win { --ww: calc(var(--sw) * 0.8); }
   .stage-cap { display: none; }
 }
 
@@ -1404,7 +1235,6 @@ h1, h2, h3 {
   .hero-stack { padding-block: 36px 28px; }
   .hero-base { flex-wrap: wrap; gap: 8px 16px; padding-top: 15px; margin-bottom: 22px; }
   .hero-coord { font-size: 10px; letter-spacing: 0.11em; }
-  .ledger-row { grid-template-columns: 6.4em minmax(0, 1fr); gap: 12px; }
   /* sized to hold one line at 320px — an address that breaks mid-word
      reads as a bug, not a monument */
   .contact-mail { font-size: clamp(1.05rem, 6.6vw, 1.72rem); letter-spacing: -0.03em; }
