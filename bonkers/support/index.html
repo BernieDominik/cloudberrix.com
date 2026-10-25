@@ -20,7 +20,7 @@
 <link rel="preload" href="/assets/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/ibmplexmono-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/fonts.css">
-<link rel="stylesheet" href="/css/site.css">
+<link rel="stylesheet" href="/css/site.css?v=20261025">
 <script>document.documentElement.classList.add('js');</script>
 <style>
 /* The game's own on-screen words (SETTINGS, RESTORE PURCHASES), set as labels
@@ -38,20 +38,15 @@
 .legal-body h2:first-child { margin-top: 0; }
 </style>
 </head>
-<body>
+<body class="plain">
 <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-head">
+<header class="head">
   <div class="shell head-row">
-    <a class="head-logo" href="/" aria-label="Cloudberrix — home">
-      <picture>
-        <source media="(max-width: 430px)" srcset="/assets/logo-mark.png">
-        <img src="/assets/logo-full.png" alt="Cloudberrix" width="164" height="34">
-      </picture>
+    <a class="logo" href="/" aria-label="Cloudberrix — home">
+      <img src="/assets/logo-full.png" alt="Cloudberrix" width="164" height="34">
     </a>
-    <nav class="head-nav" aria-label="Site">
-      <a href="/">Home</a>
-      <a href="/#apps">Products</a>
+    <nav class="nav" aria-label="Site">
       <a href="/#about">About</a>
       <a href="/#contact">Contact</a>
     </nav>
@@ -135,35 +130,29 @@
 
 </main>
 
-<footer class="site-foot">
+<footer class="foot">
   <div class="shell">
-    <div class="foot-row">
-      <img class="foot-logo" src="/assets/logo-full-ink.png" alt="Cloudberrix" width="148" height="31">
-      <address class="foot-contact">
-        Cloudberrix OÜ · Tallinn, Estonia<br>
+    <div class="foot-top">
+      <a href="/" aria-label="Cloudberrix — home"><img src="/assets/logo-full-ink.png" alt="Cloudberrix" width="148" height="31"></a>
+      <nav class="foot-links" aria-label="Legal">
+        <a href="/bonkers/support/">BONKERS support</a>
+        <a href="/bonkers/privacy/">BONKERS privacy</a>
+        <a href="/bonkers/terms/">BONKERS terms</a>
+        <a href="/privacy/">Site privacy</a>
+        <a href="/terms/">Site terms</a>
         <a href="mailto:support@cloudberrix.com">support@cloudberrix.com</a>
-      </address>
-    </div>
-    <div class="foot-links">
-      <a href="/">Home</a>
-      <a href="/bonkers/support/">BONKERS support</a>
-      <a href="/bonkers/privacy/">BONKERS privacy</a>
-      <a href="/bonkers/terms/">BONKERS terms</a>
-      <a href="/privacy/">Site privacy</a>
-      <a href="/terms/">Site terms</a>
+      </nav>
     </div>
     <p class="imprint">
       <span><b>Cloudberrix OÜ</b></span>
       <span>Registry code 17557468</span>
-      <span class="imprint-addr">Tartu mnt 67/1-13b, Kesklinna linnaosa, Tallinn, 10115, Harju maakond, Estonia</span>
+      <span>Tartu mnt 67/1-13b, Kesklinna linnaosa, Tallinn, 10115, Harju maakond, Estonia</span>
+      <span>© <span id="year">2026</span> Cloudberrix OÜ. All rights reserved.</span>
     </p>
-    <div class="foot-legal">
-      <p>© <span id="year">2026</span> Cloudberrix OÜ. All rights reserved.</p>
-      <p>Apple, App Store, Game Center and iCloud are trademarks of Apple Inc., registered in the U.S. and other countries.</p>
-    </div>
+    <p class="foot-trade">Apple, App Store, Game Center and iCloud are trademarks of Apple Inc., registered in the U.S. and other countries.</p>
   </div>
 </footer>
 
-<script src="/js/site.js" defer></script>
+<script src="/js/site.js?v=20261025" defer></script>
 </body>
 </html>

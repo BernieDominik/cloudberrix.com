@@ -7,7 +7,7 @@
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* header elevation */
-  var head = document.querySelector('.site-head');
+  var head = document.querySelector('.site-head, .head');
   if (head) {
     var onScroll = function () {
       head.classList.toggle('is-scrolled', window.scrollY > 8);
